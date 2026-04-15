@@ -30,7 +30,7 @@ export default function Header({ inventory, user, onSignOut }) {
               </span>
             )}
           </div>
-          <span className="text-sm font-semibold text-gray-700 hidden sm:block">👤 {user}</span>
+          <span className="text-sm font-semibold text-gray-700 hidden sm:block">👤 {user?.email}</span>
           <button
             onClick={onSignOut}
             className="px-3 py-1.5 text-xs font-semibold text-gray-600 border border-gray-200 rounded-xl hover:bg-gray-100 transition-colors"

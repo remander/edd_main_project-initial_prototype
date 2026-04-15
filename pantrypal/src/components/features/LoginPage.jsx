@@ -1,44 +1,47 @@
 import { useState } from "react";
+import { firebaseSignIn, firebaseSignUp } from "../../lib/firebase";
 
-// Simple demo credentials — change these as needed
-const DEMO_USERS = [
-  { username: "admin", password: "pantry123" },
-  { username: "demo",  password: "demo" },
-];
-
-export default function LoginPage({ onLogin }) {
-  const [tab, setTab] = useState("signin");
-  const [username, setUsername] = useState("");
+export default function LoginPage() {
+  const [tab, setTab]           = useState("signin");
+  const [email, setEmail]       = useState("");
   const [password, setPassword] = useState("");
-  const [confirm, setConfirm] = useState("");
-  const [error, setError] = useState("");
+  const [confirm, setConfirm]   = useState("");
+  const [error, setError]       = useState("");
+  const [loading, setLoading]   = useState(false);
 
-  const handleSignIn = (e) => {
-    e.preventDefault();
-    setError("");
-    const stored = JSON.parse(localStorage.getItem("pantrypal_users") || "[]");
-    const all = [...DEMO_USERS, ...stored];
-    const match = all.find((u) => u.username === username && u.password === password);
-    if (match) {
-      localStorage.setItem("pantrypal_session", username);
-      onLogin(username);
-    } else {
-      setError("Invalid username or password.");
+  const friendlyError = (code) => {
+    switch (code) {
+      case "auth/user-not-found":
+      case "auth/wrong-password":
+      case "auth/invalid-credential": return "Invalid email or password.";
+      case "auth/email-already-in-use":                return "An account with this email already exists.";
+      case "auth/weak-password":                       return "Password must be at least 6 characters.";
+      case "auth/invalid-email":                       return "Please enter a valid email address.";
+      default:                                         return "Something went wrong. Please try again.";
     }
   };
 
-  const handleSignUp = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
-    if (password !== confirm) { setError("Passwords don't match."); return; }
-    if (password.length < 6)  { setError("Password must be at least 6 characters."); return; }
-    const stored = JSON.parse(localStorage.getItem("pantrypal_users") || "[]");
-    const all = [...DEMO_USERS, ...stored];
-    if (all.find((u) => u.username === username)) { setError("Username already taken."); return; }
-    const updated = [...stored, { username, password }];
-    localStorage.setItem("pantrypal_users", JSON.stringify(updated));
-    localStorage.setItem("pantrypal_session", username);
-    onLogin(username);
+    if (tab === "signup" && password !== confirm) {
+      setError("Passwords don't match.");
+      return;
+    }
+    setLoading(true);
+    try {
+      if (tab === "signin") {
+        await firebaseSignIn(email, password);
+      } else {
+        await firebaseSignUp(email, password);
+      }
+      // App.jsx onAuthStateChanged will handle the redirect
+    } catch (err) {
+      console.error("Firebase auth error:", err.code, err.message);
+      setError(friendlyError(err.code) + ` (${err.code})`);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -50,8 +53,10 @@ export default function LoginPage({ onLogin }) {
       <div className="flex items-center gap-3">
         <span className="text-6xl">🥗</span>
         <div className="text-left">
-          <h1 className="text-4xl font-extrabold tracking-tight leading-none"
-              style={{ background: "linear-gradient(to right, #059669, #0891b2)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
+          <h1
+            className="text-4xl font-extrabold tracking-tight leading-none"
+            style={{ background: "linear-gradient(to right, #059669, #0891b2)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}
+          >
             PantryPal
           </h1>
           <p className="text-sm text-gray-500 font-medium mt-1">Smart Kitchen Assistant</p>
@@ -75,14 +80,15 @@ export default function LoginPage({ onLogin }) {
           ))}
         </div>
 
-        <form onSubmit={tab === "signin" ? handleSignIn : handleSignUp} className="space-y-3">
+        <form onSubmit={handleSubmit} className="space-y-3">
           <div>
-            <label className="block text-xs font-semibold text-gray-600 mb-1">Username</label>
+            <label className="block text-xs font-semibold text-gray-600 mb-1">Email</label>
             <input
               required
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              placeholder="your username"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="you@example.com"
               className="w-full px-4 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-400"
             />
           </div>
@@ -119,18 +125,13 @@ export default function LoginPage({ onLogin }) {
 
           <button
             type="submit"
-            className="w-full py-3 text-white rounded-xl font-bold text-sm hover:opacity-90 transition-opacity shadow-md"
+            disabled={loading}
+            className="w-full py-3 text-white rounded-xl font-bold text-sm hover:opacity-90 transition-opacity shadow-md disabled:opacity-50"
             style={{ background: "linear-gradient(to right, #10b981, #059669)" }}
           >
-            {tab === "signin" ? "Sign In" : "Create Account"}
+            {loading ? "Please wait..." : tab === "signin" ? "Sign In" : "Create Account"}
           </button>
         </form>
-
-        {tab === "signin" && (
-          <p className="text-xs text-center text-gray-400">
-            Demo: <span className="font-mono font-semibold text-gray-500">demo / demo</span>
-          </p>
-        )}
       </div>
 
       <p className="text-xs text-gray-400">Reducing household food waste one meal at a time 🌱</p>
