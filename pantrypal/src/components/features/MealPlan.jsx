@@ -111,7 +111,7 @@ Return format:
           <button
             key={tab}
             onClick={() => setActiveTab(tab)}
-            className={`px-5 py-2 rounded-xl font-semibold text-sm transition-all ${
+            className={`cursor-pointer px-5 py-2 rounded-xl font-semibold text-sm transition-all ${
               activeTab === tab ? "nav-active" : "bg-white/70 text-gray-600 hover:bg-white"
             }`}
           >
@@ -133,7 +133,7 @@ Return format:
               <input
                 type="range" min={1} max={7} value={days}
                 onChange={(e) => setDays(Number(e.target.value))}
-                className="w-full accent-emerald-500"
+                className="w-full accent-emerald-500 cursor-pointer"
               />
               <div className="flex justify-between text-xs text-gray-400 mt-1">
                 <span>1</span><span>7</span>
@@ -147,7 +147,7 @@ Return format:
                   <button
                     key={m}
                     onClick={() => toggleMeal(m)}
-                    className={`px-3 py-1.5 rounded-xl text-xs font-semibold border transition-all ${
+                    className={`cursor-pointer px-3 py-1.5 rounded-xl text-xs font-semibold border transition-all ${
                       selectedMeals.includes(m)
                         ? "bg-emerald-500 text-white border-emerald-500"
                         : "bg-white border-gray-200 text-gray-600 hover:border-emerald-300"
@@ -166,7 +166,7 @@ Return format:
                   <button
                     key={d}
                     onClick={() => toggleDietary(d)}
-                    className={`px-3 py-1.5 rounded-xl text-xs font-semibold border transition-all ${
+                    className={`cursor-pointer px-3 py-1.5 rounded-xl text-xs font-semibold border transition-all ${
                       dietary.includes(d)
                         ? "bg-cyan-500 text-white border-cyan-500"
                         : "bg-white border-gray-200 text-gray-600 hover:border-cyan-300"
@@ -182,7 +182,7 @@ Return format:
               <p className="text-sm font-semibold text-gray-700">Prioritize Expiring Items</p>
               <button
                 onClick={() => setPrioritizeExpiring((v) => !v)}
-                className={`w-11 h-6 rounded-full transition-colors ${
+                className={`cursor-pointer w-11 h-6 rounded-full transition-colors ${
                   prioritizeExpiring ? "bg-emerald-500" : "bg-gray-200"
                 }`}
               >
@@ -197,7 +197,7 @@ Return format:
             <button
               onClick={generate}
               disabled={loading}
-              className="w-full py-3 bg-gradient-to-r from-emerald-500 to-cyan-500 text-white rounded-xl font-bold text-sm hover:opacity-90 transition-opacity disabled:opacity-50"
+              className={`w-full py-3 bg-linear-to-r from-emerald-500 to-cyan-500 text-white rounded-xl font-bold text-sm hover:opacity-90 transition-opacity disabled:opacity-50 ${ loading ? "cursor-not-allowed" : "cursor-pointer"}`}
             >
               {loading ? "Generating..." : "✨ Generate Meal Plan"}
             </button>

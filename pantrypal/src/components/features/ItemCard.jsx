@@ -33,13 +33,13 @@ export default function ItemCard({ item, onEdit, onDelete }) {
       <div className="mt-3 flex gap-2 pt-3 border-t border-gray-100">
         <button
           onClick={() => onEdit(item)}
-          className="flex-1 py-1.5 text-xs font-semibold text-emerald-700 bg-emerald-50 hover:bg-emerald-100 rounded-lg transition-colors"
+          className="flex-1 py-1.5 text-xs font-semibold text-emerald-700 bg-emerald-50 hover:bg-emerald-100 rounded-lg transition-colors cursor-pointer"
         >
           ✏️ Edit
         </button>
         <button
           onClick={() => onDelete(item.id)}
-          className="flex-1 py-1.5 text-xs font-semibold text-red-600 bg-red-50 hover:bg-red-100 rounded-lg transition-colors"
+          className="flex-1 py-1.5 text-xs font-semibold text-red-600 bg-red-50 hover:bg-red-100 rounded-lg transition-colors cursor-pointer"
         >
           🗑️ Delete
         </button>

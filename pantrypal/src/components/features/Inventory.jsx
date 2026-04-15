@@ -70,7 +70,7 @@ export default function Inventory({ inventory, addItems, updateItem, deleteItem,
           </span>
           <button
             onClick={() => setDismissedAlert(true)}
-            className="text-amber-600 hover:text-amber-800 text-sm font-bold ml-4"
+            className="text-amber-600 hover:text-amber-800 text-sm font-bold ml-4 cursor-pointer"
           >
             ✕
           </button>
@@ -89,7 +89,7 @@ export default function Inventory({ inventory, addItems, updateItem, deleteItem,
           <select
             value={categoryFilter}
             onChange={(e) => setCategoryFilter(e.target.value)}
-            className="px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-400 bg-white"
+            className="px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-400 bg-white cursor-pointer"
           >
             <option>All</option>
             {CATEGORIES.map((c) => <option key={c}>{c}</option>)}
@@ -97,7 +97,7 @@ export default function Inventory({ inventory, addItems, updateItem, deleteItem,
           <select
             value={locationFilter}
             onChange={(e) => setLocationFilter(e.target.value)}
-            className="px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-400 bg-white"
+            className="px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-400 bg-white cursor-pointer"
           >
             <option>All</option>
             {LOCATIONS.map((l) => <option key={l}>{l}</option>)}
@@ -105,7 +105,7 @@ export default function Inventory({ inventory, addItems, updateItem, deleteItem,
           <select
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value)}
-            className="px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-400 bg-white"
+            className="px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-400 bg-white cursor-pointer"
           >
             {["Name", "Expiration Date", "Category", "Date Added"].map((s) => (
               <option key={s}>{s}</option>
@@ -113,7 +113,7 @@ export default function Inventory({ inventory, addItems, updateItem, deleteItem,
           </select>
           <button
             onClick={openAdd}
-            className="px-5 py-2 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-xl font-bold text-sm hover:opacity-90 transition-opacity whitespace-nowrap"
+            className="px-5 py-2 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-xl font-bold text-sm hover:opacity-90 transition-opacity whitespace-nowrap cursor-pointer"
           >
             ➕ Add Item
           </button>

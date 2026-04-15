@@ -116,7 +116,7 @@ export default function ScanReceipt({ addItems, addToast }) {
             <button
               key={m}
               onClick={() => setMode(m)}
-              className={`px-4 py-2 rounded-xl text-sm font-semibold transition-all ${
+              className={`cursor-pointer px-4 py-2 rounded-xl text-sm font-semibold transition-all ${
                 mode === m ? "nav-active" : "bg-gray-100 text-gray-600 hover:bg-gray-200"
               }`}
             >
@@ -164,7 +164,7 @@ export default function ScanReceipt({ addItems, addToast }) {
         <button
           onClick={scan}
           disabled={loading}
-          className="mt-4 w-full py-3 bg-gradient-to-r from-emerald-500 to-cyan-500 text-white rounded-xl font-bold text-sm shadow-md hover:opacity-90 transition-opacity disabled:opacity-50"
+          className="cursor-pointer mt-4 w-full py-3 bg-linear-to-r from-emerald-500 to-cyan-500 text-white rounded-xl font-bold text-sm shadow-md hover:opacity-90 transition-opacity disabled:opacity-50"
         >
           {loading ? "Analyzing..." : "🔍 Scan Receipt"}
         </button>
