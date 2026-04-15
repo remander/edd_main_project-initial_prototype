@@ -16,7 +16,7 @@ export default function Navbar({ page, setPage }) {
             <button
               key={id}
               onClick={() => setPage(id)}
-              className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition-all duration-200 ${
+              className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition-all duration-200 cursor-pointer ${
                 page === id
                   ? "nav-active"
                   : "text-gray-600 hover:bg-emerald-50 hover:text-emerald-700"

@@ -115,7 +115,7 @@ function ActionButton({ emoji, label, onClick }) {
   return (
     <button
       onClick={onClick}
-      className="flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-xl font-semibold text-sm shadow-md hover:shadow-lg hover:from-emerald-600 hover:to-emerald-700 transition-all duration-200"
+      className="flex items-center gap-2 px-5 py-2.5 bg-linear-to-r from-emerald-500 to-emerald-600 text-white rounded-xl font-semibold text-sm shadow-md hover:shadow-lg hover:from-emerald-600 hover:to-emerald-700 transition-all duration-200 cursor-pointer"
     >
       <span>{emoji}</span>
       {label}

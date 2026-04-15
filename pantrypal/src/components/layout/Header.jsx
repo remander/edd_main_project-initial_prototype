@@ -9,15 +9,17 @@ export default function Header({ inventory, user, onSignOut }) {
   return (
     <header className="sticky top-0 z-40 glass border-b border-white/60">
       <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <span className="text-3xl">🥗</span>
-          <div>
-            <h1 className="text-2xl font-extrabold tracking-tight bg-gradient-to-r from-emerald-600 to-cyan-600 bg-clip-text text-transparent leading-none">
-              PantryPal
-            </h1>
-            <p className="text-xs text-gray-500 font-medium">Smart Kitchen Assistant</p>
+        <a href="/">
+          <div className="flex items-center gap-3">
+            <span className="text-3xl">🥗</span>
+            <div>
+              <h1 className="text-2xl font-extrabold tracking-tight bg-linear-to-r from-emerald-600 to-cyan-600 bg-clip-text text-transparent leading-none">
+                PantryPal
+              </h1>
+              <p className="text-xs text-gray-500 font-medium">Smart Kitchen Assistant</p>
+            </div>
           </div>
-        </div>
+        </a>
         <div className="flex items-center gap-4">
           <span className="text-sm text-gray-600 font-medium hidden sm:block">
             {inventory.length} items
@@ -33,7 +35,7 @@ export default function Header({ inventory, user, onSignOut }) {
           <span className="text-sm font-semibold text-gray-700 hidden sm:block">👤 {user?.email}</span>
           <button
             onClick={onSignOut}
-            className="px-3 py-1.5 text-xs font-semibold text-gray-600 border border-gray-200 rounded-xl hover:bg-gray-100 transition-colors"
+            className="px-3 py-1.5 text-xs font-semibold text-gray-600 border border-gray-200 rounded-xl hover:bg-gray-100 transition-colors cursor-pointer"
           >
             Sign Out
           </button>
