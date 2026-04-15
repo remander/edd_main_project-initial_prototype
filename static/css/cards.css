@@ -1,0 +1,61 @@
+/*  
+Project Name: PosturePro
+File Name: cards.css
+Date: 24 May 2025
+Description: Formats the info cards, makes them visually appealing. 
+Group: Sensor-4 
+*/
+
+/* Grid layout for info cards */
+.info-cards {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+	gap: 2rem;
+	margin-top: 2rem;
+}
+
+/* Styling for individual info card */
+.info-card {
+	background: linear-gradient(145deg, #0A2540, #1E6FA9); /* Dark navy to medium blue gradient */
+	backdrop-filter: blur(10px);
+	-webkit-backdrop-filter: blur(10px); /* Safari support */
+	border: 1px solid rgba(255, 255, 255, 0.2);
+	border-radius: 20px;
+	padding: 2rem;
+	transition: transform 0.3s ease, box-shadow 0.3s ease;
+	cursor: pointer;
+	color: #E3F2FD; /* Light blue text for contrast */
+}
+
+/* Hover effect for info card */
+.info-card:hover {
+	transform: translateY(-5px);
+	box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+	background: linear-gradient(145deg, #1E6FA9, #69B7E2); /* Light blue shift on hover */
+}
+
+/* Title styling for card */
+.card-title {
+	font-size: 1.5rem;
+	font-weight: 600;
+	margin-bottom: 1.5rem;
+	color: #FFFFFF;
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+}
+
+/* Content styling for card */
+.card-content {
+	font-size: 1rem;
+	line-height: 1.6;
+	color: rgba(255, 255, 255, 0.9);
+}
+
+/* Responsive adjustments for mobile screens */
+@media (max-width: 768px) {
+
+	.info-cards {
+		grid-template-columns: 1fr;
+	}
+}

@@ -1,0 +1,32 @@
+<!--
+// Project Name: PosturePro
+// File Name: register.html
+// Date: 24 May 2025
+// Group: Sensor-4 
+
+// Description: This page serves as the registration page for the PosturePro project, allowing users to create an account
+                that then redirects them to the login page.
+-->
+{% extends "layout.html" %}
+
+{% block content %}
+    <div class="container mx-auto max-w-md">
+        <br><h2 class="text-center text-2xl font-bold">Account Registration</h2><br>
+    </div>
+
+    <!-- Sign Up -->
+    <div class="container mx-auto max-w-md mb-5">     
+        <form class="space-y-4">
+            <input type="text" placeholder="First Name" id="firstname" class="w-full border border-gray-300 rounded-lg p-3">
+            <input type="text" placeholder="Last Name" id="lastName" class="w-full border border-gray-300 rounded-lg p-3">
+            <input type="email" placeholder="Email" id="userEmail" class="w-full border border-gray-300 rounded-lg p-3">
+            <input type="password" placeholder="Password" id="userPass" class="w-full border border-gray-300 rounded-lg p-3">
+            <button type="button" id="submitData" name="submitData" class="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700">
+                Register
+            </button>
+            <a href="{{url_for('signIn')}}" class="block text-center text-gray-700 py-2 hover:underline">
+                Already have an account?
+            </a>
+        </form>
+    </div>
+{% endblock %}

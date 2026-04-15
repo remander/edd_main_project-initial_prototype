@@ -1,0 +1,72 @@
+/*  
+Project Name: PosturePro
+File Name: carousel.css
+Date: 24 May 2025
+Description: Improves appearance for the carousel with transitions and animations.
+Group: Sensor-4 
+*/
+
+/* Custom CSS for smoother carousel transitions */
+
+[data-carousel-item] {
+  transition-property: transform, opacity;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); /* Smoother easing function */
+  transition-duration: 700ms; /* Match duration in HTML */
+}
+
+[data-carousel-item].active {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+[data-carousel="slide"] [data-carousel-item]:not(.active) {
+  opacity: 0;
+  transition-duration: 1200ms; /* Match your JS configuration */
+}
+
+/* Direction-specific transitions */
+[data-carousel="slide"] [data-carousel-item][data-carousel-item-direction="next"] {
+  transform: translateX(100%);
+}
+
+[data-carousel="slide"] [data-carousel-item][data-carousel-item-direction="prev"] {
+  transform: translateX(-100%);
+}
+
+/* Animation for slide-in effect */
+@keyframes carouselSlideIn {
+  from { 
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to { 
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Animation for slide-out effect */
+@keyframes carouselSlideOut {
+  from { 
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to { 
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+}
+
+/* Apply smooth transition to carousel indicators */
+[data-carousel-indicators] button {
+  transition: background-color 0.5s ease;
+}
+
+/* Improve transition of control buttons */
+[data-carousel-prev], [data-carousel-next] {
+  transition: opacity 0.3s ease;
+}
+
+[data-carousel-prev]:hover, [data-carousel-next]:hover {
+  opacity: 0.9;
+}

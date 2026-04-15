@@ -1,0 +1,6 @@
+flask
+pyrebase4
+gunicorn
+requests==2.32.3
+urllib3==1.26.20
+setuptools

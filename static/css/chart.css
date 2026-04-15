@@ -1,0 +1,24 @@
+/*  
+Project Name: PosturePro
+File Name: chart.css
+Date: 24 May 2025
+Description: Formats the chart container with necessary settings
+Group: Sensor-4 
+*/
+
+.background {
+    background-color: #dbe3e7;
+}
+
+#chart-wrapper{
+    margin-bottom: 40px;
+    padding: 10px;
+    /* If nesting a chart's container within another container, remove the 
+       height and width values.  The outer container will control the dimensions */ 
+    height: 75vh; 
+    width:  60vw;
+    min-height: 400px;
+    background-color: whitesmoke !important;
+    justify-content: center;
+    align-items: center;  
+}

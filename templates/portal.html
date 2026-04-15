@@ -1,0 +1,110 @@
+<!--
+// Project Name: PosturePro
+// File Name: portal.html
+// Date: 24 May 2025
+// Group: Sensor-4 
+
+// Description: This page serves as the main portal for users to view their EMG data and results.
+-->
+
+{% extends "layout.html" %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/chart.css') }}" />
+{% endblock %}
+
+{% block content %}
+<div id = "welcome" class="container mx-auto"></div>
+
+<!-- Session selector -->
+<div class="container mx-auto mb-6">
+  <label for="sessionSelect" class="block mb-2 font-semibold">Select Session:</label>
+  <select id="sessionSelect" class="border border-gray-300 p-2 rounded w-full max-w-md"></select>
+</div>
+
+<section class="results mt-10">
+  <div class="container mx-auto">
+    <h1 class="text-center text-3xl font-bold mb-4">Results</h1>
+    <hr class="border-gray-300">
+  </div>
+</section>
+
+<section class="chartjs-sample mt-10">
+  <div class="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
+    <!-- Line Chart (spans two columns) -->
+    <div class="bg-white rounded-lg p-6 shadow-md md:col-span-2">
+      <canvas id="emgLineChart" class="w-full h-96"></canvas>
+    </div>
+
+    <!-- Right Side: Info + Bar Chart -->
+    <div class="flex flex-col gap-6">
+      <!-- Graph Details -->
+      <div class="bg-white rounded-lg p-6 shadow-md flex-1">
+        <h2 class="text-xl font-semibold mb-2">Graph Details</h2>
+        <p id="graphDetails" class="text-sm text-gray-600 whitespace-pre-line">
+          Average: -- 
+        </p>
+        <p class="text-sm text-gray-600 whitespace-pre-line"> 
+          Values below the average indicate a decrease in muscle activity, while values above the average indicate an increase in muscle activity.
+        </p>
+        
+        <!-- Export Button -->
+        <div class="mt-4">
+          <button id="exportCsvBtn" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded transition-colors duration-200 text-sm w-full">
+            📊 Export Chart Data (CSV)
+          </button>
+        </div>
+      </div>
+
+      <!-- Bar Chart -->
+      <div class="bg-white rounded-lg p-6 shadow-md">
+        <canvas id="emgBarChart" class="w-full h-48"></canvas>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  function isLoggedIn() {
+    return localStorage.getItem('user') !== null || sessionStorage.getItem('user') !== null;
+  }
+
+  if (!isLoggedIn()) {
+    // Assuming you have a Flask route named 'demo' for demo.html
+    // If demo.html is a static file, you might use `window.location.href = "/static/demo.html";`
+    // or simply `window.location.href = "demo.html";` if it's in the same directory context.
+    // Using url_for is the most robust way if 'demo' is a defined route.
+    window.location.href = "{{ url_for('demo') }}";
+  }
+</script>
+
+<!-- Initialize debug console -->
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    console.log('Portal page loaded');
+    
+    // Update welcome message with user's name from Firebase
+    let keepLoggedIn = localStorage.getItem("keepLoggedIn");
+    let currentUser;
+    
+    if (keepLoggedIn == "yes") {
+      currentUser = JSON.parse(localStorage.getItem("user"));
+    } else {
+      currentUser = JSON.parse(sessionStorage.getItem("user"));
+    }
+    
+    document.getElementById("welcome").innerText = "Welcome " + currentUser.firstname + "!";
+  });
+</script>
+
+<!-- Chart.js Script -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+<!-- Export functionality -->
+<script src="{{ url_for('static', filename='js/export.js') }}"></script>
+<!-- Custom Chart Script -->
+<script type="module" src="{{url_for('static', filename='/js/chart.js')}}"></script>
+<!-- Custom Status Script -->
+<script type="module" src="{{url_for('static', filename='/js/status.js')}}"></script>
+{% endblock %}

@@ -1,0 +1,70 @@
+<!--
+// Project Name: PosturePro
+// File Name: demo.html
+// Date: 24 May 2025
+// Group: Sensor-4 
+
+// Description: This page serves as a demo mode for the PosturePro project, 
+                showcasing sample data and visualizations.
+-->
+
+{% extends "layout.html" %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{{url_for('static', filename='css/chart.css')}}" />
+{% endblock %}
+
+{% block content %}
+<div class="container mx-auto">
+  <div class="my-10 text-center">
+    <h1 id="welcome" class="text-3xl font-bold">Welcome to Demo Mode!</h1>
+  </div>
+</div>
+
+<!-- Simple status section -->
+<div class="container mx-auto mb-6">
+  <div id="status-info" class="bg-gray-100 p-4 rounded mb-4 text-center">
+    <p class="text-lg">The data shown here are sample values. Login to view data relevant to you.</p>
+  </div>
+</div>
+
+<!-- Session selector (optional for filtering) -->
+<div class="container mx-auto mb-6">
+  <label for="sessionSelect" class="block mb-2 font-semibold">Select Session:</label>
+  <select id="sessionSelect" class="border border-gray-300 p-2 rounded w-full max-w-md"></select>
+</div>
+
+<section class="results mt-10">
+  <div class="container mx-auto">
+    <h1 class="text-center text-3xl font-bold mb-4">Results</h1>
+    <hr class="border-gray-300">
+  </div>
+</section>
+
+<section class="chartjs-sample mt-10">
+  <div class="container mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
+    <!-- Line Chart -->
+    <div class="bg-white rounded-lg p-6 shadow-md">
+      <canvas id="emgLineChart" class="w-full h-64"></canvas>
+    </div>
+
+    <!-- Bar Chart -->
+    <div class="bg-white rounded-lg p-6 shadow-md">
+      <canvas id="emgBarChart" class="w-full h-64"></canvas>
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<!-- Initialize debug console -->
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    console.log('Portal page loaded');
+  });
+</script>
+<!-- Chart.js Script (non-module version) -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+<!-- Load chart script -->
+<script src="{{ url_for('static', filename='js/demo.js') }}"></script>
+{% endblock %}

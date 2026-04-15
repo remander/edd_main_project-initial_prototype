@@ -1,0 +1,32 @@
+<!--
+// Project Name: PosturePro
+// File Name: signIn.html
+// Date: 24 May 2025
+// Group: Sensor-4 
+
+// Description: This page serves as the sign-in page for the PosturePro project, 
+                allowing users to log in to their accounts.
+-->
+
+{% extends "layout.html" %}
+
+{% block content %}
+    <div class="container mx-auto max-w-md">
+        <br><h2 class="text-center text-2xl font-bold">Sign In</h2><br>
+    </div>
+
+    <!-- Sign In -->
+    <div class="container mx-auto max-w-md">     
+        <form class="space-y-4">
+            <input type="email" placeholder="Email" id="loginEmail" class="w-full border border-gray-300 rounded-lg p-3">
+            <input type="password" placeholder="Password" id="loginPassword" class="w-full border border-gray-300 rounded-lg p-3">
+            <div class="flex items-center space-x-2">
+                <input type="checkbox" id="keepLoggedInSwitch" class="h-4 w-4 text-blue-600 border-gray-300 rounded">
+                <label for="keepLoggedInSwitch" class="text-gray-700">Keep me signed in</label>
+            </div>
+            <button type="button" id="signIn" name="signIn" class="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700">
+                Sign In
+            </button>
+        </form>
+    </div>
+{% endblock %}
