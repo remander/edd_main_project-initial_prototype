@@ -1,0 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap');
+@import "tailwindcss";
+
+* {
+  font-family: 'Outfit', sans-serif;
+}
+
+body {
+  margin: 0;
+  background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 50%, #f0f9ff 100%);
+  min-height: 100vh;
+}
+
+:root {
+  --color-primary: #10b981;
+  --color-primary-dark: #059669;
+  --color-accent: #0891b2;
+  --color-warning: #f59e0b;
+  --color-danger: #ef4444;
+  --color-surface: rgba(255, 255, 255, 0.85);
+}
+
+.glass {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 1rem;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+}
+
+.nav-active {
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: white !important;
+  box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+}
+
+@keyframes slideInFromRight {
+  from { transform: translateX(110%); opacity: 0; }
+  to   { transform: translateX(0);    opacity: 1; }
+}
+
+.animate-in {
+  animation: slideInFromRight 0.3s ease-out forwards;
+}
