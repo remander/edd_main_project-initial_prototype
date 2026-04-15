@@ -9,8 +9,10 @@ import Dashboard from "./components/features/Dashboard";
 import ScanReceipt from "./components/features/ScanReceipt";
 import Inventory from "./components/features/Inventory";
 import MealPlan from "./components/features/MealPlan";
+import LoginPage from "./components/features/LoginPage";
 
 export default function App() {
+  const [user, setUser] = useState(() => localStorage.getItem("pantrypal_session") || null);
   const [page, setPage] = useState("dashboard");
   const { inventory, addItems, updateItem, deleteItem } = useInventory();
   const { toasts, addToast } = useToast();
@@ -27,28 +29,22 @@ export default function App() {
     localStorage.setItem("pantrypal_mealplans", JSON.stringify(mealPlans));
   }, [mealPlans]);
 
+  if (!user) {
+    return <LoginPage onLogin={(username) => setUser(username)} />;
+  }
+
   const pageProps = { inventory, addItems, updateItem, deleteItem, addToast };
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Header inventory={inventory} />
+      <Header inventory={inventory} user={user} onSignOut={() => { localStorage.removeItem("pantrypal_session"); setUser(null); }} />
       <Navbar page={page} setPage={setPage} />
-
       <main className="flex-1">
-        {page === "dashboard" && (
-          <Dashboard {...pageProps} setPage={setPage} />
-        )}
-        {page === "scan" && (
-          <ScanReceipt {...pageProps} />
-        )}
-        {page === "inventory" && (
-          <Inventory {...pageProps} />
-        )}
-        {page === "mealplan" && (
-          <MealPlan {...pageProps} mealPlans={mealPlans} setMealPlans={setMealPlans} />
-        )}
+        {page === "dashboard" && <Dashboard {...pageProps} setPage={setPage} />}
+        {page === "scan"      && <ScanReceipt {...pageProps} />}
+        {page === "inventory" && <Inventory {...pageProps} />}
+        {page === "mealplan"  && <MealPlan {...pageProps} mealPlans={mealPlans} setMealPlans={setMealPlans} />}
       </main>
-
       <Footer />
       <Toast toasts={toasts} />
     </div>

@@ -1,7 +1,7 @@
 import { Bell } from "lucide-react";
 import { daysUntilExpiry } from "../../lib/expiration";
 
-export default function Header({ inventory }) {
+export default function Header({ inventory, user, onSignOut }) {
   const criticalCount = inventory.filter(
     (item) => daysUntilExpiry(item.expiration) <= 3
   ).length;
@@ -30,6 +30,13 @@ export default function Header({ inventory }) {
               </span>
             )}
           </div>
+          <span className="text-sm font-semibold text-gray-700 hidden sm:block">👤 {user}</span>
+          <button
+            onClick={onSignOut}
+            className="px-3 py-1.5 text-xs font-semibold text-gray-600 border border-gray-200 rounded-xl hover:bg-gray-100 transition-colors"
+          >
+            Sign Out
+          </button>
         </div>
       </div>
     </header>
