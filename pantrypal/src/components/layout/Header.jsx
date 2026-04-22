@@ -10,8 +10,8 @@ export default function Header({ inventory, user, onSignOut }) {
     <header className="sticky top-0 z-40 glass border-b border-white/60">
       <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
         <a href="/">
-          <div className="flex items-center gap-3">
-            <span className="text-3xl">🥗</span>
+          <div className="flex items-center gap-1">
+            <img src=".\src\assets\logo.svg" alt="PantryPal Logo" className="w-auto h-12 object-fill"/>
             <div>
               <h1 className="text-2xl font-extrabold tracking-tight bg-linear-to-r from-emerald-600 to-cyan-600 bg-clip-text text-transparent leading-none">
                 PantryPal

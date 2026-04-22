@@ -50,8 +50,8 @@ export default function LoginPage() {
       style={{ background: "linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 50%, #f0f9ff 100%)" }}
     >
       {/* Logo */}
-      <div className="flex items-center gap-3">
-        <span className="text-6xl">🥗</span>
+      <div className="flex items-center gap-1">
+        <img src=".\src\assets\logo.svg" alt="PantryPal Logo" className="w-auto h-18 object-fill"/>
         <div className="text-left">
           <h1
             className="text-4xl font-extrabold tracking-tight leading-none"
