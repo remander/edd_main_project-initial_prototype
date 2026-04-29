@@ -71,7 +71,7 @@ export default function LoginPage() {
             <button
               key={t}
               onClick={() => { setTab(t); setError(""); }}
-              className={`flex-1 py-2 rounded-lg text-sm font-semibold transition-all ${
+              className={`flex-1 py-2 rounded-lg text-sm font-semibold transition-all cursor-pointer ${
                 tab === t ? "bg-white shadow text-gray-900" : "text-gray-500 hover:text-gray-700"
               }`}
             >
@@ -126,7 +126,7 @@ export default function LoginPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-3 text-white rounded-xl font-bold text-sm hover:opacity-90 transition-opacity shadow-md disabled:opacity-50"
+            className="w-full py-3 text-white rounded-xl font-bold text-sm hover:opacity-90 transition-opacity shadow-md disabled:opacity-50 cursor-pointer"
             style={{ background: "linear-gradient(to right, #10b981, #059669)" }}
           >
             {loading ? "Please wait..." : tab === "signin" ? "Sign In" : "Create Account"}

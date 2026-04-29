@@ -102,10 +102,10 @@ export default function ItemEditModal({ isOpen, onClose, item, onSave }) {
         </div>
 
         <div className="flex gap-3 pt-2">
-          <button type="button" onClick={onClose} className="flex-1 py-2.5 border border-gray-200 rounded-xl text-sm font-semibold text-gray-600 hover:bg-gray-50 transition-colors">
+          <button type="button" onClick={onClose} className="flex-1 py-2.5 border border-gray-200 rounded-xl text-sm font-semibold text-gray-600 hover:bg-gray-50 transition-colors cursor-pointer">
             Cancel
           </button>
-          <button type="submit" className="flex-1 py-2.5 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-xl text-sm font-bold hover:opacity-90 transition-opacity">
+          <button type="submit" className="flex-1 py-2.5 bg-linear-to-r from-emerald-500 to-emerald-600 text-white rounded-xl text-sm font-bold hover:opacity-90 transition-opacity cursor-pointer">
             {item ? "Save Changes" : "Add Item"}
           </button>
         </div>
