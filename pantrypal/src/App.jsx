@@ -15,7 +15,7 @@ import LoginPage from "./components/features/LoginPage";
 export default function App() {
   const [user, setUser]       = useState(undefined); // undefined = still loading
   const [page, setPage]       = useState("dashboard");
-  const { inventory, addItems, updateItem, deleteItem } = useInventory();
+  const { inventory, addItems, updateItem, deleteItem } = useInventory(user?.uid);
   const { toasts, addToast }  = useToast();
   const [mealPlans, setMealPlans] = useState(() => {
     try {

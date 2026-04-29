@@ -1,39 +1,37 @@
 import { useState, useEffect } from "react";
-import { SAMPLE_INVENTORY } from "../lib/sampleData";
 import { estimateExpiration } from "../lib/expiration";
+import { subscribeToInventory, saveInventoryItem, deleteInventoryItem } from "../lib/firebase";
 
-export function useInventory() {
-  const [inventory, setInventory] = useState(() => {
-    try {
-      const saved = localStorage.getItem("pantrypal_inventory");
-      return saved ? JSON.parse(saved) : SAMPLE_INVENTORY;
-    } catch {
-      return SAMPLE_INVENTORY;
-    }
-  });
+export function useInventory(userId) {
+  const [inventory, setInventory] = useState([]);
 
   useEffect(() => {
-    localStorage.setItem("pantrypal_inventory", JSON.stringify(inventory));
-  }, [inventory]);
+    if (!userId) {
+      setInventory([]);
+      return;
+    }
+    const unsubscribe = subscribeToInventory(userId, setInventory);
+    return unsubscribe;
+  }, [userId]);
 
-  const addItems = (items) => {
+  const addItems = async (items) => {
     const newItems = items.map((item, i) => ({
       ...item,
-      id: Date.now() + i,
+      id: String(Date.now() + i),
       purchased: item.purchased || new Date().toISOString().split("T")[0],
       expiration: item.expiration || estimateExpiration(item.name),
     }));
-    setInventory((prev) => [...prev, ...newItems]);
+    await Promise.all(newItems.map((item) => saveInventoryItem(userId, item)));
   };
 
-  const updateItem = (id, updates) => {
-    setInventory((prev) =>
-      prev.map((item) => (item.id === id ? { ...item, ...updates } : item))
-    );
+  const updateItem = async (id, updates) => {
+    const item = inventory.find((i) => i.id === id);
+    if (!item) return;
+    await saveInventoryItem(userId, { ...item, ...updates });
   };
 
-  const deleteItem = (id) => {
-    setInventory((prev) => prev.filter((item) => item.id !== id));
+  const deleteItem = async (id) => {
+    await deleteInventoryItem(userId, id);
   };
 
   return { inventory, addItems, updateItem, deleteItem };
