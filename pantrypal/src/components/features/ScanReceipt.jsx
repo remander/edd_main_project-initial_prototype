@@ -41,34 +41,40 @@ export default function ScanReceipt({ addItems, addToast }) {
     setLoading(true);
     setResults(null);
     try {
-      let raw;
       if (mode === "image") {
-        const formData = new FormData();
-        formData.append("image", imageFile);
+        const imageBase64 = await new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onload = (e) => resolve(e.target.result.split(",")[1]);
+          reader.onerror = reject;
+          reader.readAsDataURL(imageFile);
+        });
 
-        let res;
-        try {
-          res = await fetch("http://localhost:5001/ocr", { method: "POST", body: formData });
-        } catch {
-          addToast("OCR server is not running. Start it with: python ocr-program/server.py", "error");
-          return;
-        }
+        const raw = await callClaude(
+          "Extract all food and beverage items from this receipt image.",
+          SYSTEM_PROMPT,
+          { mediaType: imageFile.type || "image/jpeg", data: imageBase64 }
+        );
 
-        if (!res.ok) {
-          const err = await res.json().catch(() => ({}));
-          addToast(`OCR failed: ${err.error ?? "unknown error"}`, "error");
-          return;
-        }
+        const cleaned = raw.replace(/```json\n?/g, "").replace(/```\n?/g, "").trim();
+        const parsed = JSON.parse(cleaned);
 
-        const { text } = await res.json();
-        const parsed = parseReceiptText(text);
-
-        if (parsed.length === 0) {
+        if (!Array.isArray(parsed) || parsed.length === 0) {
           addToast("No food items detected. Try a clearer image.", "warning");
           return;
         }
 
-        setResults(parsed.map((item) => ({ ...item, expiration: estimateExpiration(item.name) })));
+        const withExpiry = parsed.map((item, i) => ({
+          ...item,
+          id: `scan_${Date.now()}_${i}`,
+          quantity: item.quantity || 1,
+          unit: item.unit || "count",
+          category: item.category || "Other",
+          location: "Fridge",
+          expiration: estimateExpiration(item.name),
+          purchased: new Date().toISOString().split("T")[0],
+        }));
+
+        setResults(withExpiry);
         return;
       } else {
         const parsed = parseReceiptText(text);
@@ -86,27 +92,6 @@ export default function ScanReceipt({ addItems, addToast }) {
         setResults(withExpiry);
         return;
       }
-
-      const cleaned = raw.replace(/```json\n?/g, "").replace(/```\n?/g, "").trim();
-      const parsed = JSON.parse(cleaned);
-
-      if (!Array.isArray(parsed) || parsed.length === 0) {
-        addToast("No food items detected. Try a clearer image.", "warning");
-        return;
-      }
-
-      const withExpiry = parsed.map((item, i) => ({
-        ...item,
-        id: `scan_${Date.now()}_${i}`,
-        quantity: item.quantity || 1,
-        unit: item.unit || "count",
-        category: item.category || "Other",
-        location: "Fridge",
-        expiration: estimateExpiration(item.name),
-        purchased: new Date().toISOString().split("T")[0],
-      }));
-
-      setResults(withExpiry);
     } catch (err) {
       addToast(`Scan failed: ${err.message}`, "error");
     } finally {

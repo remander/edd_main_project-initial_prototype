@@ -1,34 +1,22 @@
-import { useState, useEffect } from "react";
-import { Sparkles, Settings, Trash2 } from "lucide-react";
-import { loadOpenAiApiKey, saveOpenAiApiKey } from "../../lib/userProfile";
-import { generateMealWithOpenAI } from "../../lib/gemini";
-import ApiKeySetup from "./ApiKeySetup";
+import { useState } from "react";
+import { Sparkles, Settings } from "lucide-react";
+import { generateMealWithClaude } from "../../lib/claude";
 import MealCard from "./MealCard";
-import LoadingSpinner from "../ui/LoadingSpinner";
 
-const MEAL_TYPES        = ["Any", "Breakfast", "Lunch", "Dinner", "Snack", "Dessert"];
-const CUISINES          = ["Any", "Italian", "Mexican", "Asian", "Mediterranean", "American", "Indian"];
-const DIETARY_OPTIONS   = ["Vegetarian", "Vegan", "Gluten-Free", "Dairy-Free", "Nut-Free"];
+const MEAL_TYPES      = ["Any", "Breakfast", "Lunch", "Dinner", "Snack", "Dessert"];
+const CUISINES        = ["Any", "Italian", "Mexican", "Asian", "Mediterranean", "American", "Indian"];
+const DIETARY_OPTIONS = ["Vegetarian", "Vegan", "Gluten-Free", "Dairy-Free", "Nut-Free"];
 
-export default function MealGenerator({ user, inventory }) {
-  const [apiKey, setApiKey]           = useState(null);
-  const [loadingKey, setLoadingKey]   = useState(true);
-
-  const [mealType, setMealType]                     = useState("Any");
-  const [cuisine, setCuisine]                       = useState("Any");
-  const [servings, setServings]                     = useState(2);
+export default function MealGenerator({ user, inventory, addUsageLog }) {
+  const [mealType, setMealType]                       = useState("Any");
+  const [cuisine, setCuisine]                         = useState("Any");
+  const [servings, setServings]                       = useState(2);
   const [dietaryRestrictions, setDietaryRestrictions] = useState([]);
 
-  const [generating, setGenerating]   = useState(false);
+  const [generating, setGenerating]     = useState(false);
   const [generatedMeal, setGeneratedMeal] = useState(null);
-  const [error, setError]             = useState(null);
+  const [error, setError]               = useState(null);
   const [savedConfirm, setSavedConfirm] = useState(false);
-
-  useEffect(() => {
-    loadOpenAiApiKey(user.uid)
-      .then(setApiKey)
-      .finally(() => setLoadingKey(false));
-  }, [user.uid]);
 
   const toggleDietary = (option) => {
     setDietaryRestrictions((prev) =>
@@ -46,38 +34,29 @@ export default function MealGenerator({ user, inventory }) {
     setGeneratedMeal(null);
     setSavedConfirm(false);
     try {
-      const meal = await generateMealWithOpenAI(apiKey, inventory, {
+      const prefs = {
         mealType:            mealType === "Any" ? "any" : mealType,
         cuisine:             cuisine  === "Any" ? "any" : cuisine,
         servings,
         dietaryRestrictions,
-      });
+      };
+      const { meal, usage } = await generateMealWithClaude(inventory, prefs);
       setGeneratedMeal(meal);
+      if (addUsageLog && usage) {
+        addUsageLog({
+          task: 'recipe-generation',
+          label: 'Recipe Generator',
+          description: `Generated ${meal.mealName}${cuisine !== "Any" ? ` · ${cuisine}` : ""}${mealType !== "Any" ? ` · ${mealType}` : ""} · ${servings} serving${servings !== 1 ? "s" : ""}`,
+          ...usage,
+          timestamp: Date.now(),
+        });
+      }
     } catch (err) {
       setError(err.message);
     } finally {
       setGenerating(false);
     }
   };
-
-  const handleRemoveKey = async () => {
-    await saveOpenAiApiKey(user.uid, "");
-    setApiKey(null);
-    setGeneratedMeal(null);
-    setError(null);
-  };
-
-  if (loadingKey) {
-    return (
-      <div className="flex justify-center py-20">
-        <LoadingSpinner />
-      </div>
-    );
-  }
-
-  if (!apiKey) {
-    return <ApiKeySetup userId={user.uid} onKeySaved={(key) => setApiKey(key)} />;
-  }
 
   return (
     <div className="max-w-2xl mx-auto px-4 py-6 space-y-5">
@@ -92,14 +71,6 @@ export default function MealGenerator({ user, inventory }) {
             {inventory.length} item{inventory.length !== 1 ? "s" : ""} available in your inventory
           </p>
         </div>
-        <button
-          onClick={handleRemoveKey}
-          className="flex items-center gap-1.5 px-3 py-1.5 text-xs text-gray-400 hover:text-red-500 hover:bg-red-50 border border-gray-200 rounded-xl transition-colors cursor-pointer"
-          title="Remove API key"
-        >
-          <Trash2 className="w-3.5 h-3.5" />
-          Remove Key
-        </button>
       </div>
 
       {/* Preferences */}

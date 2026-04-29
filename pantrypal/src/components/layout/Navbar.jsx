@@ -1,10 +1,11 @@
-import { Home, ScanLine, Package, ChefHat } from "lucide-react";
+import { Home, ScanLine, Package, ChefHat, BarChart2 } from "lucide-react";
 
 const TABS = [
   { id: "dashboard", label: "Dashboard",    icon: Home },
   { id: "scan",      label: "Scan Receipt", icon: ScanLine },
   { id: "inventory", label: "Inventory",    icon: Package },
   { id: "mealplan",  label: "Meal Plan",    icon: ChefHat },
+  { id: "info",      label: "Usage",        icon: BarChart2 },
 ];
 
 export default function Navbar({ page, setPage }) {
