@@ -1,0 +1,58 @@
+{
+    "metadata": {
+        "date_of_ocr_processing": "Date of OCR Processing: 2025-11-19, 12:26:37 pm EST",
+        "ocr_model": "PP-OCRv5_mobile",
+        "python_version": "3.11.14",
+        "libraries": {
+            "pdf2image": "1.17.0",
+            "doctr": "not installed",
+            "Pillow": "12.0.0",
+            "psutil": "7.1.3",
+            "cpuinfo": "9.0.0"
+        },
+        "system": {
+            "platform": "Windows-10-10.0.26100-SP0",
+            "cpu": "Intel(R) Core(TM) i7-8700 CPU @ 3.20GHz",
+            "cpu_count": 12,
+            "total_memory_mb": 16163.2890625,
+            "poppler_path": "C:\\Users\\rmander\\Documents\\poppler-25.07.0\\Library\\bin"
+        },
+        "timing": {
+            "document_start_time": 1763573192.2864776,
+            "document_end_time": 1763573195.6018956,
+            "total_time_seconds": 3.315418004989624,
+            "per_page_seconds": {
+                "seal": 3.214724540710449
+            }
+        },
+        "resource_usage": {
+            "per_page": {
+                "cpu_percent": {
+                    "seal": 96.6
+                },
+                "memory_mb": {
+                    "seal": {
+                        "system_memory_mb": 12753.609375,
+                        "process_memory_mb": 659.19921875
+                    }
+                }
+            },
+            "document": {
+                "avg_cpu_percent": 96.6,
+                "max_cpu_percent": 96.6,
+                "avg_process_memory_mb": 659.19921875,
+                "max_process_memory_mb": 659.19921875
+            }
+        }
+    },
+    "results": {
+        "seal": [
+            "",
+            "D",
+            "K",
+            "1",
+            "H",
+            "0284368100"
+        ]
+    }
+}

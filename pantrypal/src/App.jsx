@@ -10,16 +10,25 @@ import Dashboard from "./components/features/Dashboard";
 import ScanReceipt from "./components/features/ScanReceipt";
 import Inventory from "./components/features/Inventory";
 import MealPlan from "./components/features/MealPlan";
+import InfoTab from "./components/features/InfoTab";
 import LoginPage from "./components/features/LoginPage";
 
 export default function App() {
-  const [user, setUser]       = useState(undefined); // undefined = still loading
+  const [user, setUser]       = useState(undefined);
   const [page, setPage]       = useState("dashboard");
   const { inventory, addItems, updateItem, deleteItem } = useInventory(user?.uid);
   const { toasts, addToast }  = useToast();
+
   const [mealPlans, setMealPlans] = useState(() => {
     try {
       const saved = localStorage.getItem("pantrypal_mealplans");
+      return saved ? JSON.parse(saved) : [];
+    } catch { return []; }
+  });
+
+  const [usageLogs, setUsageLogs] = useState(() => {
+    try {
+      const saved = localStorage.getItem("pantrypal_usage");
       return saved ? JSON.parse(saved) : [];
     } catch { return []; }
   });
@@ -35,7 +44,16 @@ export default function App() {
     localStorage.setItem("pantrypal_mealplans", JSON.stringify(mealPlans));
   }, [mealPlans]);
 
-  // Still resolving auth state
+  useEffect(() => {
+    localStorage.setItem("pantrypal_usage", JSON.stringify(usageLogs));
+  }, [usageLogs]);
+
+  const addUsageLog = (entry) => {
+    setUsageLogs((prev) => [...prev, { ...entry, id: Date.now() + Math.random() }]);
+  };
+
+  const clearLogs = () => setUsageLogs([]);
+
   if (user === undefined) {
     return (
       <div className="min-h-screen flex items-center justify-center"
@@ -57,7 +75,18 @@ export default function App() {
         {page === "dashboard" && <Dashboard {...pageProps} setPage={setPage} />}
         {page === "scan"      && <ScanReceipt {...pageProps} />}
         {page === "inventory" && <Inventory {...pageProps} />}
-        {page === "mealplan"  && <MealPlan {...pageProps} user={user} mealPlans={mealPlans} setMealPlans={setMealPlans} />}
+        {page === "mealplan"  && (
+          <MealPlan
+            {...pageProps}
+            user={user}
+            mealPlans={mealPlans}
+            setMealPlans={setMealPlans}
+            addUsageLog={addUsageLog}
+          />
+        )}
+        {page === "info" && (
+          <InfoTab usageLogs={usageLogs} clearLogs={clearLogs} />
+        )}
       </main>
       <Footer />
       <Toast toasts={toasts} />

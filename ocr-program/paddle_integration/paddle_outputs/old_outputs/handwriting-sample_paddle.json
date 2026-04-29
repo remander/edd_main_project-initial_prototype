@@ -1,0 +1,68 @@
+{
+    "metadata": {
+        "ocr_model": "PP-OCRv5_mobile",
+        "python_version": "3.13.7",
+        "libraries": {
+            "pdf2image": "1.17.0",
+            "paddleocr": "3.2.0",
+            "Pillow": "11.3.0",
+            "psutil": "7.1.0",
+            "cpuinfo": "9.0.0"
+        },
+        "system": {
+            "platform": "Windows-11-10.0.26100-SP0",
+            "cpu": "Intel(R) Core(TM) i7-8700 CPU @ 3.20GHz",
+            "cpu_count": 12,
+            "total_memory_mb": 16163.2890625,
+            "poppler_path": "C:\\Users\\rmander\\Documents\\poppler-25.07.0\\Library\\bin"
+        },
+        "timing": {
+            "document_start_time": 1761158878.570937,
+            "document_end_time": 1761158882.739737,
+            "total_time_seconds": 4.168800115585327,
+            "per_page_seconds": {
+                "handwriting-sample": 4.067538261413574
+            }
+        },
+        "resource_usage": {
+            "per_page": {
+                "cpu_percent": {
+                    "handwriting-sample": 100.0
+                },
+                "memory_mb": {
+                    "handwriting-sample": {
+                        "system_memory_mb": 11981.24609375,
+                        "process_memory_mb": 726.34765625
+                    }
+                }
+            },
+            "document": {
+                "avg_cpu_percent": 100.0,
+                "max_cpu_percent": 100.0,
+                "avg_process_memory_mb": 726.34765625,
+                "max_process_memory_mb": 726.34765625
+            }
+        }
+    },
+    "results": {
+        "handwriting-sample": [
+            "Rosemarie,",
+            "I am sending this letter concerning",
+            "your 20o6 Nissan Xterra We are",
+            "nearly depleted of these Nissan",
+            "vehicles and so are our loca auctions.",
+            "We have a list of customers waiting for",
+            "us to locate these vehicles. As the Genera",
+            "Sales Manager, I have the ability to offer you",
+            "more for your vehicle.",
+            "If you allow me to make you an offer for",
+            "your Xterra I will give you two free movie",
+            "tickets. Bring this letter by Jun 30th",
+            "and ask for me when you get here.",
+            "P.S. if you have another vehicte",
+            "that you would be interested in",
+            "selling or trading, bring it with",
+            "you or cll me to discuss."
+        ]
+    }
+}

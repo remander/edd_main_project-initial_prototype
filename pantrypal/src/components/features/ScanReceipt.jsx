@@ -1,5 +1,6 @@
 import { useState, useRef } from "react";
 import { callClaude } from "../../lib/claude";
+import { parseReceiptText } from "../../lib/receiptParser";
 import { estimateExpiration } from "../../lib/expiration";
 import { CATEGORIES, UNITS } from "../../lib/sampleData";
 import LoadingSpinner from "../ui/LoadingSpinner";
@@ -40,43 +41,57 @@ export default function ScanReceipt({ addItems, addToast }) {
     setLoading(true);
     setResults(null);
     try {
-      let raw;
       if (mode === "image") {
-        const dataUrl = imagePreview;
-        const [header, base64] = dataUrl.split(",");
-        const mediaType = header.match(/:(.*?);/)[1];
-        raw = await callClaude(
-          "Parse this grocery receipt and return only the food items as JSON.",
+        const imageBase64 = await new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onload = (e) => resolve(e.target.result.split(",")[1]);
+          reader.onerror = reject;
+          reader.readAsDataURL(imageFile);
+        });
+
+        const raw = await callClaude(
+          "Extract all food and beverage items from this receipt image.",
           SYSTEM_PROMPT,
-          { mediaType, data: base64 }
+          { mediaType: imageFile.type || "image/jpeg", data: imageBase64 }
         );
+
+        const cleaned = raw.replace(/```json\n?/g, "").replace(/```\n?/g, "").trim();
+        const parsed = JSON.parse(cleaned);
+
+        if (!Array.isArray(parsed) || parsed.length === 0) {
+          addToast("No food items detected. Try a clearer image.", "warning");
+          return;
+        }
+
+        const withExpiry = parsed.map((item, i) => ({
+          ...item,
+          id: `scan_${Date.now()}_${i}`,
+          quantity: item.quantity || 1,
+          unit: item.unit || "count",
+          category: item.category || "Other",
+          location: "Fridge",
+          expiration: estimateExpiration(item.name),
+          purchased: new Date().toISOString().split("T")[0],
+        }));
+
+        setResults(withExpiry);
+        return;
       } else {
-        raw = await callClaude(
-          `Parse this grocery receipt text and return only the food items as JSON:\n\n${text}`,
-          SYSTEM_PROMPT
-        );
-      }
+        const parsed = parseReceiptText(text);
 
-      const cleaned = raw.replace(/```json\n?/g, "").replace(/```\n?/g, "").trim();
-      const parsed = JSON.parse(cleaned);
+        if (parsed.length === 0) {
+          addToast("No food items detected. Try pasting more of the receipt text.", "warning");
+          return;
+        }
 
-      if (!Array.isArray(parsed) || parsed.length === 0) {
-        addToast("No food items detected. Try a clearer image or more complete text.", "warning");
+        const withExpiry = parsed.map((item) => ({
+          ...item,
+          expiration: estimateExpiration(item.name),
+        }));
+
+        setResults(withExpiry);
         return;
       }
-
-      const withExpiry = parsed.map((item, i) => ({
-        ...item,
-        id: `scan_${Date.now()}_${i}`,
-        quantity: item.quantity || 1,
-        unit: item.unit || "count",
-        category: item.category || "Other",
-        location: "Fridge",
-        expiration: estimateExpiration(item.name),
-        purchased: new Date().toISOString().split("T")[0],
-      }));
-
-      setResults(withExpiry);
     } catch (err) {
       addToast(`Scan failed: ${err.message}`, "error");
     } finally {
@@ -169,7 +184,7 @@ export default function ScanReceipt({ addItems, addToast }) {
           {loading ? "Analyzing..." : "🔍 Scan Receipt"}
         </button>
 
-        {loading && <LoadingSpinner message="Analyzing receipt with AI..." />}
+        {loading && <LoadingSpinner message={mode === "image" ? "Analyzing receipt with AI..." : "Parsing receipt..."} />}
       </div>
 
       {/* Results */}

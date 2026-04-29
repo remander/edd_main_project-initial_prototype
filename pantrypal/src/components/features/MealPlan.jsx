@@ -9,7 +9,7 @@ const SYSTEM_PROMPT = `You are a meal planning chef assistant. Generate practica
 
 const MEAL_TYPES = ["Breakfast", "Lunch", "Dinner"];
 
-export default function MealPlan({ user, inventory, mealPlans, setMealPlans, addToast }) {
+export default function MealPlan({ user, inventory, mealPlans, setMealPlans, addToast, addUsageLog }) {
   const [days, setDays] = useState(5);
   const [selectedMeals, setSelectedMeals] = useState(["Breakfast", "Lunch", "Dinner"]);
   const [dietary, setDietary] = useState([]);
@@ -76,10 +76,19 @@ Return format:
 }`;
 
     try {
-      const raw = await callClaude(prompt, SYSTEM_PROMPT);
+      const { text: raw, usage } = await callClaude(prompt, SYSTEM_PROMPT);
       const cleaned = raw.replace(/```json\n?/g, "").replace(/```\n?/g, "").trim();
       const parsed = JSON.parse(cleaned);
       setCurrentPlan(parsed);
+      if (addUsageLog && usage) {
+        addUsageLog({
+          task: 'meal-planning',
+          label: 'Meal Planning',
+          description: `${days}-day plan · ${selectedMeals.join(", ")}${dietary.length ? ` · ${dietary.join(", ")}` : ""}`,
+          ...usage,
+          timestamp: Date.now(),
+        });
+      }
     } catch (err) {
       addToast(`Failed to generate plan: ${err.message}`, "error");
     } finally {
@@ -126,7 +135,7 @@ Return format:
       </div>
 
       {activeTab === "recipe" ? (
-        <MealGenerator user={user} inventory={inventory} />
+        <MealGenerator user={user} inventory={inventory} addUsageLog={addUsageLog} />
       ) : activeTab === "generate" ? (
         <div className="grid lg:grid-cols-5 gap-6">
           {/* Preferences */}

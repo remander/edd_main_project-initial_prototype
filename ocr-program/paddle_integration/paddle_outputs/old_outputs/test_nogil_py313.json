@@ -1,0 +1,96 @@
+{
+    "metadata": {
+        "ocr_model": "PP-OCRv5_mobile",
+        "processing_strategy": "no_gil_threading",
+        "python_version": "3.13.7",
+        "gil_enabled": true,
+        "timing": {
+            "document_start_time": 1760536692.9297535,
+            "document_end_time": 1760536708.6759706,
+            "total_time_seconds": 15.746217012405396,
+            "per_page_seconds": {
+                "Metamorphosis_page_1": 12.26623010635376,
+                "Metamorphosis_page_2": 15.716800451278687
+            }
+        },
+        "resource_usage": {
+            "per_page": {
+                "cpu_percent": {
+                    "Metamorphosis_page_1": 100.0,
+                    "Metamorphosis_page_2": 100.0
+                },
+                "memory_mb": {
+                    "Metamorphosis_page_1": {
+                        "system_memory_mb": 13234.9140625,
+                        "process_memory_mb": 1171.2734375
+                    },
+                    "Metamorphosis_page_2": {
+                        "system_memory_mb": 13378.69921875,
+                        "process_memory_mb": 1289.3046875
+                    }
+                },
+                "thread_id": {
+                    "Metamorphosis_page_1": 4168,
+                    "Metamorphosis_page_2": 21600
+                }
+            },
+            "document": {
+                "avg_cpu_percent": 100.0,
+                "max_cpu_percent": 100.0,
+                "avg_process_memory_mb": 1230.2890625,
+                "max_process_memory_mb": 1289.3046875,
+                "unique_threads_used": 2,
+                "total_threads_available": 36
+            }
+        },
+        "optimization_settings": {
+            "max_workers": 36,
+            "executor_type": "ThreadPoolExecutor_NoGIL",
+            "dpi": 100,
+            "threading_strategy": "massive_parallelism",
+            "image_preprocessing": "aggressive_resizing",
+            "thread_local_ocr_instances": true
+        }
+    },
+    "results": {
+        "Metamorphosis_page_1": [
+            "Metamorphosis",
+            "by Franz Kafka",
+            "Translated by David Wyllie",
+            "Prepared and Published by:",
+            "E-BooksDirectory.com"
+        ],
+        "Metamorphosis_page_2": [
+            "I",
+            "One morning, when Gregor Samsa woke from troubled",
+            "dreams, he found himself transformed in his bed into a",
+            "horrible vermin. He lay on his armour-like back, and if he",
+            "lifted his head a little he could see his brown belly,",
+            "slightly domed and divided by arches into stiff sections.",
+            "The bedding was hardly able to cover it and seemed",
+            "ready to slide off any moment. His many legs, pitifully",
+            "thin compared with the size of the rest of him, waved",
+            "about helplessly as he looked.",
+            "\"What's happened to me?\" he thought. It wasn't a",
+            "dream. His room, a proper human room although a little",
+            "too small, lay peacefully between its four familiar walls.",
+            "A collection of textile samples lay spread out on the table",
+            "- Samsa was a travelling salesman - and above it there",
+            "hung a picture that he had recently cut out of an",
+            "illustrated magazine and housed in a nice, gilded frame.",
+            "It showed a lady fitted out with a fur hat and fur boa",
+            "who sat upright, raising a heavy fur muff that covered",
+            "the whole of her lower arm towards the viewer.",
+            "Gregor then turned to look out the window at the dull",
+            "weather. Drops of rain could be heard hitting the pane,",
+            "which made him feel quite sad. \"How about if I sleep a",
+            "little bit longer and forget all this nonsense\", he thought,",
+            "but that was something he was unable to do because he",
+            "was used to sleeping on his right, and in his present state",
+            "couldn't get into that position. However hard he threw",
+            "himself onto his right, he always rolled back to where he",
+            "was. He must have tried it a hundred times, shut his eyes",
+            "so that he wouldn't have to look at the floundering legs,"
+        ]
+    }
+}

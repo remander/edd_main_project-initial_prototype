@@ -1,0 +1,473 @@
+{
+  "paddle": {
+    "metadata": {
+      "date_of_ocr_processing": "Date of OCR Processing: 2025-12-17, 10:36:26",
+      "ocr_model": "PP-OCRv5_mobile",
+      "python_version": "3.10.19",
+      "libraries": {
+        "pdf2image": "1.17.0",
+        "paddleocr": "3.3.2",
+        "Pillow": "10.4.0",
+        "psutil": "7.1.3",
+        "cpuinfo": "9.0.0"
+      },
+      "system": {
+        "platform": "Windows-10-10.0.26100-SP0",
+        "cpu": "Intel(R) Core(TM) i7-8700 CPU @ 3.20GHz",
+        "cpu_count": 12,
+        "total_memory_mb": 16163.2890625,
+        "poppler_path": "C:\\Users\\rmander\\Documents\\poppler-25.07.0\\Library\\bin"
+      },
+      "timing": {
+        "document_start_time": 1765985786.9851093,
+        "document_end_time": 1765985813.5551097,
+        "total_time_seconds": 26.570000410079956,
+        "ocr_model_initialization_time_seconds": 5.458492755889893,
+        "total_time_with_initialization_seconds": 32.02849316596985,
+        "per_page_seconds": {
+          "v1_klass_pages-to-jpg-0001": 26.45783829689026
+        }
+      },
+      "resource_usage": {
+        "per_page": {
+          "cpu_percent": {
+            "v1_klass_pages-to-jpg-0001": 97.7
+          },
+          "memory_mb": {
+            "v1_klass_pages-to-jpg-0001": {
+              "system_memory_mb": 8912.57421875,
+              "process_memory_mb": 1344.125
+            }
+          }
+        },
+        "document": {
+          "avg_cpu_percent": 97.7,
+          "max_cpu_percent": 97.7,
+          "avg_process_memory_mb": 1344.125,
+          "max_process_memory_mb": 1344.125
+        }
+      }
+    },
+    "results": {
+      "v1_klass_pages-to-jpg-0001": [
+        "RHEINMETALL",
+        "xxxx>∀x",
+        "Muster Muster Muster Muster",
+        "Muster Muster",
+        "Muster Muster",
+        "Muster Muster",
+        "Muster Muster",
+        "Muster Muster",
+        "Muster Muster",
+        "Muster Muster",
+        "Muster Muster",
+        "VS-NUR FR DEN DIENSTGEBRAUCH",
+        "Muster Muster",
+        "Muster Muster",
+        "Muster Muster",
+        "Muster Muster",
+        "Muster Muster",
+        "Muster Muster",
+        "Muster Muster",
+        "Muster Muster",
+        "Muster Muster",
+        "B 00001 - 25.03.2021 - Rev. 1"
+      ]
+    }
+  },
+  "onnx": {
+    "metadata": {
+      "date_of_ocr_processing": "Date of OCR Processing: 2025-12-17, 10:36:59",
+      "ocr_model": "onnxtr db_resnet50+parseq",
+      "python_version": "3.10.19",
+      "libraries": {
+        "onnxtr": "0.8.0",
+        "onnxruntime": "1.23.2",
+        "opencv-python": "4.12.0.88",
+        "numpy": "2.0.1",
+        "psutil": "7.1.3",
+        "py-cpuinfo": "9.0.0"
+      },
+      "system": {
+        "platform": "Windows-10-10.0.26100-SP0",
+        "cpu": "Intel(R) Core(TM) i7-8700 CPU @ 3.20GHz",
+        "cpu_count": 12,
+        "total_memory_mb": 16163.2890625
+      },
+      "timing": {
+        "document_start_time": 1765985819.164416,
+        "document_end_time": 1765985823.0566156,
+        "total_time_seconds": 3.8921995162963867,
+        "ocr_model_initialization_time_seconds": 3.553205728530884,
+        "total_time_with_initialization_seconds": 7.4454052448272705,
+        "per_page_seconds": {
+          "v1_klass_pages-to-jpg-0001": 3.78227162361145
+        }
+      },
+      "resource_usage": {
+        "per_page": {
+          "cpu_percent": {
+            "v1_klass_pages-to-jpg-0001": 40.3
+          },
+          "memory_mb": {
+            "v1_klass_pages-to-jpg-0001": {
+              "system_memory_mb": 9924.60546875,
+              "process_memory_mb": 2293.22265625
+            }
+          }
+        },
+        "document": {
+          "avg_cpu_percent": 40.3,
+          "max_cpu_percent": 40.3,
+          "avg_process_memory_mb": 2293.22265625,
+          "max_process_memory_mb": 2293.22265625
+        }
+      },
+      "confidence": {
+        "v1_klass_pages-to-jpg-0001": 0.9990788959921935
+      }
+    },
+    "results": {
+      "v1_klass_pages-to-jpg-0001": [
+        "RHEINMETALL",
+        "Cxcx<cvxcvyccxvxyvcxyvcxyvyyyyyyyYYYYYyvc",
+        "Muster Muster Muster Muster",
+        "Muster Muster",
+        "Muster Muster",
+        "Muster Muster",
+        "Muster Muster",
+        "Muster Muster",
+        "Muster Muster",
+        "DIENSTGEBRAUCH",
+        "Muster Muster",
+        "DEN",
+        "Muster Muster",
+        "FUR",
+        "Muster Muster",
+        "VS-NUR",
+        "Muster Muster",
+        "Muster Muster",
+        "Muster Muster",
+        "Muster Muster",
+        "Muster Muster",
+        "Muster Muster",
+        "Muster Muster",
+        "Muster Muster",
+        "FOB 00001 I 25.03.2021 I Rev. 1",
+        "1/1"
+      ]
+    }
+  },
+  "doctr": {
+    "metadata": {
+      "date_of_ocr_processing": "Date of OCR Processing: 2025-12-17, 10:37:15 am EST",
+      "ocr_model": "doctr_ocr",
+      "ocr_model_initialization_time_seconds": 5.508885145187378,
+      "python_version": "3.10.19",
+      "libraries": {
+        "pdf2image": "1.17.0",
+        "doctr": "1.0.0",
+        "Pillow": "10.4.0",
+        "psutil": "7.1.3",
+        "cpuinfo": "9.0.0"
+      },
+      "system": {
+        "platform": "Windows-10-10.0.26100-SP0",
+        "cpu": "Intel(R) Core(TM) i7-8700 CPU @ 3.20GHz",
+        "cpu_count": 12,
+        "total_memory_mb": 16163.2890625,
+        "poppler_path": null
+      },
+      "timing": {
+        "document_start_time": 1765985824.653281,
+        "document_end_time": 1765985835.1611445,
+        "total_time_seconds": 10.507863521575928,
+        "total_time_with_initialization_seconds": 16.016748666763306,
+        "per_page_seconds": {
+          "v1_klass_pages-to-jpg-0001": 4.894484996795654
+        }
+      },
+      "resource_usage": {
+        "per_page": {
+          "cpu_percent": {
+            "v1_klass_pages-to-jpg-0001": 7.4
+          },
+          "memory_mb": {
+            "v1_klass_pages-to-jpg-0001": {
+              "system_memory_mb": 10702.4609375,
+              "process_memory_mb": 3082.83203125
+            }
+          }
+        },
+        "document": {
+          "avg_cpu_percent": 7.4,
+          "max_cpu_percent": 7.4,
+          "avg_process_memory_mb": 3082.83203125,
+          "max_process_memory_mb": 3082.83203125
+        }
+      }
+    },
+    "results": {
+      "v1_klass_pages-to-jpg-0001": [
+        "RHEINMETALL",
+        "Cxcx<cvxcvyccxvxyvcxyvcxyvyyyyyyyyyyyyyvc",
+        "Muster Muster Muster Muster",
+        "Muster Muster",
+        "Muster Muster",
+        "Muster Muster",
+        "Muster Muster",
+        "Muster Muster",
+        "Muster Muster",
+        "Muster Muster",
+        "DIPSTERNADA",
+        "DEN",
+        "Muster Muster",
+        "FUR",
+        "VSANUR",
+        "Muster Muster",
+        "Muster Muster",
+        "Muster Muster",
+        "Muster Muster",
+        "Muster Muster",
+        "Muster Muster",
+        "Muster Muster",
+        "Muster Muster",
+        "Muster Muster",
+        "FOB 00001 - 25.03.2021 - Rev. 1",
+        "1/1"
+      ]
+    }
+  },
+  "easy": {
+    "metadata": {
+      "date_of_ocr_processing": "Date of OCR Processing: 2025-12-17, 10:37:17",
+      "ocr_model": "easyocr",
+      "python_version": "3.10.19",
+      "libraries": {
+        "easyocr": "1.7.2",
+        "pdf2image": "1.17.0",
+        "Pillow": "10.4.0",
+        "psutil": "7.1.3",
+        "cpuinfo": "9.0.0"
+      },
+      "system": {
+        "platform": "Windows-10-10.0.26100-SP0",
+        "cpu": "Intel(R) Core(TM) i7-8700 CPU @ 3.20GHz",
+        "cpu_count": 12,
+        "total_memory_mb": 16163.2890625,
+        "poppler_path": "C:\\Users\\rmander\\Documents\\poppler-25.07.0\\Library\\bin"
+      },
+      "timing": {
+        "document_start_time": 1765985837.074161,
+        "document_end_time": 1765985879.9164264,
+        "total_time_seconds": 42.842265367507935,
+        "ocr_model_initialization_time_seconds": 1.8164277076721191,
+        "total_time_with_initialization_seconds": 44.658693075180054
+      },
+      "resource_usage": {
+        "document": {
+          "avg_cpu_percent": 0.0,
+          "max_cpu_percent": 0.0,
+          "avg_process_memory_mb": 2743.20703125,
+          "max_process_memory_mb": 2743.20703125
+        }
+      },
+      "per_page": {
+        "v1_klass_pages-to-jpg-0001": {
+          "timing_seconds": 40.8074836730957,
+          "resource_usage": {
+            "cpu_percent": 14.2,
+            "memory_mb": 2765.56640625
+          }
+        }
+      }
+    },
+    "results": {
+      "v1_klass_pages-to-jpg-0001": [
+        "RHEINMETALL",
+        "CxCX<CVXCVYCCXVXYVCXYVCXYVYYYYYYYYYYYYVC",
+        "Muster Muster Muster Muster",
+        "Muster Muster",
+        "Muster Muster",
+        "Muster Muster",
+        "Muster Muster",
+        "Muster Muster",
+        "Muster Muster DIENSTGEBRAUCH",
+        "DEN",
+        "Muster Muster",
+        "FUR",
+        "Muster Muster",
+        "VS-NUR",
+        "Muster Muster",
+        "Muster Muster",
+        "Muster Muster",
+        "1",
+        "Muster Muster",
+        "Muster Muster",
+        "Muster Muster",
+        "Muster Muster",
+        "Muster Muster",
+        "Muster Muster",
+        "FOB 00001 25.03.2021 Rev  1 1/1",
+        "5"
+      ]
+    }
+  },
+  "surya": {
+    "metadata": {
+      "date_of_ocr_processing": "Date of OCR Processing: 2025-12-17, 10:38:01",
+      "ocr_model": "surya",
+      "python_version": "3.10.19",
+      "libraries": {
+        "pypdfium2": "4.30.0",
+        "surya": "0.17.0",
+        "Pillow": "10.4.0",
+        "psutil": "7.1.3",
+        "cpuinfo": "9.0.0"
+      },
+      "system": {
+        "platform": "Windows-10-10.0.26100-SP0",
+        "cpu": "Intel(R) Core(TM) i7-8700 CPU @ 3.20GHz",
+        "cpu_count": 12,
+        "total_memory_mb": 16163.2890625,
+        "poppler_path": null
+      },
+      "timing": {
+        "document_start_time": 1765985881.5330987,
+        "document_end_time": 1765985882.9732985,
+        "total_time_seconds": 1.440199851989746,
+        "ocr_model_initialization_time_seconds": 0.0,
+        "total_time_with_initialization_seconds": 1.440199851989746
+      },
+      "resource_usage": {
+        "document": {
+          "avg_cpu_percent": 8.8,
+          "max_cpu_percent": 8.8,
+          "avg_process_memory_mb": 2776.46875,
+          "max_process_memory_mb": 2776.46875
+        }
+      },
+      "per_page": {
+        "v1_klass_pages-to-jpg-0001_page_1": {
+          "timing_seconds": 1.3285057544708252,
+          "resource_usage": {
+            "cpu_percent": 8.8,
+            "memory_mb": 2776.46875
+          }
+        }
+      }
+    },
+    "results": {
+      "v1_klass_pages-to-jpg-0001_page_1": [
+        "RH-Confidential",
+        "Sen EINMETALL",
+        "Cxex<cvxcvyCCxXvxyVCXYVCXYVYVYYYYYYYYYYVG",
+        "Muster Muster Muster Muster",
+        "Muster Muster",
+        "Muster Muster",
+        "Muster Muster",
+        "Muster Muster",
+        "Muster Muster",
+        "Muster Muster",
+        "Muster Muster",
+        "Muster Muster",
+        "Muster Muster",
+        "Muster Muster",
+        "Muster Muster",
+        "Muster Muster",
+        "Muster Muster",
+        "Muster Muster",
+        "Muster Muster",
+        "Muster Muster",
+        "Muster Muster",
+        "FOB 00001 — 25.03.2021 — Rev. 1 1/1"
+      ]
+    }
+  },
+  "tesseract": {
+    "metadata": {
+      "date_of_ocr_processing": "Date of OCR Processing: 2025-12-17, 10:38:04",
+      "ocr_model": "tesseract-5.5.0.20241111",
+      "python_version": "3.10.19",
+      "libraries": {
+        "pytesseract": "0.3.13",
+        "pdf2image": "1.17.0",
+        "Pillow": "10.4.0",
+        "psutil": "7.1.3",
+        "cpuinfo": "9.0.0"
+      },
+      "system": {
+        "platform": "Windows-10-10.0.26100-SP0",
+        "cpu": "Intel(R) Core(TM) i7-8700 CPU @ 3.20GHz",
+        "cpu_count": 12,
+        "total_memory_mb": 16163.2890625,
+        "poppler_path": "C:\\Users\\rmander\\Documents\\poppler-25.07.0\\Library\\bin",
+        "tesseract_path": "C:\\Users\\rmander\\AppData\\Local\\Programs\\Tesseract-OCR\\tesseract.exe"
+      },
+      "timing": {
+        "document_start_time": 1765985884.8259318,
+        "document_end_time": 1765985886.1657233,
+        "total_time_seconds": 1.3397915363311768,
+        "ocr_model_initialization_time_seconds": 0.07315945625305176,
+        "total_time_with_initialization_seconds": 1.4129509925842285,
+        "per_page_seconds": {
+          "v1_klass_pages-to-jpg-0001": 1.236886978149414
+        }
+      },
+      "resource_usage": {
+        "per_page": {
+          "cpu_percent": {
+            "v1_klass_pages-to-jpg-0001": 0.0
+          },
+          "memory_mb": {
+            "v1_klass_pages-to-jpg-0001": {
+              "system_memory_mb": 10399.984375,
+              "process_memory_mb": 2751.69921875
+            }
+          }
+        },
+        "document": {
+          "avg_cpu_percent": 0.0,
+          "max_cpu_percent": 0.0,
+          "avg_process_memory_mb": 2751.69921875,
+          "max_process_memory_mb": 2751.69921875
+        }
+      },
+      "per_page": {
+        "v1_klass_pages-to-jpg-0001": {
+          "timing_seconds": 1.236886978149414,
+          "resource_usage": {
+            "cpu_percent": 0.0,
+            "memory_mb": 2751.69921875
+          }
+        }
+      }
+    },
+    "results": {
+      "v1_klass_pages-to-jpg-0001": [
+        "RH-Confidential",
+        "SF rHemmerau",
+        "Cxex<cvxcvyCCXVXyVCXYVCXYVYYYYYYYVYYyYyVvc",
+        "Muster Muster Muster Muster",
+        "Muster Muster",
+        "Muster Muster",
+        "Muster Muster",
+        "Muster Muster",
+        "Muster Muster",
+        "Muster Muster",
+        "Muster Muster",
+        "Muster Muster",
+        "Muster Muster",
+        "Muster Muster",
+        "Muster Muster",
+        "Muster Muster",
+        "Muster Muster",
+        "Muster Muster",
+        "Muster Muster",
+        "Muster Muster",
+        "Muster Muster",
+        "FOB 00001 — 25.03.2021 — Rev. 1 1/1"
+      ]
+    }
+  }
+}

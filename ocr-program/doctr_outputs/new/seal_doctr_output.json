@@ -1,0 +1,65 @@
+{
+    "metadata": {
+        "ocr_model": "doctr_ocr",
+        "python_version": "3.10.19",
+        "libraries": {
+            "pdf2image": "not installed",
+            "doctr": "1.0.0",
+            "Pillow": "12.0.0",
+            "psutil": "7.1.2",
+            "cpuinfo": "9.0.0"
+        },
+        "system": {
+            "platform": "Windows-10-10.0.26100-SP0",
+            "cpu": "Intel(R) Core(TM) i7-8700 CPU @ 3.20GHz",
+            "cpu_count": 12,
+            "total_memory_mb": 16163.2890625,
+            "poppler_path": null
+        },
+        "timing": {
+            "document_start_time": 1762369683.5836313,
+            "document_end_time": 1762369694.2613459,
+            "total_time_seconds": 10.677714586257935,
+            "per_page_seconds": {
+                "seal": 1.5660429000854492
+            }
+        },
+        "resource_usage": {
+            "per_page": {
+                "cpu_percent": {
+                    "seal": 72.2
+                },
+                "memory_mb": {
+                    "seal": {
+                        "system_memory_mb": 13600.67578125,
+                        "process_memory_mb": 944.07421875
+                    }
+                }
+            },
+            "document": {
+                "avg_cpu_percent": 72.2,
+                "max_cpu_percent": 72.2,
+                "avg_process_memory_mb": 944.07421875,
+                "max_process_memory_mb": 944.07421875
+            }
+        }
+    },
+    "results": {
+        "seal": [
+            "I > 2",
+            "S",
+            "L",
+            "PI",
+            "a",
+            "L1 -",
+            "1",
+            "HK -",
+            "-",
+            "LE",
+            "RH E H -",
+            "L",
+            "EL B W",
+            "0283647368760"
+        ]
+    }
+}

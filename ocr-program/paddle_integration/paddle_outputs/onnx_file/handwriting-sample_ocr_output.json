@@ -1,0 +1,77 @@
+{
+    "metadata": {
+        "date_of_ocr_processing": "Date of OCR Processing: 2025-12-10, 14:25:49",
+        "ocr_model": "onnxtr db_resnet50+parseq",
+        "python_version": "3.10.19",
+        "libraries": {
+            "pdf2image": "1.17.0",
+            "doctr": "1.0.0",
+            "Pillow": "10.4.0",
+            "psutil": "7.1.3",
+            "cpuinfo": "9.0.0"
+        },
+        "system": {
+            "platform": "Windows-10-10.0.26100-SP0",
+            "cpu": "Intel(R) Core(TM) i7-8700 CPU @ 3.20GHz",
+            "cpu_count": 12,
+            "total_memory_mb": 16163.2890625,
+            "poppler_path": null
+        },
+        "timing": {
+            "document_start_time": 1765394749.9983056,
+            "document_end_time": 1765394755.9213092,
+            "total_time_seconds": 5.923003673553467,
+            "total_time_with_initialization_seconds": 9.257631778717041,
+            "per_page_seconds": {
+                "handwriting-sample": 5.8172767162323
+            }
+        },
+        "resource_usage": {
+            "per_page": {
+                "cpu_percent": {
+                    "handwriting-sample": 22.9
+                },
+                "memory_mb": {
+                    "handwriting-sample": {
+                        "system_memory_mb": 12128.70703125,
+                        "process_memory_mb": 1423.46484375
+                    }
+                }
+            },
+            "document": {
+                "avg_cpu_percent": 22.9,
+                "max_cpu_percent": 22.9,
+                "avg_process_memory_mb": 1423.46484375,
+                "max_process_memory_mb": 1423.46484375
+            }
+        }
+    },
+    "results": {
+        "handwriting-sample": [
+            "Posemwie,",
+            "this letter conceming",
+            "/ uv Sending",
+            "Xterva We Are",
+            "your 2006 Nissan",
+            "newly depleted of these Nissan",
+            "vehicles par S0 Ne ar ben autions",
+            "We have A Ist of ustomers waiting for",
+            "us to lauate these vehicles As the Genern",
+            "SNes Moroger, I have the abilty to offer you",
+            "more for your vehicle",
+            "#",
+            "alow me to make not an offer for",
+            "nat Xtarva / will",
+            "not +WO fvee movie",
+            "your",
+            "give",
+            "tickets",
+            "this letter hg Jun 30th",
+            "and ASk Pory me when nat get here",
+            "PS if yau have mother vehuk",
+            "Hat yau pprom be interested 5",
+            "Seling ar trading bring it with",
+            "you a col me to dsuss"
+        ]
+    }
+}

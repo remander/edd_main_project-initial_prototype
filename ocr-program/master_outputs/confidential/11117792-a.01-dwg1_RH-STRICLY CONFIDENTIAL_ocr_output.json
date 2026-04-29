@@ -1,0 +1,471 @@
+{
+  "paddle": {
+    "metadata": {
+      "date_of_ocr_processing": "Date of OCR Processing: 2025-12-17, 10:26:57",
+      "ocr_model": "PP-OCRv5_mobile",
+      "python_version": "3.10.19",
+      "libraries": {
+        "pdf2image": "1.17.0",
+        "paddleocr": "3.3.2",
+        "Pillow": "10.4.0",
+        "psutil": "7.1.3",
+        "cpuinfo": "9.0.0"
+      },
+      "system": {
+        "platform": "Windows-10-10.0.26100-SP0",
+        "cpu": "Intel(R) Core(TM) i7-8700 CPU @ 3.20GHz",
+        "cpu_count": 12,
+        "total_memory_mb": 16163.2890625,
+        "poppler_path": "C:\\Users\\rmander\\Documents\\poppler-25.07.0\\Library\\bin"
+      },
+      "timing": {
+        "document_start_time": 1765985217.3884048,
+        "document_end_time": 1765985225.7954001,
+        "total_time_seconds": 8.406995296478271,
+        "ocr_model_initialization_time_seconds": 6.043714761734009,
+        "total_time_with_initialization_seconds": 14.45071005821228,
+        "per_page_seconds": {
+          "11117792-a.01-dwg1_RH-STRICLY CONFIDENTIAL": 8.29995083808899
+        }
+      },
+      "resource_usage": {
+        "per_page": {
+          "cpu_percent": {
+            "11117792-a.01-dwg1_RH-STRICLY CONFIDENTIAL": 88.4
+          },
+          "memory_mb": {
+            "11117792-a.01-dwg1_RH-STRICLY CONFIDENTIAL": {
+              "system_memory_mb": 8524.65625,
+              "process_memory_mb": 892.3828125
+            }
+          }
+        },
+        "document": {
+          "avg_cpu_percent": 88.4,
+          "max_cpu_percent": 88.4,
+          "avg_process_memory_mb": 892.3828125,
+          "max_process_memory_mb": 892.3828125
+        }
+      }
+    },
+    "results": {
+      "11117792-a.01-dwg1_RH-STRICLY CONFIDENTIAL": [
+        "3",
+        "4",
+        "5",
+        "8",
+        "A",
+        "8",
+        "B",
+        "0",
+        "C",
+        "C",
+        "200",
+        "so",
+        "S",
+        "caar",
+        "",
+        "STUON",
+        "E",
+        "1serance",
+        "150 8015",
+        "CAD NX",
+        "Xae",
+        "12",
+        " 02",
+        "ME",
+        "I50 2768-dL",
+        "kg",
+        "15.40 6",
+        "Geomelnic Toter ances",
+        "150 1101",
+        "150 1302",
+        "Drm < 6 ±0,5",
+        "E6",
+        "Surface",
+        "Maferal",
+        "Oste",
+        "Nam",
+        "Tatte",
+        "C R",
+        "agresre",
+        "shandard",
+        "Dranes",
+        "AH-STACLY CONFIDEnTAL",
+        "The regroducioel",
+        "Srskus",
+        "Work in",
+        "Progress",
+        "RHEINMETALL",
+        "Eieof",
+        "F",
+        "ZE",
+        "11117792",
+        "F",
+        "3.01",
+        "Rheinmetat Protertion Systens Gnor",
+        "Rgs.",
+        "Change",
+        "Date/Nare",
+        "NCAGE ES69T",
+        "6",
+        "A3"
+      ]
+    }
+  },
+  "onnx": {
+    "metadata": {
+      "date_of_ocr_processing": "Date of OCR Processing: 2025-12-17, 10:27:11",
+      "ocr_model": "onnxtr db_resnet50+parseq",
+      "python_version": "3.10.19",
+      "libraries": {
+        "onnxtr": "0.8.0",
+        "onnxruntime": "1.23.2",
+        "opencv-python": "4.12.0.88",
+        "numpy": "2.0.1",
+        "psutil": "7.1.3",
+        "py-cpuinfo": "9.0.0"
+      },
+      "system": {
+        "platform": "Windows-10-10.0.26100-SP0",
+        "cpu": "Intel(R) Core(TM) i7-8700 CPU @ 3.20GHz",
+        "cpu_count": 12,
+        "total_memory_mb": 16163.2890625
+      },
+      "timing": {
+        "document_start_time": 1765985231.3999724,
+        "document_end_time": 1765985234.9536731,
+        "total_time_seconds": 3.5537006855010986,
+        "ocr_model_initialization_time_seconds": 3.4779512882232666,
+        "total_time_with_initialization_seconds": 7.031651973724365,
+        "per_page_seconds": {
+          "11117792-a.01-dwg1_RH-STRICLY CONFIDENTIAL": 3.442730188369751
+        }
+      },
+      "resource_usage": {
+        "per_page": {
+          "cpu_percent": {
+            "11117792-a.01-dwg1_RH-STRICLY CONFIDENTIAL": 15.7
+          },
+          "memory_mb": {
+            "11117792-a.01-dwg1_RH-STRICLY CONFIDENTIAL": {
+              "system_memory_mb": 9523.125,
+              "process_memory_mb": 1909.81640625
+            }
+          }
+        },
+        "document": {
+          "avg_cpu_percent": 15.7,
+          "max_cpu_percent": 15.7,
+          "avg_process_memory_mb": 1909.81640625,
+          "max_process_memory_mb": 1909.81640625
+        }
+      },
+      "confidence": {
+        "11117792-a.01-dwg1_RH-STRICLY CONFIDENTIAL": 0.8571216436102986
+      }
+    },
+    "results": {
+      "11117792-a.01-dwg1_RH-STRICLY CONFIDENTIAL": [
+        "la",
+        "200",
+        "16016\"",
+        "2",
+        "ISO",
+        "notice",
+        "on",
+        "200",
+        "50",
+        "protes",
+        "de",
+        "Refer In",
+        "0",
+        "527",
+        "athwer entaroge",
+        "Es",
+        "Sige E",
+        "E",
+        "SH",
+        "rax 60 8015 Gere 2768-d CAD 12",
+        "Sil",
+        "Geunetne SO 101 88 01",
+        "Satace 60 1302",
+        "CO",
+        "KE",
+        "Non",
+        "LETUNE 1",
+        "asrecare",
+        "M",
+        "AH-STACU CONFIDENTIAL",
+        "595:",
+        "\"Work n Progress RHEINMETALL",
+        "HI",
+        "ZE 1111792",
+        "MESE",
+        "rotertion us lene a",
+        "a",
+        "Zeichnungsblatt \"Blatt 1\"Arbeit"
+      ]
+    }
+  },
+  "doctr": {
+    "metadata": {
+      "date_of_ocr_processing": "Date of OCR Processing: 2025-12-17, 10:27:26 am EST",
+      "ocr_model": "doctr_ocr",
+      "ocr_model_initialization_time_seconds": 5.600029945373535,
+      "python_version": "3.10.19",
+      "libraries": {
+        "pdf2image": "1.17.0",
+        "doctr": "1.0.0",
+        "Pillow": "10.4.0",
+        "psutil": "7.1.3",
+        "cpuinfo": "9.0.0"
+      },
+      "system": {
+        "platform": "Windows-10-10.0.26100-SP0",
+        "cpu": "Intel(R) Core(TM) i7-8700 CPU @ 3.20GHz",
+        "cpu_count": 12,
+        "total_memory_mb": 16163.2890625,
+        "poppler_path": null
+      },
+      "timing": {
+        "document_start_time": 1765985236.675123,
+        "document_end_time": 1765985246.8242095,
+        "total_time_seconds": 10.149086475372314,
+        "total_time_with_initialization_seconds": 15.74911642074585,
+        "per_page_seconds": {
+          "11117792-a.01-dwg1_RH-STRICLY CONFIDENTIAL": 4.444784879684448
+        }
+      },
+      "resource_usage": {
+        "per_page": {
+          "cpu_percent": {
+            "11117792-a.01-dwg1_RH-STRICLY CONFIDENTIAL": 24.4
+          },
+          "memory_mb": {
+            "11117792-a.01-dwg1_RH-STRICLY CONFIDENTIAL": {
+              "system_memory_mb": 10251.640625,
+              "process_memory_mb": 2612.125
+            }
+          }
+        },
+        "document": {
+          "avg_cpu_percent": 24.4,
+          "max_cpu_percent": 24.4,
+          "avg_process_memory_mb": 2612.125,
+          "max_process_memory_mb": 2612.125
+        }
+      }
+    },
+    "results": {
+      "11117792-a.01-dwg1_RH-STRICLY CONFIDENTIAL": [
+        "B",
+        "€",
+        "i C",
+        "8",
+        "i",
+        "200",
+        "50",
+        "!",
+        "3 0",
+        "U",
+        "e",
+        ":",
+        "I E",
+        "e",
+        "3015 2768- AON",
+        "3 E",
+        "I",
+        "Adcant",
+        "AM-STACUY CONFOEMIML",
+        "F",
+        "Work in Progress b RHEINMETALL ounenl nt",
+        "1 F",
+        "2E mm",
+        "deth Tems",
+        "A3",
+        "Zeichnungsblatt \"Blatt_1\"Arbeit"
+      ]
+    }
+  },
+  "easy": {
+    "metadata": {
+      "date_of_ocr_processing": "Date of OCR Processing: 2025-12-17, 10:27:28",
+      "ocr_model": "easyocr",
+      "python_version": "3.10.19",
+      "libraries": {
+        "easyocr": "1.7.2",
+        "pdf2image": "1.17.0",
+        "Pillow": "10.4.0",
+        "psutil": "7.1.3",
+        "cpuinfo": "9.0.0"
+      },
+      "system": {
+        "platform": "Windows-10-10.0.26100-SP0",
+        "cpu": "Intel(R) Core(TM) i7-8700 CPU @ 3.20GHz",
+        "cpu_count": 12,
+        "total_memory_mb": 16163.2890625,
+        "poppler_path": "C:\\Users\\rmander\\Documents\\poppler-25.07.0\\Library\\bin"
+      },
+      "timing": {
+        "document_start_time": 1765985248.5759883,
+        "document_end_time": 1765985264.7738135,
+        "total_time_seconds": 16.19782519340515,
+        "ocr_model_initialization_time_seconds": 1.7789199352264404,
+        "total_time_with_initialization_seconds": 17.976745128631592
+      },
+      "resource_usage": {
+        "document": {
+          "avg_cpu_percent": 0.0,
+          "max_cpu_percent": 0.0,
+          "avg_process_memory_mb": 3636.4765625,
+          "max_process_memory_mb": 3636.4765625
+        }
+      },
+      "per_page": {
+        "11117792-a.01-dwg1_RH-STRICLY CONFIDENTIAL": {
+          "timing_seconds": 14.204431295394897,
+          "resource_usage": {
+            "cpu_percent": 0.0,
+            "memory_mb": 3653.734375
+          }
+        }
+      }
+    },
+    "results": {
+      "11117792-a.01-dwg1_RH-STRICLY CONFIDENTIAL": [
+        "0",
+        "L 200",
+        "1",
+        "Ma= 015 M 265 M'te:",
+        "Lteli: fu",
+        "Gay",
+        "03 A-SIAIv (OYQNua",
+        "Yu Axottess RHEINMETALL",
+        "MIT",
+        "O-e ed Faa {an 64[",
+        "Jitre",
+        "Zeichningstlat: \"Blal Arbe ["
+      ]
+    }
+  },
+  "surya": {
+    "metadata": {
+      "date_of_ocr_processing": "Date of OCR Processing: 2025-12-17, 10:27:46",
+      "ocr_model": "surya",
+      "python_version": "3.10.19",
+      "libraries": {
+        "pypdfium2": "4.30.0",
+        "surya": "0.17.0",
+        "Pillow": "10.4.0",
+        "psutil": "7.1.3",
+        "cpuinfo": "9.0.0"
+      },
+      "system": {
+        "platform": "Windows-10-10.0.26100-SP0",
+        "cpu": "Intel(R) Core(TM) i7-8700 CPU @ 3.20GHz",
+        "cpu_count": 12,
+        "total_memory_mb": 16163.2890625,
+        "poppler_path": null
+      },
+      "timing": {
+        "document_start_time": 1765985266.5086412,
+        "document_end_time": 1765985266.9545932,
+        "total_time_seconds": 0.4459519386291504,
+        "ocr_model_initialization_time_seconds": 0.0,
+        "total_time_with_initialization_seconds": 0.4459519386291504
+      },
+      "resource_usage": {
+        "document": {
+          "avg_cpu_percent": 15.9,
+          "max_cpu_percent": 15.9,
+          "avg_process_memory_mb": 3642.52734375,
+          "max_process_memory_mb": 3642.52734375
+        }
+      },
+      "per_page": {
+        "11117792-a.01-dwg1_RH-STRICLY CONFIDENTIAL_page_1": {
+          "timing_seconds": 0.343641996383667,
+          "resource_usage": {
+            "cpu_percent": 15.9,
+            "memory_mb": 3642.52734375
+          }
+        }
+      }
+    },
+    "results": {
+      "11117792-a.01-dwg1_RH-STRICLY CONFIDENTIAL_page_1": [
+        "RH-STACIY COMPDENTINL",
+        "“2 mime"
+      ]
+    }
+  },
+  "tesseract": {
+    "metadata": {
+      "date_of_ocr_processing": "Date of OCR Processing: 2025-12-17, 10:27:48",
+      "ocr_model": "tesseract-5.5.0.20241111",
+      "python_version": "3.10.19",
+      "libraries": {
+        "pytesseract": "0.3.13",
+        "pdf2image": "1.17.0",
+        "Pillow": "10.4.0",
+        "psutil": "7.1.3",
+        "cpuinfo": "9.0.0"
+      },
+      "system": {
+        "platform": "Windows-10-10.0.26100-SP0",
+        "cpu": "Intel(R) Core(TM) i7-8700 CPU @ 3.20GHz",
+        "cpu_count": 12,
+        "total_memory_mb": 16163.2890625,
+        "poppler_path": "C:\\Users\\rmander\\Documents\\poppler-25.07.0\\Library\\bin",
+        "tesseract_path": "C:\\Users\\rmander\\AppData\\Local\\Programs\\Tesseract-OCR\\tesseract.exe"
+      },
+      "timing": {
+        "document_start_time": 1765985268.7593307,
+        "document_end_time": 1765985269.1823072,
+        "total_time_seconds": 0.4229764938354492,
+        "ocr_model_initialization_time_seconds": 0.06198477745056152,
+        "total_time_with_initialization_seconds": 0.48496127128601074,
+        "per_page_seconds": {
+          "11117792-a.01-dwg1_RH-STRICLY CONFIDENTIAL": 0.3110005855560303
+        }
+      },
+      "resource_usage": {
+        "per_page": {
+          "cpu_percent": {
+            "11117792-a.01-dwg1_RH-STRICLY CONFIDENTIAL": 9.6
+          },
+          "memory_mb": {
+            "11117792-a.01-dwg1_RH-STRICLY CONFIDENTIAL": {
+              "system_memory_mb": 11275.14453125,
+              "process_memory_mb": 3638.45703125
+            }
+          }
+        },
+        "document": {
+          "avg_cpu_percent": 9.6,
+          "max_cpu_percent": 9.6,
+          "avg_process_memory_mb": 3638.45703125,
+          "max_process_memory_mb": 3638.45703125
+        }
+      },
+      "per_page": {
+        "11117792-a.01-dwg1_RH-STRICLY CONFIDENTIAL": {
+          "timing_seconds": 0.3110005855560303,
+          "resource_usage": {
+            "cpu_percent": 9.6,
+            "memory_mb": 3638.45703125
+          }
+        }
+      }
+    },
+    "results": {
+      "11117792-a.01-dwg1_RH-STRICLY CONFIDENTIAL": [
+        "de",
+        "wero ropes | EF anummerat",
+        "Ce SIACLY Cone Oba,",
+        "a Ld"
+      ]
+    }
+  }
+}

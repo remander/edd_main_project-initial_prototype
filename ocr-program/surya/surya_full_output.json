@@ -1,0 +1,104 @@
+{
+    "results": {
+        "v1_klass_pages-to-jpg-0001_page_1": [
+            "RH-Confidential",
+            "Sen EINMETALL",
+            "Cxex<cvxcvyCCxXvxyVCXYVCXYVYVYYYYYYYYYYVG",
+            "Muster Muster Muster Muster",
+            "Muster Muster",
+            "Muster Muster",
+            "Muster Muster",
+            "Muster Muster",
+            "Muster Muster",
+            "Muster Muster",
+            "Muster Muster",
+            "Muster Muster",
+            "Muster Muster",
+            "Muster Muster",
+            "Muster Muster",
+            "Muster Muster",
+            "Muster Muster",
+            "Muster Muster",
+            "Muster Muster",
+            "Muster Muster",
+            "Muster Muster",
+            "FOB 00001 — 25.03.2021 — Rev. 1 1/1"
+        ]
+    },
+    "metadata": {
+        "date_of_ocr_processing": "Date of OCR Processing: 2025-12-17, 10:38:01",
+        "ocr_model": "surya",
+        "python_version": "3.10.19",
+        "libraries": {
+            "pypdfium2": "4.30.0",
+            "surya": "0.17.0",
+            "Pillow": "10.4.0",
+            "psutil": "7.1.3",
+            "cpuinfo": "9.0.0"
+        },
+        "system": {
+            "platform": "Windows-10-10.0.26100-SP0",
+            "cpu": "Intel(R) Core(TM) i7-8700 CPU @ 3.20GHz",
+            "cpu_count": 12,
+            "total_memory_mb": 16163.2890625,
+            "poppler_path": null
+        },
+        "timing": {
+            "document_start_time": 1765985881.5330987,
+            "document_end_time": 1765985882.9732985,
+            "total_time_seconds": 1.440199851989746,
+            "ocr_model_initialization_time_seconds": 0.0,
+            "total_time_with_initialization_seconds": 1.440199851989746
+        },
+        "resource_usage": {
+            "document": {
+                "avg_cpu_percent": 8.8,
+                "max_cpu_percent": 8.8,
+                "avg_process_memory_mb": 2776.46875,
+                "max_process_memory_mb": 2776.46875
+            }
+        },
+        "per_page": {
+            "v1_klass_pages-to-jpg-0001_page_1": {
+                "timing_seconds": 1.3285057544708252,
+                "resource_usage": {
+                    "cpu_percent": 8.8,
+                    "memory_mb": 2776.46875
+                }
+            }
+        }
+    },
+    "results_detailed": {
+        "v1_klass_pages-to-jpg-0001_page_1": {
+            "ocr": [
+                "RH-Confidential",
+                "Sen EINMETALL",
+                "Cxex<cvxcvyCCxXvxyVCXYVCXYVYVYYYYYYYYYYVG",
+                "Muster Muster Muster Muster",
+                "Muster Muster",
+                "Muster Muster",
+                "Muster Muster",
+                "Muster Muster",
+                "Muster Muster",
+                "Muster Muster",
+                "Muster Muster",
+                "Muster Muster",
+                "Muster Muster",
+                "Muster Muster",
+                "Muster Muster",
+                "Muster Muster",
+                "Muster Muster",
+                "Muster Muster",
+                "Muster Muster",
+                "Muster Muster",
+                "Muster Muster",
+                "FOB 00001 — 25.03.2021 — Rev. 1 1/1"
+            ],
+            "timing_seconds": 1.3285057544708252,
+            "resource_usage": {
+                "cpu_percent": 8.8,
+                "memory_mb": 2776.46875
+            }
+        }
+    }
+}
