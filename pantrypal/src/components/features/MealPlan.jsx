@@ -3,12 +3,13 @@ import { callClaude } from "../../lib/claude";
 import { daysUntilExpiry } from "../../lib/expiration";
 import { DIETARY } from "../../lib/sampleData";
 import LoadingSpinner from "../ui/LoadingSpinner";
+import MealGenerator from "./MealGenerator";
 
 const SYSTEM_PROMPT = `You are a meal planning chef assistant. Generate practical, delicious meal plans using primarily the provided inventory. Return ONLY valid JSON, no markdown, no explanation.`;
 
 const MEAL_TYPES = ["Breakfast", "Lunch", "Dinner"];
 
-export default function MealPlan({ inventory, mealPlans, setMealPlans, addToast }) {
+export default function MealPlan({ user, inventory, mealPlans, setMealPlans, addToast }) {
   const [days, setDays] = useState(5);
   const [selectedMeals, setSelectedMeals] = useState(["Breakfast", "Lunch", "Dinner"]);
   const [dietary, setDietary] = useState([]);
@@ -107,20 +108,26 @@ Return format:
     <div className="max-w-7xl mx-auto px-4 py-6 space-y-6">
       {/* Tabs */}
       <div className="flex gap-2">
-        {["generate", "saved"].map((tab) => (
+        {[
+          { id: "generate", label: "✨ Meal Plan" },
+          { id: "recipe",   label: "🍽️ Recipe Generator" },
+          { id: "saved",    label: `📋 Saved Plans (${mealPlans.length})` },
+        ].map(({ id, label }) => (
           <button
-            key={tab}
-            onClick={() => setActiveTab(tab)}
+            key={id}
+            onClick={() => setActiveTab(id)}
             className={`cursor-pointer px-5 py-2 rounded-xl font-semibold text-sm transition-all ${
-              activeTab === tab ? "nav-active" : "bg-white/70 text-gray-600 hover:bg-white"
+              activeTab === id ? "nav-active" : "bg-white/70 text-gray-600 hover:bg-white"
             }`}
           >
-            {tab === "generate" ? "✨ Generate Plan" : `📋 Saved Plans (${mealPlans.length})`}
+            {label}
           </button>
         ))}
       </div>
 
-      {activeTab === "generate" ? (
+      {activeTab === "recipe" ? (
+        <MealGenerator user={user} inventory={inventory} />
+      ) : activeTab === "generate" ? (
         <div className="grid lg:grid-cols-5 gap-6">
           {/* Preferences */}
           <div className="lg:col-span-2 glass p-5 space-y-5">
@@ -241,7 +248,7 @@ Return format:
             )}
           </div>
         </div>
-      ) : (
+      ) : activeTab === "saved" ? (
         <div className="space-y-3">
           {mealPlans.length === 0 ? (
             <div className="glass p-12 text-center text-gray-400">
@@ -285,7 +292,7 @@ Return format:
             ))
           )}
         </div>
-      )}
+      ) : null}
     </div>
   );
 }
