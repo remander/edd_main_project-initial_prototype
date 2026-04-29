@@ -24,8 +24,8 @@ export default function Header({ inventory, user, onSignOut }) {
           <span className="text-sm text-gray-600 font-medium hidden sm:block">
             {inventory.length} items
           </span>
-          <div className="relative">
-            <Bell className="w-6 h-6 text-gray-500" />
+          <div className="relative cursor-pointer">
+            <Bell className="w-6 h-6 text-gray-500"/>
             {criticalCount > 0 && (
               <span className="absolute -top-1.5 -right-1.5 bg-red-500 text-white text-xs font-bold rounded-full w-4 h-4 flex items-center justify-center">
                 {criticalCount}
