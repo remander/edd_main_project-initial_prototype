@@ -1,0 +1,82 @@
+{
+    "metadata": {
+        "ocr_model": "doctr_ocr",
+        "python_version": "3.10.19",
+        "libraries": {
+            "pdf2image": "not installed",
+            "doctr": "1.0.0",
+            "Pillow": "12.0.0",
+            "psutil": "7.1.2",
+            "cpuinfo": "9.0.0"
+        },
+        "system": {
+            "platform": "Windows-10-10.0.26100-SP0",
+            "cpu": "Intel(R) Core(TM) i7-8700 CPU @ 3.20GHz",
+            "cpu_count": 12,
+            "total_memory_mb": 16163.2890625,
+            "poppler_path": null
+        },
+        "timing": {
+            "document_start_time": 1762368708.5788212,
+            "document_end_time": 1762368720.9589436,
+            "total_time_seconds": 12.380122423171997,
+            "per_page_seconds": {
+                "handwriting-sample": 2.9236061573028564
+            }
+        },
+        "resource_usage": {
+            "per_page": {
+                "cpu_percent": {
+                    "handwriting-sample": 50.0
+                },
+                "memory_mb": {
+                    "handwriting-sample": {
+                        "system_memory_mb": 14603.578125,
+                        "process_memory_mb": 1152.08203125
+                    }
+                }
+            },
+            "document": {
+                "avg_cpu_percent": 50.0,
+                "max_cpu_percent": 50.0,
+                "avg_process_memory_mb": 1152.08203125,
+                "max_process_memory_mb": 1152.08203125
+            }
+        }
+    },
+    "results": {
+        "handwriting-sample": [
+            "à",
+            "Rosemane",
+            "this letter conceming",
+            "/AM Sending",
+            "Xterva We Are",
+            "your 2006 NISSNN",
+            "depleted of these NISSA",
+            "newly",
+            "our loua Nuctions",
+            "vehicles and SO NP",
+            "We have A ist of customers Wating for",
+            "t0 loate these vehicles AS the Genern",
+            "us",
+            "I have the Ability t0 offer you",
+            "SNeS Monagen,",
+            "more for your vehicke.",
+            "If",
+            "Now me to make you An offer for",
+            "yu",
+            "will",
+            "two free move",
+            "your Xterva /",
+            "give yu",
+            "this letter by Jun 30th",
+            "tickets. Bring",
+            "here",
+            "and ASk for me When you get",
+            "PS if you have wother vehuk",
+            "thit yu would be interested in",
+            "Selling or trnding, bring it with",
+            "you or 3 me to dsLuss"
+        ]
+    }
+}

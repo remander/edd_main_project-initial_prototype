@@ -1,0 +1,575 @@
+{
+  "paddle": {
+    "metadata": {
+      "date_of_ocr_processing": "Date of OCR Processing: 2025-12-17, 10:24:04",
+      "ocr_model": "PP-OCRv5_mobile",
+      "python_version": "3.10.19",
+      "libraries": {
+        "pdf2image": "1.17.0",
+        "paddleocr": "3.3.2",
+        "Pillow": "10.4.0",
+        "psutil": "7.1.3",
+        "cpuinfo": "9.0.0"
+      },
+      "system": {
+        "platform": "Windows-10-10.0.26100-SP0",
+        "cpu": "Intel(R) Core(TM) i7-8700 CPU @ 3.20GHz",
+        "cpu_count": 12,
+        "total_memory_mb": 16163.2890625,
+        "poppler_path": "C:\\Users\\rmander\\Documents\\poppler-25.07.0\\Library\\bin"
+      },
+      "timing": {
+        "document_start_time": 1765985044.893311,
+        "document_end_time": 1765985091.277402,
+        "total_time_seconds": 46.38409090042114,
+        "ocr_model_initialization_time_seconds": 6.302185535430908,
+        "total_time_with_initialization_seconds": 52.68627643585205,
+        "per_page_seconds": {
+          "11117792-a.01-dwg1_RH-CONFIDENTIAL_page-0001": 46.275662660598755
+        }
+      },
+      "resource_usage": {
+        "per_page": {
+          "cpu_percent": {
+            "11117792-a.01-dwg1_RH-CONFIDENTIAL_page-0001": 91.1
+          },
+          "memory_mb": {
+            "11117792-a.01-dwg1_RH-CONFIDENTIAL_page-0001": {
+              "system_memory_mb": 8726.8671875,
+              "process_memory_mb": 240.11328125
+            }
+          }
+        },
+        "document": {
+          "avg_cpu_percent": 91.1,
+          "max_cpu_percent": 91.1,
+          "avg_process_memory_mb": 240.11328125,
+          "max_process_memory_mb": 240.11328125
+        }
+      }
+    },
+    "results": {
+      "11117792-a.01-dwg1_RH-CONFIDENTIAL_page-0001": [
+        "C5697",
+        "NCAGE",
+        "Date/Name",
+        "JDU24D",
+        "TC",
+        "Rheinmetall Protection Systems GmbH",
+        "7",
+        "a.01",
+        "11117792",
+        "ZE",
+        "RHEINMETALL",
+        "Work in Progress",
+        "Sheet",
+        "Document Number",
+        "Document Type",
+        "Status",
+        "Cert'd",
+        "RH-CONFIDENTIAL",
+        "Check.",
+        "standard",
+        "Adhesive",
+        "Drawn",
+        "Title",
+        "Name",
+        "Date",
+        "Material",
+        "ISO 1302",
+        "Surface",
+        "Product",
+        "Dim. < 6 ±0,5",
+        "ISO 1101",
+        "Geometric Tolerances",
+        "Semifinished",
+        "ISO 2768-CL",
+        "kg",
+        "ISO 8015",
+        "Tolerance",
+        "1:2",
+        "CAD NX",
+        "Mass",
+        "Scale",
+        "General Tolerances",
+        "-",
+        "200",
+        "50",
+        "I",
+        "0",
+        "L"
+      ]
+    }
+  },
+  "onnx": {
+    "metadata": {
+      "date_of_ocr_processing": "Date of OCR Processing: 2025-12-17, 10:24:57",
+      "ocr_model": "onnxtr db_resnet50+parseq",
+      "python_version": "3.10.19",
+      "libraries": {
+        "onnxtr": "0.8.0",
+        "onnxruntime": "1.23.2",
+        "opencv-python": "4.12.0.88",
+        "numpy": "2.0.1",
+        "psutil": "7.1.3",
+        "py-cpuinfo": "9.0.0"
+      },
+      "system": {
+        "platform": "Windows-10-10.0.26100-SP0",
+        "cpu": "Intel(R) Core(TM) i7-8700 CPU @ 3.20GHz",
+        "cpu_count": 12,
+        "total_memory_mb": 16163.2890625
+      },
+      "timing": {
+        "document_start_time": 1765985097.5428562,
+        "document_end_time": 1765985103.8464684,
+        "total_time_seconds": 6.303612232208252,
+        "ocr_model_initialization_time_seconds": 3.567606210708618,
+        "total_time_with_initialization_seconds": 9.87121844291687,
+        "per_page_seconds": {
+          "11117792-a.01-dwg1_RH-CONFIDENTIAL_page-0001": 6.199487209320068
+        }
+      },
+      "resource_usage": {
+        "per_page": {
+          "cpu_percent": {
+            "11117792-a.01-dwg1_RH-CONFIDENTIAL_page-0001": 18.9
+          },
+          "memory_mb": {
+            "11117792-a.01-dwg1_RH-CONFIDENTIAL_page-0001": {
+              "system_memory_mb": 10277.36328125,
+              "process_memory_mb": 1753.6328125
+            }
+          }
+        },
+        "document": {
+          "avg_cpu_percent": 18.9,
+          "max_cpu_percent": 18.9,
+          "avg_process_memory_mb": 1753.6328125,
+          "max_process_memory_mb": 1753.6328125
+        }
+      },
+      "confidence": {
+        "11117792-a.01-dwg1_RH-CONFIDENTIAL_page-0001": 0.9429459577066857
+      }
+    },
+    "results": {
+      "11117792-a.01-dwg1_RH-CONFIDENTIAL_page-0001": [
+        ")",
+        "8",
+        "A",
+        "A",
+        "B",
+        "B",
+        "200",
+        "165 C",
+        "C",
+        "-",
+        "200",
+        "50",
+        "I",
+        "D",
+        "St AU",
+        "IISM a lesig",
+        "be",
+        "SE",
+        "nent ssi",
+        "Ressantirentinne",
+        "expre E",
+        "E",
+        "this without",
+        "of",
+        "phemannant",
+        "Tolerance",
+        "ISO 8015 General Tolerances CADNX Scale 1:2",
+        "Mass kg",
+        "ISO 2768-cL",
+        "liable grant",
+        "Geometric Tolerances ISO.1101 Dim. 6 +0,5",
+        "emifinished roduct",
+        "to",
+        "Surface",
+        "ISO 1302",
+        "I 10 Material",
+        "163",
+        "and",
+        "Date Name itle",
+        "98",
+        "Adhesive",
+        "Drawn",
+        "spandoces",
+        "distribution ts event",
+        "standard",
+        "Check.",
+        "RH-CONFIDENTIAL",
+        "Cert'd",
+        "Sta",
+        "ved",
+        "Work in",
+        "ocument Type Document Number",
+        "Sheet",
+        "mestiwars",
+        "F",
+        "Progress",
+        "F",
+        "nm esen",
+        "RHEINMETALL",
+        "01",
+        "ZE 11117792",
+        "The the",
+        "Rheinmetall Protection Systems GmbH",
+        "Cha",
+        "Dat",
+        "NCAGE C5697",
+        "L",
+        "SERA",
+        "2",
+        "4",
+        "5",
+        "9",
+        "-",
+        "A3"
+      ]
+    }
+  },
+  "doctr": {
+    "metadata": {
+      "date_of_ocr_processing": "Date of OCR Processing: 2025-12-17, 10:25:19 am EST",
+      "ocr_model": "doctr_ocr",
+      "ocr_model_initialization_time_seconds": 7.394321918487549,
+      "python_version": "3.10.19",
+      "libraries": {
+        "pdf2image": "1.17.0",
+        "doctr": "1.0.0",
+        "Pillow": "10.4.0",
+        "psutil": "7.1.3",
+        "cpuinfo": "9.0.0"
+      },
+      "system": {
+        "platform": "Windows-10-10.0.26100-SP0",
+        "cpu": "Intel(R) Core(TM) i7-8700 CPU @ 3.20GHz",
+        "cpu_count": 12,
+        "total_memory_mb": 16163.2890625,
+        "poppler_path": null
+      },
+      "timing": {
+        "document_start_time": 1765985105.6823854,
+        "document_end_time": 1765985119.8938258,
+        "total_time_seconds": 14.211440324783325,
+        "total_time_with_initialization_seconds": 21.605762243270874,
+        "per_page_seconds": {
+          "11117792-a.01-dwg1_RH-CONFIDENTIAL_page-0001": 6.710972785949707
+        }
+      },
+      "resource_usage": {
+        "per_page": {
+          "cpu_percent": {
+            "11117792-a.01-dwg1_RH-CONFIDENTIAL_page-0001": 10.7
+          },
+          "memory_mb": {
+            "11117792-a.01-dwg1_RH-CONFIDENTIAL_page-0001": {
+              "system_memory_mb": 11111.00390625,
+              "process_memory_mb": 2573.26171875
+            }
+          }
+        },
+        "document": {
+          "avg_cpu_percent": 10.7,
+          "max_cpu_percent": 10.7,
+          "avg_process_memory_mb": 2573.26171875,
+          "max_process_memory_mb": 2573.26171875
+        }
+      }
+    },
+    "results": {
+      "11117792-a.01-dwg1_RH-CONFIDENTIAL_page-0001": [
+        "6",
+        "8",
+        "A",
+        "A",
+        "B",
+        "B",
+        "0",
+        "- C",
+        "C",
+        "8",
+        "a",
+        "L",
+        "200",
+        "50",
+        "I",
+        "to",
+        "a D",
+        "D",
+        "EE",
+        "E",
+        "E",
+        "General Tolerances",
+        "Scale",
+        "Mass",
+        "E",
+        "Tolerance",
+        "ISO 8015",
+        "CAD NX",
+        "1:2",
+        "kg",
+        "Geometric Tolerances ISO 1101 ISO Dim. 2768-cL <6 +0,5",
+        "Proateoced",
+        "Surface",
+        "ISO 1302",
+        "6",
+        "i",
+        "Material",
+        "Date Name Title",
+        "Drawn",
+        "Adrodis",
+        "Check.",
+        "RH-CONFIDENTIAL",
+        "Cert'id",
+        "Status",
+        "I F",
+        "Work in Progress",
+        "RHEINMETALL Document Type Document Number",
+        "Sheet 1 F",
+        "a.01",
+        "ZE 11117792",
+        "E2 u",
+        "Rheinmetall Protection Systems GmbH",
+        "Date/Name",
+        "NCAGE C5697",
+        "I",
+        "/",
+        "3",
+        "4",
+        "6",
+        "A3"
+      ]
+    }
+  },
+  "easy": {
+    "metadata": {
+      "date_of_ocr_processing": "Date of OCR Processing: 2025-12-17, 10:25:22",
+      "ocr_model": "easyocr",
+      "python_version": "3.10.19",
+      "libraries": {
+        "easyocr": "1.7.2",
+        "pdf2image": "1.17.0",
+        "Pillow": "10.4.0",
+        "psutil": "7.1.3",
+        "cpuinfo": "9.0.0"
+      },
+      "system": {
+        "platform": "Windows-10-10.0.26100-SP0",
+        "cpu": "Intel(R) Core(TM) i7-8700 CPU @ 3.20GHz",
+        "cpu_count": 12,
+        "total_memory_mb": 16163.2890625,
+        "poppler_path": "C:\\Users\\rmander\\Documents\\poppler-25.07.0\\Library\\bin"
+      },
+      "timing": {
+        "document_start_time": 1765985122.3125782,
+        "document_end_time": 1765985168.1971278,
+        "total_time_seconds": 45.884549617767334,
+        "ocr_model_initialization_time_seconds": 2.017183780670166,
+        "total_time_with_initialization_seconds": 47.9017333984375
+      },
+      "resource_usage": {
+        "document": {
+          "avg_cpu_percent": 0.0,
+          "max_cpu_percent": 0.0,
+          "avg_process_memory_mb": 2203.3046875,
+          "max_process_memory_mb": 2203.3046875
+        }
+      },
+      "per_page": {
+        "11117792-a.01-dwg1_RH-CONFIDENTIAL_page-0001": {
+          "timing_seconds": 43.64213538169861,
+          "resource_usage": {
+            "cpu_percent": 0.0,
+            "memory_mb": 2228.99609375
+          }
+        }
+      }
+    },
+    "results": {
+      "11117792-a.01-dwg1_RH-CONFIDENTIAL_page-0001": [
+        "8",
+        "8",
+        "8",
+        "2",
+        "0",
+        "200 50",
+        "8",
+        "2",
+        "X H",
+        "7",
+        "2",
+        "5",
+        "{",
+        "8",
+        "Jq",
+        "5",
+        "F",
+        "9 1 8",
+        "2",
+        "5 General lolerances Scale 1.2 Mass",
+        "IE; Tolerance ISO  8015 CAD NX kg",
+        "2 \"5 ISO  2768-cL",
+        "Geometric Tolerances ISO   1401 Dim; +0,5 Feodticished",
+        "E",
+        "2 Surface ISO   1302",
+        "22 Material",
+        "8 E",
+        "Date Name Title",
+        "85",
+        "1",
+        "Sdesra Drawn",
+        "23 8 RH-CONFIDENTIAL",
+        "6 heck",
+        "5 2 Cert'd",
+        "MH",
+        "E Status",
+        "Work_in Progress_",
+        "L RHEINMETALL Document Type Document Number Sheet",
+        "ZE 11117792",
+        "3.01",
+        "u) Rheinmetall Protection Systems GmbH",
+        "24 2",
+        "4 Rev. Chanqe Date/Name NCAGE C569",
+        "43"
+      ]
+    }
+  },
+  "surya": {
+    "metadata": {
+      "date_of_ocr_processing": "Date of OCR Processing: 2025-12-17, 10:26:09",
+      "ocr_model": "surya",
+      "python_version": "3.10.19",
+      "libraries": {
+        "pypdfium2": "4.30.0",
+        "surya": "0.17.0",
+        "Pillow": "10.4.0",
+        "psutil": "7.1.3",
+        "cpuinfo": "9.0.0"
+      },
+      "system": {
+        "platform": "Windows-10-10.0.26100-SP0",
+        "cpu": "Intel(R) Core(TM) i7-8700 CPU @ 3.20GHz",
+        "cpu_count": 12,
+        "total_memory_mb": 16163.2890625,
+        "poppler_path": null
+      },
+      "timing": {
+        "document_start_time": 1765985169.864409,
+        "document_end_time": 1765985172.3512104,
+        "total_time_seconds": 2.4868013858795166,
+        "ocr_model_initialization_time_seconds": 0.0010075569152832031,
+        "total_time_with_initialization_seconds": 2.4878089427948
+      },
+      "resource_usage": {
+        "document": {
+          "avg_cpu_percent": 18.1,
+          "max_cpu_percent": 18.1,
+          "avg_process_memory_mb": 2271.0078125,
+          "max_process_memory_mb": 2271.0078125
+        }
+      },
+      "per_page": {
+        "11117792-a.01-dwg1_RH-CONFIDENTIAL_page-0001_page_1": {
+          "timing_seconds": 2.377018928527832,
+          "resource_usage": {
+            "cpu_percent": 18.1,
+            "memory_mb": 2271.0078125
+          }
+        }
+      }
+    },
+    "results": {
+      "11117792-a.01-dwg1_RH-CONFIDENTIAL_page-0001_page_1": [
+        "oe ee >",
+        "200",
+        "200",
+        "\"Refer to protection notice ISO 16016\"",
+        "General Tolerances Scale Mass",
+        "7 i i ne",
+        "olerance ISO 8015 SO 2768-cL Kg",
+        "Geometric Tolerances ISO 1101 Dim. < 6 +05 peminisned",
+        "Surface ISO. 1302 Material",
+        "Title",
+        "Standard RH-CONFIDENTIAL",
+        "atus .",
+        "Work In Progress FF RHEINMETALL Document Type Document Number",
+        "| ZE 11117792",
+        "Rheinmetall Protection Systems GmbH |",
+        "Date/Name NCAGE (5697",
+        "a",
+        "The reproduction, distribution and utilization of this document as well as",
+        "the communication of ifs contents to others without express authorization",
+        "is prohibited. Offenders will be held liable for the payment of damages. All",
+        "rights reserved in the event of the grant of a patent, utility model or design."
+      ]
+    }
+  },
+  "tesseract": {
+    "metadata": {
+      "date_of_ocr_processing": "Date of OCR Processing: 2025-12-17, 10:26:14",
+      "ocr_model": "tesseract-5.5.0.20241111",
+      "python_version": "3.10.19",
+      "libraries": {
+        "pytesseract": "0.3.13",
+        "pdf2image": "1.17.0",
+        "Pillow": "10.4.0",
+        "psutil": "7.1.3",
+        "cpuinfo": "9.0.0"
+      },
+      "system": {
+        "platform": "Windows-10-10.0.26100-SP0",
+        "cpu": "Intel(R) Core(TM) i7-8700 CPU @ 3.20GHz",
+        "cpu_count": 12,
+        "total_memory_mb": 16163.2890625,
+        "poppler_path": "C:\\Users\\rmander\\Documents\\poppler-25.07.0\\Library\\bin",
+        "tesseract_path": "C:\\Users\\rmander\\AppData\\Local\\Programs\\Tesseract-OCR\\tesseract.exe"
+      },
+      "timing": {
+        "document_start_time": 1765985174.0805047,
+        "document_end_time": 1765985175.5661244,
+        "total_time_seconds": 1.4856197834014893,
+        "ocr_model_initialization_time_seconds": 0.07799410820007324,
+        "total_time_with_initialization_seconds": 1.5636138916015625,
+        "per_page_seconds": {
+          "11117792-a.01-dwg1_RH-CONFIDENTIAL_page-0001": 1.3769676685333252
+        }
+      },
+      "resource_usage": {
+        "per_page": {
+          "cpu_percent": {
+            "11117792-a.01-dwg1_RH-CONFIDENTIAL_page-0001": 1.3
+          },
+          "memory_mb": {
+            "11117792-a.01-dwg1_RH-CONFIDENTIAL_page-0001": {
+              "system_memory_mb": 10684.2578125,
+              "process_memory_mb": 2222.1640625
+            }
+          }
+        },
+        "document": {
+          "avg_cpu_percent": 1.3,
+          "max_cpu_percent": 1.3,
+          "avg_process_memory_mb": 2222.1640625,
+          "max_process_memory_mb": 2222.1640625
+        }
+      },
+      "per_page": {
+        "11117792-a.01-dwg1_RH-CONFIDENTIAL_page-0001": {
+          "timing_seconds": 1.3769676685333252,
+          "resource_usage": {
+            "cpu_percent": 1.3,
+            "memory_mb": 2222.1640625
+          }
+        }
+      }
+    },
+    "results": {
+      "11117792-a.01-dwg1_RH-CONFIDENTIAL_page-0001": []
+    }
+  }
+}

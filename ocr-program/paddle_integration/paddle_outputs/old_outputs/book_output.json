@@ -1,0 +1,98 @@
+{
+    "metadata": {
+        "ocr_model": "PP-OCRv5_mobile",
+        "python_version": "3.13.7",
+        "libraries": {
+            "pdf2image": "1.17.0",
+            "paddleocr": "3.2.0",
+            "Pillow": "11.3.0",
+            "psutil": "7.1.0",
+            "cpuinfo": "9.0.0"
+        },
+        "system": {
+            "platform": "Windows-11-10.0.26100-SP0",
+            "cpu": "Intel(R) Core(TM) i7-8700 CPU @ 3.20GHz",
+            "cpu_count": 12,
+            "total_memory_mb": 16163.2890625,
+            "poppler_path": "C:\\Users\\rmander\\Documents\\poppler-25.07.0\\Library\\bin"
+        },
+        "timing": {
+            "document_start_time": 1761155891.513334,
+            "document_end_time": 1761155900.3355432,
+            "total_time_seconds": 8.822209119796753,
+            "per_page_seconds": {
+                "book": 8.720160007476807
+            }
+        },
+        "resource_usage": {
+            "per_page": {
+                "cpu_percent": {
+                    "book": 98.7
+                },
+                "memory_mb": {
+                    "book": {
+                        "system_memory_mb": 13009.33984375,
+                        "process_memory_mb": 854.17578125
+                    }
+                }
+            },
+            "document": {
+                "avg_cpu_percent": 98.7,
+                "max_cpu_percent": 98.7,
+                "avg_process_memory_mb": 854.17578125,
+                "max_process_memory_mb": 854.17578125
+            }
+        }
+    },
+    "results": {
+        "book": [
+            "lise",
+            "meanS that EVERYTHING ON THE BOTTOM",
+            "wer can never be a fraction which",
+            "ALWAYS CANCELS OUT! It's probably the best fun",
+            "you'll ever have with a pencil so here we go...",
+            "11!",
+            "=",
+            "11×10×9×8×7×6×5×4×3×2×1",
+            "4!×7!",
+            "4×3x2x1×7×6×5×4×3x2×1",
+            "The disappearing Sum",
+            "It's Friday evening. The lovely Veronica Gumfloss",
+            "(Before we continue, grab this book and show",
+            "has been out with the football team who have all",
+            "somebody this sum. Rub their face on it if you need",
+            "to and tell them that this is the sort of thing you do",
+            "escorted her safely back to her doorstep. It's that",
+            "for fun without a calculator these days because",
+            "tender moment when each hopeful player closes his",
+            "you're so brilliant.)",
+            "eyes and leans forward with quivering lips.",
+            "Off we go then. For starters we'll get rid of the 7!",
+            "Unfortunately Veronica's parents heard them",
+            "bit from top and bottom and get:",
+            "clumping down the road and Veronica knows she",
+            "only has time to kiss four out of the eleven of them",
+            "11×10×9×8",
+            "if she's going to do it properly.",
+            "4×3×2×1",
+            "WHICH FOUR DO I FANCY MOST?",
+            "Pow! That's already got rid of more than half the",
+            "numbers. Next we'll see that the 4× 2 on the bottom",
+            "cancels out the 8 on top (and we don't need that",
+            "\"× 1\" on the bottom either). We're left with...",
+            "11×10×9",
+            "3",
+            "Then the 3 on the bottom divides into the 9 on top",
+            "leaving it as a 3 so all we've got now is:",
+            "How many choices has she got? It's nC, which is",
+            "Veronica's choices = 11 × 10 × 3",
+            "4!×71",
+            "but for goodness sake DON'T reach for the",
+            "calculator! The most brilliant thing about perms and",
+            "Look! No bottom.",
+            "94",
+            "95",
+            ""
+        ]
+    }
+}

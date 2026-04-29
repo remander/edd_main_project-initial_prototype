@@ -1,0 +1,58 @@
+{
+    "metadata": {
+        "ocr_model": "PP-OCRv5_mobile",
+        "timing": {
+            "document_start_time": 1762978325.4098861,
+            "document_end_time": 1762978342.6529567,
+            "total_time_seconds": 17.243070602416992,
+            "per_page_seconds": {
+                "handwriting-sample": 8.368861675262451
+            }
+        },
+        "resource_usage": {
+            "per_page": {
+                "cpu_percent": {
+                    "handwriting-sample": 100.0
+                },
+                "memory_mb": {
+                    "handwriting-sample": {
+                        "system_memory_mb": 12353.0625,
+                        "process_memory_mb": 686.73828125
+                    }
+                }
+            },
+            "document": {
+                "avg_cpu_percent": 100.0,
+                "max_cpu_percent": 100.0,
+                "avg_process_memory_mb": 686.73828125,
+                "max_process_memory_mb": 686.73828125
+            }
+        },
+        "optimization_settings": {
+            "max_workers": 1,
+            "dpi": 120,
+            "image_preprocessing": "enabled"
+        }
+    },
+    "results": {
+        "handwriting-sample": [
+            "Rosemarie,",
+            "I am sending this letter concerning",
+            "your 20o6 Nissan Xterra We are",
+            "nearly depleted of these Nissan",
+            "vehicles and so are our loca auctions.",
+            "We have a list of customers waiting for",
+            "us to locate these vehicles. As the Genera",
+            "Sales Manager, I have the ability to offer you",
+            "more for your vehicle.",
+            "If you allow me to make you an offer for",
+            "your Xterra I will give you two free movie",
+            "tickets. Bring this letter by Jun 30th",
+            "and ask for me when you get here.",
+            "P.S. if you have another vehicte",
+            "that you would be interested in",
+            "selling or trading, bring it with",
+            "you or cll me to discuss."
+        ]
+    }
+}

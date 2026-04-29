@@ -1,0 +1,112 @@
+{
+    "results": {
+        "v1_klass_pages-to-jpg-0001": [
+            "RHEINMETALL",
+            "CxCX<CVXCVYCCXVXYVCXYVCXYVYYYYYYYYYYYYVC",
+            "Muster Muster Muster Muster",
+            "Muster Muster",
+            "Muster Muster",
+            "Muster Muster",
+            "Muster Muster",
+            "Muster Muster",
+            "Muster Muster DIENSTGEBRAUCH",
+            "DEN",
+            "Muster Muster",
+            "FUR",
+            "Muster Muster",
+            "VS-NUR",
+            "Muster Muster",
+            "Muster Muster",
+            "Muster Muster",
+            "1",
+            "Muster Muster",
+            "Muster Muster",
+            "Muster Muster",
+            "Muster Muster",
+            "Muster Muster",
+            "Muster Muster",
+            "FOB 00001 25.03.2021 Rev  1 1/1",
+            "5"
+        ]
+    },
+    "metadata": {
+        "date_of_ocr_processing": "Date of OCR Processing: 2025-12-17, 10:37:17",
+        "ocr_model": "easyocr",
+        "python_version": "3.10.19",
+        "libraries": {
+            "easyocr": "1.7.2",
+            "pdf2image": "1.17.0",
+            "Pillow": "10.4.0",
+            "psutil": "7.1.3",
+            "cpuinfo": "9.0.0"
+        },
+        "system": {
+            "platform": "Windows-10-10.0.26100-SP0",
+            "cpu": "Intel(R) Core(TM) i7-8700 CPU @ 3.20GHz",
+            "cpu_count": 12,
+            "total_memory_mb": 16163.2890625,
+            "poppler_path": "C:\\Users\\rmander\\Documents\\poppler-25.07.0\\Library\\bin"
+        },
+        "timing": {
+            "document_start_time": 1765985837.074161,
+            "document_end_time": 1765985879.9164264,
+            "total_time_seconds": 42.842265367507935,
+            "ocr_model_initialization_time_seconds": 1.8164277076721191,
+            "total_time_with_initialization_seconds": 44.658693075180054
+        },
+        "resource_usage": {
+            "document": {
+                "avg_cpu_percent": 0.0,
+                "max_cpu_percent": 0.0,
+                "avg_process_memory_mb": 2743.20703125,
+                "max_process_memory_mb": 2743.20703125
+            }
+        },
+        "per_page": {
+            "v1_klass_pages-to-jpg-0001": {
+                "timing_seconds": 40.8074836730957,
+                "resource_usage": {
+                    "cpu_percent": 14.2,
+                    "memory_mb": 2765.56640625
+                }
+            }
+        }
+    },
+    "results_detailed": {
+        "v1_klass_pages-to-jpg-0001": {
+            "ocr": [
+                "RHEINMETALL",
+                "CxCX<CVXCVYCCXVXYVCXYVCXYVYYYYYYYYYYYYVC",
+                "Muster Muster Muster Muster",
+                "Muster Muster",
+                "Muster Muster",
+                "Muster Muster",
+                "Muster Muster",
+                "Muster Muster",
+                "Muster Muster DIENSTGEBRAUCH",
+                "DEN",
+                "Muster Muster",
+                "FUR",
+                "Muster Muster",
+                "VS-NUR",
+                "Muster Muster",
+                "Muster Muster",
+                "Muster Muster",
+                "1",
+                "Muster Muster",
+                "Muster Muster",
+                "Muster Muster",
+                "Muster Muster",
+                "Muster Muster",
+                "Muster Muster",
+                "FOB 00001 25.03.2021 Rev  1 1/1",
+                "5"
+            ],
+            "timing_seconds": 40.8074836730957,
+            "resource_usage": {
+                "cpu_percent": 14.2,
+                "memory_mb": 2765.56640625
+            }
+        }
+    }
+}

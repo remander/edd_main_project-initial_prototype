@@ -1,0 +1,63 @@
+{
+    "metadata": {
+        "ocr_model": "PP-OCRv5_mobile",
+        "python_version": "3.13.7",
+        "libraries": {
+            "pdf2image": "1.17.0",
+            "paddleocr": "3.2.0",
+            "Pillow": "11.3.0",
+            "psutil": "7.1.0",
+            "cpuinfo": "9.0.0"
+        },
+        "system": {
+            "platform": "Windows-11-10.0.26100-SP0",
+            "cpu": "Intel(R) Core(TM) i7-8700 CPU @ 3.20GHz",
+            "cpu_count": 12,
+            "total_memory_mb": 16163.2890625,
+            "poppler_path": "C:\\Users\\rmander\\Documents\\poppler-25.07.0\\Library\\bin"
+        },
+        "timing": {
+            "document_start_time": 1761158962.7050345,
+            "document_end_time": 1761158965.4707272,
+            "total_time_seconds": 2.765692710876465,
+            "per_page_seconds": {
+                "table": 2.6640431880950928
+            }
+        },
+        "resource_usage": {
+            "per_page": {
+                "cpu_percent": {
+                    "table": 94.4
+                },
+                "memory_mb": {
+                    "table": {
+                        "system_memory_mb": 11777.28125,
+                        "process_memory_mb": 661.40234375
+                    }
+                }
+            },
+            "document": {
+                "avg_cpu_percent": 94.4,
+                "max_cpu_percent": 94.4,
+                "avg_process_memory_mb": 661.40234375,
+                "max_process_memory_mb": 661.40234375
+            }
+        }
+    },
+    "results": {
+        "table": [
+            "CRuncover",
+            "Dres",
+            "I",
+            "",
+            "I",
+            "Abstr",
+            "rSrivi",
+            "$709.",
+            "cludingGiv",
+            "2.72",
+            "Ingcubic",
+            "$744.78"
+        ]
+    }
+}

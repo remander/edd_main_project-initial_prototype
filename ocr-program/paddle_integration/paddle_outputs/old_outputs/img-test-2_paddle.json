@@ -1,0 +1,56 @@
+{
+    "metadata": {
+        "ocr_model": "PP-OCRv5_mobile",
+        "python_version": "3.13.7",
+        "libraries": {
+            "pdf2image": "1.17.0",
+            "paddleocr": "3.2.0",
+            "Pillow": "11.3.0",
+            "psutil": "7.1.0",
+            "cpuinfo": "9.0.0"
+        },
+        "system": {
+            "platform": "Windows-11-10.0.26100-SP0",
+            "cpu": "Intel(R) Core(TM) i7-8700 CPU @ 3.20GHz",
+            "cpu_count": 12,
+            "total_memory_mb": 16163.2890625,
+            "poppler_path": "C:\\Users\\rmander\\Documents\\poppler-25.07.0\\Library\\bin"
+        },
+        "timing": {
+            "document_start_time": 1761158912.2825935,
+            "document_end_time": 1761158915.7317367,
+            "total_time_seconds": 3.449143171310425,
+            "per_page_seconds": {
+                "img-test-2": 3.3475513458251953
+            }
+        },
+        "resource_usage": {
+            "per_page": {
+                "cpu_percent": {
+                    "img-test-2": 81.7
+                },
+                "memory_mb": {
+                    "img-test-2": {
+                        "system_memory_mb": 11888.99609375,
+                        "process_memory_mb": 658.23046875
+                    }
+                }
+            },
+            "document": {
+                "avg_cpu_percent": 81.7,
+                "max_cpu_percent": 81.7,
+                "avg_process_memory_mb": 658.23046875,
+                "max_process_memory_mb": 658.23046875
+            }
+        }
+    },
+    "results": {
+        "img-test-2": [
+            "Think",
+            "about",
+            "it",
+            "Barbara!!!",
+            "U"
+        ]
+    }
+}

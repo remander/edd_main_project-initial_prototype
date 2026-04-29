@@ -1,0 +1,446 @@
+{
+  "paddle": {
+    "metadata": {
+      "date_of_ocr_processing": "Date of OCR Processing: 2025-12-10, 14:28:30",
+      "ocr_model": "PP-OCRv5_mobile",
+      "ocr_model_initialization_time_seconds": 5.163743495941162,
+      "python_version": "3.10.19",
+      "libraries": {
+        "pdf2image": "1.17.0",
+        "paddleocr": "3.3.2",
+        "Pillow": "10.4.0",
+        "psutil": "7.1.3",
+        "cpuinfo": "9.0.0"
+      },
+      "system": {
+        "platform": "Windows-10-10.0.26100-SP0",
+        "cpu": "Intel(R) Core(TM) i7-8700 CPU @ 3.20GHz",
+        "cpu_count": 12,
+        "total_memory_mb": 16163.2890625,
+        "poppler_path": "C:\\Users\\rmander\\Documents\\poppler-25.07.0\\Library\\bin"
+      },
+      "timing": {
+        "document_start_time": 1765394910.3850358,
+        "document_end_time": 1765394914.3416746,
+        "total_time_seconds": 3.956638813018799,
+        "total_time_with_initialization_seconds": 9.120382308959961,
+        "per_page_seconds": {
+          "handwriting-sample": 3.854689121246338
+        }
+      },
+      "resource_usage": {
+        "per_page": {
+          "cpu_percent": {
+            "handwriting-sample": 100.0
+          },
+          "memory_mb": {
+            "handwriting-sample": {
+              "system_memory_mb": 11666.703125,
+              "process_memory_mb": 873.9453125
+            }
+          }
+        },
+        "document": {
+          "avg_cpu_percent": 100.0,
+          "max_cpu_percent": 100.0,
+          "avg_process_memory_mb": 873.9453125,
+          "max_process_memory_mb": 873.9453125
+        }
+      }
+    },
+    "results": {
+      "handwriting-sample": [
+        "Rosemarie,",
+        "I am sending this letter concerning",
+        "your 20o6 Nissan Xterra We are",
+        "nearly depleted of these Nissan",
+        "vehicles and so are our loca auctions.",
+        "We have a list of customers waiting for",
+        "us to locate these vehicles. As the Genera",
+        "Sales Manager, I have the ability to offer you",
+        "more for your vehicle.",
+        "If you allow me to make you an offer for",
+        "your Xterra I will give you two free movie",
+        "tickets. Bring this letter by Jun 30th",
+        "and ask for me when you get here.",
+        "P.S. if you have another vehicte",
+        "that you would be interested in",
+        "selling or trading, bring it with",
+        "you or cll me to discuss."
+      ]
+    }
+  },
+  "onnx": {
+    "metadata": {
+      "date_of_ocr_processing": "Date of OCR Processing: 2025-12-10, 14:28:39",
+      "ocr_model": "onnxtr db_resnet50+parseq",
+      "ocr_model_initialization_time_seconds": 3.4845054149627686,
+      "python_version": "3.10.19",
+      "libraries": {
+        "onnxtr": "0.8.0",
+        "onnxruntime": "1.23.2",
+        "opencv-python": "4.12.0.88",
+        "numpy": "2.0.1",
+        "psutil": "7.1.3",
+        "py-cpuinfo": "9.0.0"
+      },
+      "system": {
+        "platform": "Windows-10-10.0.26100-SP0",
+        "cpu": "Intel(R) Core(TM) i7-8700 CPU @ 3.20GHz",
+        "cpu_count": 12,
+        "total_memory_mb": 16163.2890625
+      },
+      "timing": {
+        "document_start_time": 1765394919.8949168,
+        "document_end_time": 1765394925.309559,
+        "total_time_seconds": 5.414642333984375,
+        "total_time_with_initialization_seconds": 8.899147748947144,
+        "per_page_seconds": {
+          "handwriting-sample": 5.2896809577941895
+        }
+      },
+      "resource_usage": {
+        "per_page": {
+          "cpu_percent": {
+            "handwriting-sample": 24.2
+          },
+          "memory_mb": {
+            "handwriting-sample": {
+              "system_memory_mb": 12992.73828125,
+              "process_memory_mb": 2214.6640625
+            }
+          }
+        },
+        "document": {
+          "avg_cpu_percent": 24.2,
+          "max_cpu_percent": 24.2,
+          "avg_process_memory_mb": 2214.6640625,
+          "max_process_memory_mb": 2214.6640625
+        }
+      },
+      "confidence": {
+        "handwriting-sample": 0.9385944325644691
+      }
+    },
+    "results": {
+      "handwriting-sample": [
+        "Posemwie,",
+        "this letter conceming",
+        "/ uv Sending",
+        "Xterva We Are",
+        "your 2006 Nissan",
+        "newly depleted of these Nissan",
+        "vehicles par S0 Ne ar ben autions",
+        "We have A Ist of ustomers waiting for",
+        "us to lauate these vehicles As the Genern",
+        "SNes Moroger, I have the abilty to offer you",
+        "more for your vehicle",
+        "#",
+        "alow me to make not an offer for",
+        "nat Xtarva / will",
+        "not +WO fvee movie",
+        "your",
+        "give",
+        "tickets",
+        "this letter hg Jun 30th",
+        "and ASk Pory me when nat get here",
+        "PS if yau have mother vehuk",
+        "Hat yau pprom be interested 5",
+        "Seling ar trading bring it with",
+        "you a col me to dsuss"
+      ]
+    }
+  },
+  "doctr": {
+    "metadata": {
+      "date_of_ocr_processing": "Date of OCR Processing: 2025-12-10, 2:28:59 pm EST",
+      "ocr_model": "doctr_ocr",
+      "ocr_model_initialization_time_seconds": 5.832418203353882,
+      "python_version": "3.10.19",
+      "libraries": {
+        "pdf2image": "1.17.0",
+        "doctr": "1.0.0",
+        "Pillow": "10.4.0",
+        "psutil": "7.1.3",
+        "cpuinfo": "9.0.0"
+      },
+      "system": {
+        "platform": "Windows-10-10.0.26100-SP0",
+        "cpu": "Intel(R) Core(TM) i7-8700 CPU @ 3.20GHz",
+        "cpu_count": 12,
+        "total_memory_mb": 16163.2890625,
+        "poppler_path": null
+      },
+      "timing": {
+        "document_start_time": 1765394926.9310656,
+        "document_end_time": 1765394939.7201872,
+        "total_time_seconds": 12.789121627807617,
+        "total_time_with_initialization_seconds": 18.6215398311615,
+        "per_page_seconds": {
+          "handwriting-sample": 6.848600625991821
+        }
+      },
+      "resource_usage": {
+        "per_page": {
+          "cpu_percent": {
+            "handwriting-sample": 0.0
+          },
+          "memory_mb": {
+            "handwriting-sample": {
+              "system_memory_mb": 13727.24609375,
+              "process_memory_mb": 3086.921875
+            }
+          }
+        },
+        "document": {
+          "avg_cpu_percent": 0.0,
+          "max_cpu_percent": 0.0,
+          "avg_process_memory_mb": 3086.921875,
+          "max_process_memory_mb": 3086.921875
+        }
+      }
+    },
+    "results": {
+      "handwriting-sample": [
+        "à",
+        "Rosemane",
+        "this letter conceming",
+        "/AM Sending",
+        "Xterva We Are",
+        "your 2006 NISSNN",
+        "depleted of these NISSA",
+        "newly",
+        "our loua Nuctions",
+        "vehicles and SO NP",
+        "We have A ist of customers Wating for",
+        "t0 loate these vehicles AS the Genern",
+        "us",
+        "I have the Ability t0 offer you",
+        "SNeS Monagen,",
+        "more for your vehicke.",
+        "If",
+        "Now me to make you An offer for",
+        "yu",
+        "will",
+        "two free move",
+        "your Xterva /",
+        "give yu",
+        "this letter by Jun 30th",
+        "tickets. Bring",
+        "here",
+        "and ASk for me When you get",
+        "PS if you have wother vehuk",
+        "thit yu would be interested in",
+        "Selling or trnding, bring it with",
+        "you or 3 me to dsLuss"
+      ]
+    }
+  },
+  "easy": {
+    "metadata": {
+      "date_of_ocr_processing": "Date of OCR Processing: 2025-12-10, 14:29:01",
+      "ocr_model": "easyocr",
+      "ocr_model_initialization_time_seconds": 1.8328509330749512,
+      "python_version": "3.10.19",
+      "libraries": {
+        "easyocr": "1.7.2",
+        "pdf2image": "1.17.0",
+        "Pillow": "10.4.0",
+        "psutil": "7.1.3",
+        "cpuinfo": "9.0.0"
+      },
+      "system": {
+        "platform": "Windows-10-10.0.26100-SP0",
+        "cpu": "Intel(R) Core(TM) i7-8700 CPU @ 3.20GHz",
+        "cpu_count": 12,
+        "total_memory_mb": 16163.2890625,
+        "poppler_path": "C:\\Users\\rmander\\Documents\\poppler-25.07.0\\Library\\bin"
+      },
+      "timing": {
+        "document_start_time": 1765394941.6113937,
+        "document_end_time": 1765394949.047009,
+        "total_time_seconds": 7.435615301132202,
+        "total_time_with_initialization_seconds": 9.268466234207153
+      },
+      "resource_usage": {
+        "document": {
+          "avg_cpu_percent": 0.0,
+          "max_cpu_percent": 0.0,
+          "avg_process_memory_mb": 3265.16796875,
+          "max_process_memory_mb": 3265.16796875
+        }
+      },
+      "per_page": {
+        "handwriting-sample": {
+          "timing_seconds": 5.381044626235962,
+          "resource_usage": {
+            "cpu_percent": 0.0,
+            "memory_mb": 3265.16796875
+          }
+        }
+      }
+    },
+    "results": {
+      "handwriting-sample": [
+        "Poscm112;",
+        "Sonding this kettr lneerning",
+        "Am Nissm Xtrra Wc Ne",
+        "Ypur  2OD1",
+        "neNN dpk-trd of thrse NSSA",
+        "bxN utions",
+        "vehickes And So wre Our",
+        "We hvc 4 Is+ 0f Lustomrs WAting for",
+        "US +0 luttr thSc Vehiks As te Gar",
+        "huv t Ablty t0 ofkrr You",
+        "SNs Minjcv;",
+        "move for YoUr vehick",
+        "Aow me +0 mk Yu mn ofkr for",
+        "I Yu Yu tW free movie",
+        "Your Xtrrra Wll give",
+        "this kth by Jun zoth",
+        "I ASk for m When_Yu gthc tiekts Brin)",
+        "PS i Yuu hve mnothr vchidk",
+        "Scling & trling briny & wt Hu+ Yu wauui b2 Interestrd",
+        "YU & Ul m ti ASLLS"
+      ]
+    }
+  },
+  "surya": {
+    "metadata": {
+      "date_of_ocr_processing": "Date of OCR Processing: 2025-12-10, 14:29:10",
+      "ocr_model": "surya",
+      "ocr_model_initialization_time_seconds": 0.0009984970092773438,
+      "python_version": "3.10.19",
+      "libraries": {
+        "pypdfium2": "4.30.0",
+        "surya": "0.17.0",
+        "Pillow": "10.4.0",
+        "psutil": "7.1.3",
+        "cpuinfo": "9.0.0"
+      },
+      "system": {
+        "platform": "Windows-10-10.0.26100-SP0",
+        "cpu": "Intel(R) Core(TM) i7-8700 CPU @ 3.20GHz",
+        "cpu_count": 12,
+        "total_memory_mb": 16163.2890625,
+        "poppler_path": null
+      },
+      "timing": {
+        "document_start_time": 1765394950.8241196,
+        "document_end_time": 1765394951.254119,
+        "total_time_seconds": 0.42999935150146484,
+        "total_time_with_initialization_seconds": 0.4309978485107422
+      },
+      "resource_usage": {
+        "document": {
+          "avg_cpu_percent": 18.1,
+          "max_cpu_percent": 18.1,
+          "avg_process_memory_mb": 3267.23828125,
+          "max_process_memory_mb": 3267.23828125
+        }
+      },
+      "per_page": {
+        "handwriting-sample_page_1": {
+          "timing_seconds": 0.3297765254974365,
+          "resource_usage": {
+            "cpu_percent": 18.1,
+            "memory_mb": 3267.23828125
+          }
+        }
+      }
+    },
+    "results": {
+      "handwriting-sample_page_1": [
+        "sy",
+        "—",
+        "Roseman,",
+        "Lam stra this letter concern)",
+        "your 2000 Nissan Xterra We We",
+        "nearly depleted of these Nissan",
+        "Vehicles and so ave our le auctions",
+        "we have a Ist oF customers wating ty"
+      ]
+    }
+  },
+  "tesseract": {
+    "metadata": {
+      "date_of_ocr_processing": "Date of OCR Processing: 2025-12-10, 14:29:12",
+      "ocr_model": "tesseract-5.5.0.20241111",
+      "ocr_model_initialization_time_seconds": 0.08376145362854004,
+      "python_version": "3.10.19",
+      "libraries": {
+        "pytesseract": "0.3.13",
+        "pdf2image": "1.17.0",
+        "Pillow": "10.4.0",
+        "psutil": "7.1.3",
+        "cpuinfo": "9.0.0"
+      },
+      "system": {
+        "platform": "Windows-10-10.0.26100-SP0",
+        "cpu": "Intel(R) Core(TM) i7-8700 CPU @ 3.20GHz",
+        "cpu_count": 12,
+        "total_memory_mb": 16163.2890625,
+        "poppler_path": "C:\\Users\\rmander\\Documents\\poppler-25.07.0\\Library\\bin",
+        "tesseract_path": "C:\\Users\\rmander\\AppData\\Local\\Programs\\Tesseract-OCR\\tesseract.exe"
+      },
+      "timing": {
+        "document_start_time": 1765394952.9873307,
+        "document_end_time": 1765394953.540213,
+        "total_time_seconds": 0.5528824329376221,
+        "total_time_with_initialization_seconds": 0.6366438865661621,
+        "per_page_seconds": {
+          "handwriting-sample": 0.44925999641418457
+        }
+      },
+      "resource_usage": {
+        "per_page": {
+          "cpu_percent": {
+            "handwriting-sample": 2.8
+          },
+          "memory_mb": {
+            "handwriting-sample": {
+              "system_memory_mb": 13965.48046875,
+              "process_memory_mb": 3267.76953125
+            }
+          }
+        },
+        "document": {
+          "avg_cpu_percent": 2.8,
+          "max_cpu_percent": 2.8,
+          "avg_process_memory_mb": 3267.76953125,
+          "max_process_memory_mb": 3267.76953125
+        }
+      },
+      "per_page": {
+        "handwriting-sample": {
+          "timing_seconds": 0.44925999641418457,
+          "resource_usage": {
+            "cpu_percent": 2.8,
+            "memory_mb": 3267.76953125
+          }
+        }
+      }
+    },
+    "results": {
+      "handwriting-sample": [
+        "_ a",
+        "a",
+        "Rosen,",
+        "Lam sending ths letter corcenrh",
+        "Y we we",
+        "vehicles and SO",
+        "we have a Ist of customers watrg for",
+        "us. to luate these vehuks AS the Gener’",
+        "sas Moray | have He ably #0 offer we",
+        "move for your eRe",
+        "if you alo",
+        "your Xterra, | val give seu",
+        "fukets Bary ths iether by Jun 20th",
+        "and ask for'me when yeu get here.",
+        "that pus weed be terested 7 |",
+        "(hig or tenting tory ot eth)",
+        "a me AA"
+      ]
+    }
+  }
+}

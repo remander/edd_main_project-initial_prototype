@@ -1,5 +1,6 @@
 import { useState, useRef } from "react";
 import { callClaude } from "../../lib/claude";
+import { parseReceiptText } from "../../lib/receiptParser";
 import { estimateExpiration } from "../../lib/expiration";
 import { CATEGORIES, UNITS } from "../../lib/sampleData";
 import LoadingSpinner from "../ui/LoadingSpinner";
@@ -42,26 +43,55 @@ export default function ScanReceipt({ addItems, addToast }) {
     try {
       let raw;
       if (mode === "image") {
-        const dataUrl = imagePreview;
-        const [header, base64] = dataUrl.split(",");
-        const mediaType = header.match(/:(.*?);/)[1];
-        raw = await callClaude(
-          "Parse this grocery receipt and return only the food items as JSON.",
-          SYSTEM_PROMPT,
-          { mediaType, data: base64 }
-        );
+        const formData = new FormData();
+        formData.append("image", imageFile);
+
+        let res;
+        try {
+          res = await fetch("http://localhost:5001/ocr", { method: "POST", body: formData });
+        } catch {
+          addToast("OCR server is not running. Start it with: python ocr-program/server.py", "error");
+          return;
+        }
+
+        if (!res.ok) {
+          const err = await res.json().catch(() => ({}));
+          addToast(`OCR failed: ${err.error ?? "unknown error"}`, "error");
+          return;
+        }
+
+        const { text } = await res.json();
+        const parsed = parseReceiptText(text);
+
+        if (parsed.length === 0) {
+          addToast("No food items detected. Try a clearer image.", "warning");
+          return;
+        }
+
+        setResults(parsed.map((item) => ({ ...item, expiration: estimateExpiration(item.name) })));
+        return;
       } else {
-        raw = await callClaude(
-          `Parse this grocery receipt text and return only the food items as JSON:\n\n${text}`,
-          SYSTEM_PROMPT
-        );
+        const parsed = parseReceiptText(text);
+
+        if (parsed.length === 0) {
+          addToast("No food items detected. Try pasting more of the receipt text.", "warning");
+          return;
+        }
+
+        const withExpiry = parsed.map((item) => ({
+          ...item,
+          expiration: estimateExpiration(item.name),
+        }));
+
+        setResults(withExpiry);
+        return;
       }
 
       const cleaned = raw.replace(/```json\n?/g, "").replace(/```\n?/g, "").trim();
       const parsed = JSON.parse(cleaned);
 
       if (!Array.isArray(parsed) || parsed.length === 0) {
-        addToast("No food items detected. Try a clearer image or more complete text.", "warning");
+        addToast("No food items detected. Try a clearer image.", "warning");
         return;
       }
 
@@ -169,7 +199,7 @@ export default function ScanReceipt({ addItems, addToast }) {
           {loading ? "Analyzing..." : "🔍 Scan Receipt"}
         </button>
 
-        {loading && <LoadingSpinner message="Analyzing receipt with AI..." />}
+        {loading && <LoadingSpinner message={mode === "image" ? "Analyzing receipt with AI..." : "Parsing receipt..."} />}
       </div>
 
       {/* Results */}

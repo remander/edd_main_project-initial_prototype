@@ -1,0 +1,126 @@
+{
+    "metadata": {
+        "ocr_model": "PP-OCRv5_mobile",
+        "python_version": "3.13.7",
+        "libraries": {
+            "pdf2image": "1.17.0",
+            "paddleocr": "3.2.0",
+            "Pillow": "11.3.0",
+            "psutil": "7.1.0",
+            "cpuinfo": "9.0.0"
+        },
+        "system": {
+            "platform": "Windows-11-10.0.26100-SP0",
+            "cpu": "Intel(R) Core(TM) i7-8700 CPU @ 3.20GHz",
+            "cpu_count": 12,
+            "total_memory_mb": 16163.2890625,
+            "poppler_path": "C:\\Users\\rmander\\Documents\\poppler-25.07.0\\Library\\bin"
+        },
+        "timing": {
+            "document_start_time": 1761158928.5751584,
+            "document_end_time": 1761158934.1492457,
+            "total_time_seconds": 5.574087381362915,
+            "per_page_seconds": {
+                "medal_table": 5.472844839096069
+            }
+        },
+        "resource_usage": {
+            "per_page": {
+                "cpu_percent": {
+                    "medal_table": 90.9
+                },
+                "memory_mb": {
+                    "medal_table": {
+                        "system_memory_mb": 11941.7734375,
+                        "process_memory_mb": 682.35546875
+                    }
+                }
+            },
+            "document": {
+                "avg_cpu_percent": 90.9,
+                "max_cpu_percent": 90.9,
+                "avg_process_memory_mb": 682.35546875,
+                "max_process_memory_mb": 682.35546875
+            }
+        }
+    },
+    "results": {
+        "medal_table": [
+            "/6",
+            "",
+            "BRUR",
+            "tKe",
+            "XIBN",
+            " (CHN)",
+            "48",
+            "22",
+            "30",
+            "100",
+            "(USA)",
+            "36",
+            "39",
+            "37",
+            "112",
+            "B3F (RUS)",
+            "24",
+            "13",
+            "23",
+            "60",
+            "(GBR)",
+            "19",
+            "13",
+            "19",
+            "51",
+            "(GER)",
+            "16",
+            "11",
+            "14",
+            "41",
+            "(AUS)",
+            "14",
+            "15",
+            "17",
+            "46",
+            "# (KOR)",
+            "13",
+            "11",
+            "8",
+            "32",
+            "B (JPN)",
+            "9",
+            "8",
+            "8",
+            "25",
+            "(ITA)",
+            "8",
+            "9",
+            "10",
+            "27",
+            "(FRA)",
+            "7",
+            "16",
+            "20",
+            "43",
+            "(NED)",
+            "7",
+            "5",
+            "4",
+            "16",
+            "(UKR)",
+            "7",
+            "4",
+            "11",
+            "22",
+            "#E (KEN)",
+            "6",
+            "4",
+            "6",
+            "16",
+            " (ESP)",
+            "5",
+            "11",
+            "3",
+            "19"
+        ]
+    }
+}
