@@ -113,7 +113,7 @@ export default function Inventory({ inventory, addItems, updateItem, deleteItem,
           </select>
           <button
             onClick={openAdd}
-            className="px-5 py-2 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-xl font-bold text-sm hover:opacity-90 transition-opacity whitespace-nowrap cursor-pointer"
+            className="px-5 py-2 bg-linear-to-r from-emerald-500 to-emerald-600 text-white rounded-xl font-bold text-sm hover:opacity-90 transition-opacity whitespace-nowrap cursor-pointer"
           >
             ➕ Add Item
           </button>
