@@ -57,7 +57,7 @@ export default function App() {
         {page === "dashboard" && <Dashboard {...pageProps} setPage={setPage} />}
         {page === "scan"      && <ScanReceipt {...pageProps} />}
         {page === "inventory" && <Inventory {...pageProps} />}
-        {page === "mealplan"  && <MealPlan {...pageProps} mealPlans={mealPlans} setMealPlans={setMealPlans} />}
+        {page === "mealplan"  && <MealPlan {...pageProps} user={user} mealPlans={mealPlans} setMealPlans={setMealPlans} />}
       </main>
       <Footer />
       <Toast toasts={toasts} />
