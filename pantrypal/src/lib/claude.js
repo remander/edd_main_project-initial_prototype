@@ -19,49 +19,24 @@ async function callClaudeProxy(prompt, system) {
 }
 
 // Returns { text, usage } — callers destructure as needed.
-export async function callClaude(userPrompt, systemPrompt = 'You are a helpful kitchen assistant.', imageData = null) {
+export async function callClaude(userPrompt, systemPrompt = 'You are a helpful kitchen assistant.', imageData = null, model = 'claude-haiku-4-5') {
   if (!imageData) {
     return callClaudeProxy(userPrompt, systemPrompt);
   }
 
-  // Image path: direct API call for receipt scanning
-  const response = await fetch('https://api.anthropic.com/v1/messages', {
+  // Image path: route through Vite proxy so no API key is needed
+  const response = await fetch('/api/claude-vision', {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'x-api-key': import.meta.env.VITE_ANTHROPIC_API_KEY,
-      'anthropic-version': '2023-06-01',
-      'anthropic-dangerous-direct-browser-access': 'true',
-    },
-    body: JSON.stringify({
-      model: 'claude-haiku-4-5',
-      max_tokens: 1500,
-      system: systemPrompt,
-      messages: [
-        {
-          role: 'user',
-          content: [
-            { type: 'image', source: { type: 'base64', media_type: imageData.mediaType, data: imageData.data } },
-            { type: 'text', text: userPrompt },
-          ],
-        },
-      ],
-    }),
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ prompt: userPrompt, system: systemPrompt, model, imageData }),
   });
 
   if (!response.ok) {
-    const err = await response.json();
-    throw new Error(err.error?.message || 'Claude API error');
+    const err = await response.json().catch(() => ({}));
+    throw new Error(err.error || 'Claude vision request failed');
   }
 
-  const data = await response.json();
-  const text = data.content?.map((b) => b.text || '').join('') || '';
-  const usage = data.usage
-    ? { inputTokens: data.usage.input_tokens, outputTokens: data.usage.output_tokens,
-        cacheReadTokens: 0, cacheWriteTokens: 0, costUSD: null, durationMs: null,
-        model: 'claude-haiku-4-5' }
-    : null;
-  return { text, usage };
+  return response.json();
 }
 
 const buildMealPrompt = (inventory, preferences = {}) => {

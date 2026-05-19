@@ -3,6 +3,7 @@ import { Trash2 } from "lucide-react";
 const TASK_META = {
   'recipe-generation': { label: 'Recipe Generator', color: 'emerald', emoji: '🍽️' },
   'meal-planning':     { label: 'Meal Planning',     color: 'cyan',    emoji: '📅' },
+  'receipt-scan':      { label: 'Receipt Scan',      color: 'violet',  emoji: '🧾' },
 };
 
 function fmt$( n) { return n == null ? '—' : `$${Number(n).toFixed(4)}`; }

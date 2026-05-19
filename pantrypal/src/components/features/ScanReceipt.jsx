@@ -5,19 +5,72 @@ import { estimateExpiration } from "../../lib/expiration";
 import { CATEGORIES, UNITS } from "../../lib/sampleData";
 import LoadingSpinner from "../ui/LoadingSpinner";
 
-const SYSTEM_PROMPT = `You are a grocery receipt parser. Extract only food and beverage items from the receipt. Return ONLY valid JSON with no markdown, no explanation. Format:
+const SYSTEM_PROMPT = `You are an expert grocery receipt parser with knowledge of all major store formats (Costco, Aldi, Walmart, Kroger, Trader Joe's, Whole Foods, etc.).
+
+Extract EVERY food and beverage item from the receipt — do not skip any, even if the name is abbreviated or partially visible.
+
+Rules:
+- Expand abbreviations into readable names (e.g. "CHKN BRST" → "Chicken Breast", "ORG BABY SPNCH" → "Organic Baby Spinach", "2% MLKFAT" → "2% Milk")
+- If a single item spans multiple lines, combine them into one entry
+- Include the quantity and weight/unit shown on the receipt; if missing, default to quantity 1 and unit "count"
+- Assign one category: Produce, Dairy, Meat, Seafood, Pantry, Frozen, Beverages, or Other
+- IGNORE: store name, address, phone number, cashier/operator info, transaction/order ID, subtotal, tax, total, change, payment method, discounts, coupons, rewards points, and membership fees
+
+Return ONLY a valid JSON array with no markdown fences and no extra text:
 [
   { "name": "item name", "quantity": 1, "unit": "count", "category": "Produce|Dairy|Meat|Seafood|Pantry|Frozen|Beverages|Other" }
-]
-Infer reasonable quantities and units from context. Ignore non-food items, store names, totals, taxes, and discounts.`;
+]`;
 
-export default function ScanReceipt({ addItems, addToast }) {
+// Resize and JPEG-compress an image file to keep the base64 payload manageable.
+// Max dimension 1800px is plenty for reading receipt text; quality 0.88 keeps it sharp.
+function compressImage(file, maxDim, quality) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.onload = () => {
+      const scale = Math.min(1, maxDim / Math.max(img.width, img.height));
+      const w = Math.round(img.width * scale);
+      const h = Math.round(img.height * scale);
+      const canvas = document.createElement("canvas");
+      canvas.width = w;
+      canvas.height = h;
+      canvas.getContext("2d").drawImage(img, 0, 0, w, h);
+      const dataUrl = canvas.toDataURL("image/jpeg", quality);
+      resolve(dataUrl.split(",")[1]);
+    };
+    img.onerror = reject;
+    img.src = URL.createObjectURL(file);
+  });
+}
+
+const MODELS = [
+  {
+    id: "claude-haiku-4-5",
+    name: "Haiku",
+    tag: "Fast & Affordable",
+    description: "Good for clear, well-lit receipts. Fastest response, lowest cost.",
+    costHint: "~$0.001 per scan",
+    accent: "emerald",
+  },
+  {
+    id: "claude-sonnet-4-6",
+    name: "Sonnet",
+    tag: "Accurate & Thorough",
+    description: "Best for busy, blurry, or abbreviated receipts. Expands truncated names and misses fewer items.",
+    costHint: "~$0.01 per scan",
+    accent: "violet",
+    recommended: true,
+  },
+];
+
+export default function ScanReceipt({ addItems, addToast, addUsageLog }) {
   const [mode, setMode] = useState("text");
+  const [selectedModel, setSelectedModel] = useState("claude-sonnet-4-6");
   const [text, setText] = useState("");
   const [imageFile, setImageFile] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
   const [loading, setLoading] = useState(false);
   const [results, setResults] = useState(null);
+  const [selected, setSelected] = useState(new Set());
   const fileRef = useRef();
 
   const handleImageChange = (file) => {
@@ -42,17 +95,14 @@ export default function ScanReceipt({ addItems, addToast }) {
     setResults(null);
     try {
       if (mode === "image") {
-        const imageBase64 = await new Promise((resolve, reject) => {
-          const reader = new FileReader();
-          reader.onload = (e) => resolve(e.target.result.split(",")[1]);
-          reader.onerror = reject;
-          reader.readAsDataURL(imageFile);
-        });
+        // Compress before sending — original images can be 3–7 MB which overwhelms the CLI stdin buffer
+        const imageBase64 = await compressImage(imageFile, 1800, 0.88);
 
-        const raw = await callClaude(
-          "Extract all food and beverage items from this receipt image.",
+        const { text: raw, usage } = await callClaude(
+          "Carefully read every line of this receipt image and extract all food and beverage items. Do not skip any item even if the name is abbreviated or truncated.",
           SYSTEM_PROMPT,
-          { mediaType: imageFile.type || "image/jpeg", data: imageBase64 }
+          { mediaType: "image/jpeg", data: imageBase64 },
+          selectedModel
         );
 
         const cleaned = raw.replace(/```json\n?/g, "").replace(/```\n?/g, "").trim();
@@ -75,6 +125,15 @@ export default function ScanReceipt({ addItems, addToast }) {
         }));
 
         setResults(withExpiry);
+        setSelected(new Set(withExpiry.map((item) => item.id)));
+        if (addUsageLog && usage) {
+          addUsageLog({
+            task: 'receipt-scan',
+            description: `${withExpiry.length} items extracted · ${MODELS.find(m => m.id === selectedModel)?.name ?? selectedModel} · ${imageFile.name || 'receipt image'}`,
+            ...usage,
+            timestamp: Date.now(),
+          });
+        }
         return;
       } else {
         const parsed = parseReceiptText(text);
@@ -90,6 +149,7 @@ export default function ScanReceipt({ addItems, addToast }) {
         }));
 
         setResults(withExpiry);
+        setSelected(new Set(withExpiry.map((item) => item.id)));
         return;
       }
     } catch (err) {
@@ -107,13 +167,32 @@ export default function ScanReceipt({ addItems, addToast }) {
 
   const removeResult = (id) => {
     setResults((prev) => prev.filter((item) => item.id !== id));
+    setSelected((prev) => { const next = new Set(prev); next.delete(id); return next; });
   };
 
-  const addAll = () => {
-    if (!results || results.length === 0) return;
-    addItems(results);
-    addToast(`Added ${results.length} items to inventory!`, "success");
+  const toggleSelect = (id) => {
+    setSelected((prev) => {
+      const next = new Set(prev);
+      next.has(id) ? next.delete(id) : next.add(id);
+      return next;
+    });
+  };
+
+  const toggleSelectAll = () => {
+    if (!results) return;
+    setSelected(selected.size === results.length ? new Set() : new Set(results.map((i) => i.id)));
+  };
+
+  const addSelected = () => {
+    if (!results || selected.size === 0) {
+      addToast("No items selected.", "warning");
+      return;
+    }
+    const toAdd = results.filter((item) => selected.has(item.id));
+    addItems(toAdd);
+    addToast(`Added ${toAdd.length} item${toAdd.length !== 1 ? "s" : ""} to inventory!`, "success");
     setResults(null);
+    setSelected(new Set());
     setText("");
     setImageFile(null);
     setImagePreview(null);
@@ -139,6 +218,52 @@ export default function ScanReceipt({ addItems, addToast }) {
             </button>
           ))}
         </div>
+
+        {/* Model selector — only relevant for image mode */}
+        {mode === "image" && (
+          <div className="mb-5">
+            <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">Scan Quality</p>
+            <div className="grid sm:grid-cols-2 gap-3">
+              {MODELS.map((m) => {
+                const isActive = selectedModel === m.id;
+                const ring = m.accent === "violet"
+                  ? "border-violet-400 bg-violet-50"
+                  : "border-emerald-400 bg-emerald-50";
+                const badge = m.accent === "violet"
+                  ? "bg-violet-100 text-violet-700"
+                  : "bg-emerald-100 text-emerald-700";
+                return (
+                  <button
+                    key={m.id}
+                    onClick={() => setSelectedModel(m.id)}
+                    className={`cursor-pointer text-left rounded-xl border-2 p-4 transition-all ${
+                      isActive ? ring : "border-gray-200 bg-white hover:border-gray-300"
+                    }`}
+                  >
+                    <div className="flex items-center justify-between mb-1">
+                      <div className="flex items-center gap-2">
+                        <span className={`w-3.5 h-3.5 rounded-full border-2 flex-shrink-0 ${
+                          isActive
+                            ? m.accent === "violet" ? "border-violet-500 bg-violet-500" : "border-emerald-500 bg-emerald-500"
+                            : "border-gray-300"
+                        }`} />
+                        <span className="font-bold text-sm text-gray-800">{m.name}</span>
+                        {m.recommended && (
+                          <span className="text-xs font-semibold px-1.5 py-0.5 rounded-full bg-amber-100 text-amber-700">Recommended</span>
+                        )}
+                      </div>
+                      <span className={`text-xs font-semibold px-2 py-0.5 rounded-full ${isActive ? badge : "bg-gray-100 text-gray-500"}`}>
+                        {m.costHint}
+                      </span>
+                    </div>
+                    <p className="text-xs font-semibold text-gray-600 ml-5">{m.tag}</p>
+                    <p className="text-xs text-gray-400 mt-0.5 ml-5">{m.description}</p>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        )}
 
         {mode === "image" ? (
           <div
@@ -192,13 +317,15 @@ export default function ScanReceipt({ addItems, addToast }) {
         <div className="glass p-6">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-lg font-bold text-gray-900">
-              Found {results.length} items — review before adding
+              Found {results.length} items —{" "}
+              <span className="text-emerald-600">{selected.size} selected</span>
             </h3>
             <button
-              onClick={addAll}
-              className="px-5 py-2 bg-emerald-500 text-white rounded-xl font-bold text-sm hover:bg-emerald-600 transition-colors"
+              onClick={addSelected}
+              disabled={selected.size === 0}
+              className="px-5 py-2 bg-emerald-500 text-white rounded-xl font-bold text-sm hover:bg-emerald-600 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
             >
-              ✅ Add All to Inventory
+              ✅ Add Selected to Inventory
             </button>
           </div>
 
@@ -206,6 +333,15 @@ export default function ScanReceipt({ addItems, addToast }) {
             <table className="w-full text-sm">
               <thead>
                 <tr className="text-left text-gray-500 border-b border-gray-100">
+                  <th className="pb-2 pr-2">
+                    <input
+                      type="checkbox"
+                      checked={selected.size === results.length}
+                      onChange={toggleSelectAll}
+                      className="accent-emerald-500"
+                      title="Select all / none"
+                    />
+                  </th>
                   <th className="pb-2 font-semibold">Name</th>
                   <th className="pb-2 font-semibold">Category</th>
                   <th className="pb-2 font-semibold">Qty</th>
@@ -216,7 +352,15 @@ export default function ScanReceipt({ addItems, addToast }) {
               </thead>
               <tbody className="divide-y divide-gray-50">
                 {results.map((item) => (
-                  <tr key={item.id} className="hover:bg-emerald-50/30">
+                  <tr key={item.id} className={`hover:bg-emerald-50/30 ${!selected.has(item.id) ? "opacity-40" : ""}`}>
+                    <td className="py-2 pr-2">
+                      <input
+                        type="checkbox"
+                        checked={selected.has(item.id)}
+                        onChange={() => toggleSelect(item.id)}
+                        className="accent-emerald-500"
+                      />
+                    </td>
                     <td className="py-2 pr-2">
                       <input
                         value={item.name}

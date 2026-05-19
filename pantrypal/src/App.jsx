@@ -73,7 +73,7 @@ export default function App() {
       <Navbar page={page} setPage={setPage} />
       <main className="flex-1">
         {page === "dashboard" && <Dashboard {...pageProps} setPage={setPage} />}
-        {page === "scan"      && <ScanReceipt {...pageProps} />}
+        {page === "scan"      && <ScanReceipt {...pageProps} addUsageLog={addUsageLog} />}
         {page === "inventory" && <Inventory {...pageProps} />}
         {page === "mealplan"  && (
           <MealPlan
