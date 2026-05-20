@@ -1,4 +1,6 @@
+import { useState, useEffect } from "react";
 import { Trash2 } from "lucide-react";
+import { subscribeToAllUsageLogs } from "../../lib/firebase";
 
 const TASK_META = {
   'recipe-generation': { label: 'Recipe Generator', color: 'emerald', emoji: '🍽️' },
@@ -32,66 +34,46 @@ function StatCard({ label, value, sub, accent = 'emerald' }) {
 }
 
 function TaskBreakdown({ logs }) {
-  const tasks = Object.keys(TASK_META);
   return (
     <div className="grid sm:grid-cols-2 gap-4">
-      {tasks.map((task) => {
-        const meta   = TASK_META[task];
+      {Object.entries(TASK_META).map(([task, meta]) => {
         const subset = logs.filter((l) => l.task === task);
         if (subset.length === 0) return null;
 
-        const totalCost    = subset.reduce((s, l) => s + (l.costUSD   ?? 0), 0);
-        const totalIn      = subset.reduce((s, l) => s + (l.inputTokens  ?? 0), 0);
-        const totalOut     = subset.reduce((s, l) => s + (l.outputTokens ?? 0), 0);
-        const totalCacheR  = subset.reduce((s, l) => s + (l.cacheReadTokens  ?? 0), 0);
-        const totalCacheW  = subset.reduce((s, l) => s + (l.cacheWriteTokens ?? 0), 0);
-        const avgDuration  = subset.reduce((s, l) => s + (l.durationMs ?? 0), 0) / subset.length;
+        const totalCost         = subset.reduce((s, l) => s + (l.costUSD          ?? 0), 0);
+        const totalIn           = subset.reduce((s, l) => s + (l.inputTokens       ?? 0), 0);
+        const totalOut          = subset.reduce((s, l) => s + (l.outputTokens      ?? 0), 0);
+        const totalCacheR       = subset.reduce((s, l) => s + (l.cacheReadTokens   ?? 0), 0);
+        const totalCacheW       = subset.reduce((s, l) => s + (l.cacheWriteTokens  ?? 0), 0);
+        const avgDuration       = subset.reduce((s, l) => s + (l.durationMs        ?? 0), 0) / subset.length;
+        const avgClientDuration = subset.reduce((s, l) => s + (l.clientDurationMs  ?? 0), 0) / subset.length;
 
-        const borderColor = meta.color === 'emerald' ? 'border-emerald-200 bg-emerald-50/50' : 'border-cyan-200 bg-cyan-50/50';
-        const textAccent  = meta.color === 'emerald' ? 'text-emerald-700' : 'text-cyan-700';
-        const badgeBg     = meta.color === 'emerald' ? 'bg-emerald-100 text-emerald-700' : 'bg-cyan-100 text-cyan-700';
+        const colorMap = {
+          emerald: { border: 'border-emerald-200 bg-emerald-50/50', text: 'text-emerald-700', badge: 'bg-emerald-100 text-emerald-700' },
+          cyan:    { border: 'border-cyan-200 bg-cyan-50/50',       text: 'text-cyan-700',    badge: 'bg-cyan-100 text-cyan-700'    },
+          violet:  { border: 'border-violet-200 bg-violet-50/50',   text: 'text-violet-700',  badge: 'bg-violet-100 text-violet-700' },
+        };
+        const c = colorMap[meta.color] ?? colorMap.violet;
 
         return (
-          <div key={task} className={`border rounded-2xl p-5 space-y-3 ${borderColor}`}>
+          <div key={task} className={`border rounded-2xl p-5 space-y-3 ${c.border}`}>
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <span className="text-xl">{meta.emoji}</span>
-                <span className={`font-bold text-sm ${textAccent}`}>{meta.label}</span>
+                <span className={`font-bold text-sm ${c.text}`}>{meta.label}</span>
               </div>
-              <span className={`text-xs font-semibold px-2 py-0.5 rounded-full ${badgeBg}`}>
+              <span className={`text-xs font-semibold px-2 py-0.5 rounded-full ${c.badge}`}>
                 {subset.length} call{subset.length !== 1 ? 's' : ''}
               </span>
             </div>
-
             <div className="grid grid-cols-2 gap-2 text-xs">
-              <div>
-                <p className="text-gray-500 font-medium">Total Cost</p>
-                <p className="font-bold text-gray-800">{fmt$(totalCost)}</p>
-              </div>
-              <div>
-                <p className="text-gray-500 font-medium">Avg Duration</p>
-                <p className="font-bold text-gray-800">{fmtMs(avgDuration)}</p>
-              </div>
-              <div>
-                <p className="text-gray-500 font-medium">Input Tokens</p>
-                <p className="font-bold text-gray-800">{fmtK(totalIn)}</p>
-              </div>
-              <div>
-                <p className="text-gray-500 font-medium">Output Tokens</p>
-                <p className="font-bold text-gray-800">{fmtK(totalOut)}</p>
-              </div>
-              {totalCacheR > 0 && (
-                <div>
-                  <p className="text-gray-500 font-medium">Cache Hits</p>
-                  <p className="font-bold text-amber-600">{fmtK(totalCacheR)} tokens saved</p>
-                </div>
-              )}
-              {totalCacheW > 0 && (
-                <div>
-                  <p className="text-gray-500 font-medium">Cache Written</p>
-                  <p className="font-bold text-gray-800">{fmtK(totalCacheW)}</p>
-                </div>
-              )}
+              <div><p className="text-gray-500 font-medium">Total Cost</p><p className="font-bold text-gray-800">{fmt$(totalCost)}</p></div>
+              <div><p className="text-gray-500 font-medium">Avg Total Time</p><p className="font-bold text-gray-800">{fmtMs(avgClientDuration)}</p></div>
+              <div><p className="text-gray-500 font-medium">Avg API Time</p><p className="font-bold text-gray-800">{fmtMs(avgDuration)}</p></div>
+              <div><p className="text-gray-500 font-medium">Input Tokens</p><p className="font-bold text-gray-800">{fmtK(totalIn)}</p></div>
+              <div><p className="text-gray-500 font-medium">Output Tokens</p><p className="font-bold text-gray-800">{fmtK(totalOut)}</p></div>
+              {totalCacheR > 0 && <div><p className="text-gray-500 font-medium">Cache Hits</p><p className="font-bold text-amber-600">{fmtK(totalCacheR)} saved</p></div>}
+              {totalCacheW > 0 && <div><p className="text-gray-500 font-medium">Cache Written</p><p className="font-bold text-gray-800">{fmtK(totalCacheW)}</p></div>}
             </div>
           </div>
         );
@@ -100,7 +82,7 @@ function TaskBreakdown({ logs }) {
   );
 }
 
-function LogEntry({ entry }) {
+function LogEntry({ entry, showUser = false }) {
   const meta = TASK_META[entry.task] ?? { emoji: '🤖', label: entry.task, color: 'violet' };
   const badgeBg = meta.color === 'emerald'
     ? 'bg-emerald-100 text-emerald-700'
@@ -108,18 +90,18 @@ function LogEntry({ entry }) {
     ? 'bg-cyan-100 text-cyan-700'
     : 'bg-violet-100 text-violet-700';
 
-  const totalTokens = (entry.inputTokens ?? 0) + (entry.outputTokens ?? 0);
-  const cacheHit    = (entry.cacheReadTokens ?? 0) > 0;
-
   return (
     <div className="flex items-start gap-3 py-3 border-b border-gray-100 last:border-0">
       <span className="text-lg shrink-0 mt-0.5">{meta.emoji}</span>
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-2 flex-wrap mb-0.5">
           <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${badgeBg}`}>{meta.label}</span>
-          {cacheHit && (
-            <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-amber-100 text-amber-700">
-              ⚡ cache hit
+          {(entry.cacheReadTokens ?? 0) > 0 && (
+            <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-amber-100 text-amber-700">⚡ cache hit</span>
+          )}
+          {showUser && entry.userEmail && (
+            <span className="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-500 font-medium truncate max-w-[160px]">
+              {entry.userEmail}
             </span>
           )}
           <span className="text-xs text-gray-400">{fmtTime(entry.timestamp)}</span>
@@ -128,7 +110,12 @@ function LogEntry({ entry }) {
         <div className="flex gap-3 mt-1 text-xs text-gray-500 flex-wrap">
           <span>{fmtK(entry.inputTokens ?? 0)} in · {fmtK(entry.outputTokens ?? 0)} out</span>
           {entry.cacheReadTokens > 0 && <span className="text-amber-600">{fmtK(entry.cacheReadTokens)} cached</span>}
-          <span>{fmtMs(entry.durationMs)}</span>
+          {entry.clientDurationMs != null && (
+            <span title="Total wall-clock time from button click to results">⏱ {fmtMs(entry.clientDurationMs)} total</span>
+          )}
+          {entry.durationMs != null && (
+            <span className="text-gray-400" title="Time spent inside the AI model">({fmtMs(entry.durationMs)} API)</span>
+          )}
           <span className="font-semibold text-gray-700">{fmt$(entry.costUSD)}</span>
         </div>
       </div>
@@ -136,78 +123,119 @@ function LogEntry({ entry }) {
   );
 }
 
-export default function InfoTab({ usageLogs, clearLogs }) {
-  if (usageLogs.length === 0) {
+function UsagePanel({ logs, onClear, showUser = false }) {
+  if (logs.length === 0) {
     return (
-      <div className="max-w-3xl mx-auto px-4 py-6">
-        <div className="glass p-12 text-center text-gray-400">
-          <p className="text-5xl mb-4">📊</p>
-          <p className="font-semibold text-lg text-gray-600">No usage recorded yet</p>
-          <p className="text-sm mt-1">Generate a recipe or meal plan to see token usage and cost breakdown here.</p>
-        </div>
+      <div className="glass p-12 text-center text-gray-400">
+        <p className="text-5xl mb-4">📊</p>
+        <p className="font-semibold text-lg text-gray-600">No usage recorded yet</p>
+        <p className="text-sm mt-1">Scan a receipt or generate a meal plan to see stats here.</p>
       </div>
     );
   }
 
-  const totalCost   = usageLogs.reduce((s, l) => s + (l.costUSD      ?? 0), 0);
-  const totalIn     = usageLogs.reduce((s, l) => s + (l.inputTokens  ?? 0), 0);
-  const totalOut    = usageLogs.reduce((s, l) => s + (l.outputTokens ?? 0), 0);
-  const totalCacheR = usageLogs.reduce((s, l) => s + (l.cacheReadTokens  ?? 0), 0);
-  const totalCacheW = usageLogs.reduce((s, l) => s + (l.cacheWriteTokens ?? 0), 0);
+  const totalCost   = logs.reduce((s, l) => s + (l.costUSD           ?? 0), 0);
+  const totalIn     = logs.reduce((s, l) => s + (l.inputTokens       ?? 0), 0);
+  const totalOut    = logs.reduce((s, l) => s + (l.outputTokens      ?? 0), 0);
+  const totalCacheR = logs.reduce((s, l) => s + (l.cacheReadTokens   ?? 0), 0);
+  const totalCacheW = logs.reduce((s, l) => s + (l.cacheWriteTokens  ?? 0), 0);
   const totalTokens = totalIn + totalOut;
-  const cacheRate   = totalCacheW + totalIn > 0
-    ? Math.round((totalCacheR / (totalCacheW + totalIn)) * 100)
-    : 0;
-
-  const sorted = [...usageLogs].sort((a, b) => b.timestamp - a.timestamp);
+  const cacheRate   = totalCacheW + totalIn > 0 ? Math.round((totalCacheR / (totalCacheW + totalIn)) * 100) : 0;
+  const timedLogs   = logs.filter((l) => l.clientDurationMs != null);
+  const avgTotalMs  = timedLogs.length > 0 ? timedLogs.reduce((s, l) => s + l.clientDurationMs, 0) / timedLogs.length : null;
+  const sorted      = [...logs].sort((a, b) => b.timestamp - a.timestamp);
 
   return (
-    <div className="max-w-3xl mx-auto px-4 py-6 space-y-6">
-      <div className="flex items-center justify-between">
-        <div>
-          <h2 className="text-xl font-bold text-gray-900">📊 Usage & Cost</h2>
-          <p className="text-sm text-gray-500 mt-0.5">Powered by Claude Agent SDK · claude-haiku-4-5</p>
-        </div>
-        <button
-          onClick={clearLogs}
-          className="flex items-center gap-1.5 px-3 py-1.5 text-xs text-gray-400 hover:text-red-500 hover:bg-red-50 border border-gray-200 rounded-xl transition-colors cursor-pointer"
-        >
-          <Trash2 className="w-3.5 h-3.5" />
-          Clear
-        </button>
-      </div>
-
-      {/* Summary */}
+    <div className="space-y-6">
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-        <StatCard label="Total Cost"   value={fmt$(totalCost)}          sub={`${usageLogs.length} calls`}          accent="emerald" />
-        <StatCard label="Total Tokens" value={fmtK(totalTokens)}        sub={`${fmtK(totalIn)} in · ${fmtK(totalOut)} out`} accent="violet" />
-        <StatCard label="Cache Hits"   value={fmtK(totalCacheR)}        sub={`${cacheRate}% hit rate`}             accent="amber" />
-        <StatCard label="Cache Written" value={fmtK(totalCacheW)}       sub="reused on future calls"               accent="cyan" />
+        <StatCard label="Total Cost"   value={fmt$(totalCost)}      sub={`${logs.length} calls`}                       accent="emerald" />
+        <StatCard label="Total Tokens" value={fmtK(totalTokens)}    sub={`${fmtK(totalIn)} in · ${fmtK(totalOut)} out`} accent="violet" />
+        <StatCard label="Avg Response" value={avgTotalMs != null ? fmtMs(avgTotalMs) : '—'} sub="wall-clock · button to results" accent="cyan" />
+        <StatCard label="Cache Hits"   value={fmtK(totalCacheR)}    sub={`${cacheRate}% hit rate`}                     accent="amber" />
       </div>
 
-      {/* Cache insight */}
       {totalCacheR > 0 && (
         <div className="bg-amber-50 border border-amber-200 rounded-2xl px-4 py-3 text-sm text-amber-800">
-          <strong>⚡ Cache savings:</strong> {fmtK(totalCacheR)} tokens were served from the agent SDK's prompt cache instead of re-processing, reducing cost and latency on repeated calls.
+          <strong>⚡ Cache savings:</strong> {fmtK(totalCacheR)} tokens served from cache, reducing cost and latency on repeated calls.
         </div>
       )}
 
-      {/* Per-task breakdown */}
       <div>
         <h3 className="text-sm font-bold text-gray-700 mb-3 uppercase tracking-wide">By Task</h3>
-        <TaskBreakdown logs={usageLogs} />
+        <TaskBreakdown logs={logs} />
       </div>
 
-      {/* Activity log */}
       <div className="glass p-4">
-        <h3 className="text-sm font-bold text-gray-700 mb-1 uppercase tracking-wide">Activity Log</h3>
+        <div className="flex items-center justify-between mb-1">
+          <h3 className="text-sm font-bold text-gray-700 uppercase tracking-wide">Activity Log</h3>
+          {onClear && (
+            <button
+              onClick={onClear}
+              className="flex items-center gap-1.5 px-3 py-1.5 text-xs text-gray-400 hover:text-red-500 hover:bg-red-50 border border-gray-200 rounded-xl transition-colors cursor-pointer"
+            >
+              <Trash2 className="w-3.5 h-3.5" /> Clear my logs
+            </button>
+          )}
+        </div>
         <p className="text-xs text-gray-400 mb-3">Most recent first</p>
         <div>
-          {sorted.map((entry) => (
-            <LogEntry key={entry.id} entry={entry} />
-          ))}
+          {sorted.map((entry) => <LogEntry key={entry.id} entry={entry} showUser={showUser} />)}
         </div>
       </div>
+    </div>
+  );
+}
+
+export default function InfoTab({ usageLogs, clearLogs, isAdmin }) {
+  const [activeTab, setActiveTab] = useState("mine");
+  const [allLogs, setAllLogs]     = useState([]);
+
+  useEffect(() => {
+    if (!isAdmin) return;
+    const unsub = subscribeToAllUsageLogs(setAllLogs);
+    return unsub;
+  }, [isAdmin]);
+
+  const tabs = [
+    { id: "mine",  label: "My Usage" },
+    ...(isAdmin ? [{ id: "admin", label: "Admin — All Users" }] : []),
+  ];
+
+  return (
+    <div className="max-w-3xl mx-auto px-4 py-6 space-y-6">
+      <div>
+        <h2 className="text-xl font-bold text-gray-900">📊 Usage & Cost</h2>
+        <p className="text-sm text-gray-500 mt-0.5">Powered by Claude · synced to your account</p>
+      </div>
+
+      {tabs.length > 1 && (
+        <div className="flex gap-2">
+          {tabs.map((t) => (
+            <button
+              key={t.id}
+              onClick={() => setActiveTab(t.id)}
+              className={`cursor-pointer px-4 py-2 rounded-xl text-sm font-semibold transition-all ${
+                activeTab === t.id ? "nav-active" : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+              }`}
+            >
+              {t.id === "admin" ? "🔐 " : ""}{t.label}
+            </button>
+          ))}
+        </div>
+      )}
+
+      {activeTab === "mine" && (
+        <UsagePanel logs={usageLogs} onClear={clearLogs} showUser={false} />
+      )}
+
+      {activeTab === "admin" && isAdmin && (
+        <div className="space-y-4">
+          <div className="bg-gray-50 border border-gray-200 rounded-2xl px-4 py-3 text-sm text-gray-600">
+            Showing usage across <strong>{new Set(allLogs.map(l => l.userId)).size} user{new Set(allLogs.map(l => l.userId)).size !== 1 ? 's' : ''}</strong> · {allLogs.length} total calls
+          </div>
+          <UsagePanel logs={allLogs} onClear={null} showUser={true} />
+        </div>
+      )}
     </div>
   );
 }

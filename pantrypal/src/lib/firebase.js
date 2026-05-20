@@ -12,8 +12,11 @@ import {
   doc,
   setDoc,
   deleteDoc,
+  getDocs,
   onSnapshot,
   serverTimestamp,
+  query,
+  orderBy,
 } from "firebase/firestore";
 
 const firebaseConfig = {
@@ -62,3 +65,35 @@ export const saveInventoryItem = (userId, item) =>
 
 export const deleteInventoryItem = (userId, itemId) =>
   deleteDoc(doc(db, "users", userId, "inventory", String(itemId)));
+
+// ── Usage Log Firestore helpers ──────────────────────────────────────────────
+
+// Writes to both the user's subcollection and a global collection for admin view
+export const saveUsageLog = async (userId, userEmail, log) => {
+  const payload = { ...log, userId, userEmail, savedAt: serverTimestamp() };
+  const id = String(log.id);
+  await Promise.all([
+    setDoc(doc(db, "users", userId, "usageLogs", id), payload),
+    setDoc(doc(db, "globalUsageLogs", id), payload),
+  ]);
+};
+
+export const subscribeToUserUsageLogs = (userId, callback) =>
+  onSnapshot(
+    query(collection(db, "users", userId, "usageLogs"), orderBy("timestamp", "desc")),
+    (snap) => callback(snap.docs.map((d) => ({ ...d.data(), id: d.id }))),
+    (err) => console.error("usageLogs subscription error (check Firestore rules):", err.message)
+  );
+
+export const subscribeToAllUsageLogs = (callback) =>
+  onSnapshot(
+    query(collection(db, "globalUsageLogs"), orderBy("timestamp", "desc")),
+    (snap) => callback(snap.docs.map((d) => ({ ...d.data(), id: d.id }))),
+    (err) => console.error("globalUsageLogs subscription error (check Firestore rules):", err.message)
+  );
+
+export const clearUserUsageLogs = async (userId) => {
+  const snap = await getDocs(collection(db, "users", userId, "usageLogs"));
+  // Only delete the user's own subcollection — global docs stay for admin history
+  await Promise.all(snap.docs.map((d) => deleteDoc(d.ref)));
+};

@@ -33,6 +33,7 @@ export default function MealGenerator({ user, inventory, addUsageLog }) {
     setError(null);
     setGeneratedMeal(null);
     setSavedConfirm(false);
+    const genStart = performance.now();
     try {
       const prefs = {
         mealType:            mealType === "Any" ? "any" : mealType,
@@ -48,6 +49,7 @@ export default function MealGenerator({ user, inventory, addUsageLog }) {
           label: 'Recipe Generator',
           description: `Generated ${meal.mealName}${cuisine !== "Any" ? ` · ${cuisine}` : ""}${mealType !== "Any" ? ` · ${mealType}` : ""} · ${servings} serving${servings !== 1 ? "s" : ""}`,
           ...usage,
+          clientDurationMs: Math.round(performance.now() - genStart),
           timestamp: Date.now(),
         });
       }

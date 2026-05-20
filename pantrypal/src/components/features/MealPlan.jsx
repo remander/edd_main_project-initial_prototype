@@ -43,6 +43,7 @@ export default function MealPlan({ user, inventory, mealPlans, setMealPlans, add
     }
     setLoading(true);
     setCurrentPlan(null);
+    const genStart = performance.now();
 
     const prompt = `Generate a ${days}-day meal plan with ${selectedMeals.join(", ")} per day.
 Dietary restrictions: ${dietary.length ? dietary.join(", ") : "None"}
@@ -86,6 +87,7 @@ Return format:
           label: 'Meal Planning',
           description: `${days}-day plan · ${selectedMeals.join(", ")}${dietary.length ? ` · ${dietary.join(", ")}` : ""}`,
           ...usage,
+          clientDurationMs: Math.round(performance.now() - genStart),
           timestamp: Date.now(),
         });
       }

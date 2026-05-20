@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { auth, onAuthStateChanged, firebaseSignOut } from "./lib/firebase";
+import { auth, onAuthStateChanged, firebaseSignOut, saveUsageLog, subscribeToUserUsageLogs, clearUserUsageLogs } from "./lib/firebase";
 import { useInventory } from "./hooks/useInventory";
 import { useToast } from "./hooks/useToast";
 import Header from "./components/layout/Header";
@@ -19,6 +19,9 @@ export default function App() {
   const { inventory, addItems, updateItem, deleteItem } = useInventory(user?.uid);
   const { toasts, addToast }  = useToast();
 
+  const ADMIN_EMAILS = (import.meta.env.VITE_ADMIN_EMAILS ?? "")
+    .split(",").map((e) => e.trim().toLowerCase()).filter(Boolean);
+
   const [mealPlans, setMealPlans] = useState(() => {
     try {
       const saved = localStorage.getItem("pantrypal_mealplans");
@@ -26,12 +29,7 @@ export default function App() {
     } catch { return []; }
   });
 
-  const [usageLogs, setUsageLogs] = useState(() => {
-    try {
-      const saved = localStorage.getItem("pantrypal_usage");
-      return saved ? JSON.parse(saved) : [];
-    } catch { return []; }
-  });
+  const [usageLogs, setUsageLogs] = useState([]);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
@@ -44,15 +42,27 @@ export default function App() {
     localStorage.setItem("pantrypal_mealplans", JSON.stringify(mealPlans));
   }, [mealPlans]);
 
+  // Subscribe to this user's usage logs from Firestore
   useEffect(() => {
-    localStorage.setItem("pantrypal_usage", JSON.stringify(usageLogs));
-  }, [usageLogs]);
+    if (!user) { setUsageLogs([]); return; }
+    const unsub = subscribeToUserUsageLogs(user.uid, setUsageLogs);
+    return unsub;
+  }, [user?.uid]);
 
   const addUsageLog = (entry) => {
-    setUsageLogs((prev) => [...prev, { ...entry, id: Date.now() + Math.random() }]);
+    if (!user) return;
+    const log = { ...entry, id: Date.now() + Math.random() };
+    setUsageLogs((prev) => [log, ...prev]);
+    saveUsageLog(user.uid, user.email ?? "", log).catch(console.error);
   };
 
-  const clearLogs = () => setUsageLogs([]);
+  const clearLogs = () => {
+    if (!user) return;
+    setUsageLogs([]);
+    clearUserUsageLogs(user.uid).catch(console.error);
+  };
+
+  const isAdmin = ADMIN_EMAILS.includes((user?.email ?? "").toLowerCase());
 
   if (user === undefined) {
     return (
@@ -85,7 +95,7 @@ export default function App() {
           />
         )}
         {page === "info" && (
-          <InfoTab usageLogs={usageLogs} clearLogs={clearLogs} />
+          <InfoTab usageLogs={usageLogs} clearLogs={clearLogs} isAdmin={isAdmin} />
         )}
       </main>
       <Footer />

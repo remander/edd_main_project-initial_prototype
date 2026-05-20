@@ -93,6 +93,7 @@ export default function ScanReceipt({ addItems, addToast, addUsageLog }) {
 
     setLoading(true);
     setResults(null);
+    const scanStart = performance.now();
     try {
       if (mode === "image") {
         // Compress before sending — original images can be 3–7 MB which overwhelms the CLI stdin buffer
@@ -131,6 +132,7 @@ export default function ScanReceipt({ addItems, addToast, addUsageLog }) {
             task: 'receipt-scan',
             description: `${withExpiry.length} items extracted · ${MODELS.find(m => m.id === selectedModel)?.name ?? selectedModel} · ${imageFile.name || 'receipt image'}`,
             ...usage,
+            clientDurationMs: Math.round(performance.now() - scanStart),
             timestamp: Date.now(),
           });
         }
