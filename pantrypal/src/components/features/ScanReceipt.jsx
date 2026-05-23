@@ -21,6 +21,31 @@ Return ONLY a valid JSON array with no markdown fences and no extra text:
   { "name": "item name", "quantity": 1, "unit": "count", "category": "Produce|Dairy|Meat|Seafood|Pantry|Frozen|Beverages|Other" }
 ]`;
 
+// Robustly extract a JSON array from a model response that may contain surrounding prose,
+// markdown fences, or non-standard whitespace. Tries three strategies in order.
+function extractJSONArray(raw) {
+  // 1. Strip markdown fences and try a direct parse
+  const stripped = raw.replace(/```json\n?/gi, "").replace(/```\n?/g, "").trim();
+  try { const r = JSON.parse(stripped); if (Array.isArray(r)) return r; } catch {}
+
+  // 2. Slice from the first '[' to the last ']' and parse that substring
+  const start = stripped.indexOf("[");
+  const end   = stripped.lastIndexOf("]");
+  if (start !== -1 && end > start) {
+    try { const r = JSON.parse(stripped.slice(start, end + 1)); if (Array.isArray(r)) return r; } catch {}
+  }
+
+  // 3. Normalize unicode/non-breaking whitespace then retry slice
+  const normalized = stripped.replace(/[  -​  　]/g, " ");
+  const s2 = normalized.indexOf("[");
+  const e2 = normalized.lastIndexOf("]");
+  if (s2 !== -1 && e2 > s2) {
+    try { const r = JSON.parse(normalized.slice(s2, e2 + 1)); if (Array.isArray(r)) return r; } catch {}
+  }
+
+  throw new Error("Could not parse receipt items from AI response. Try scanning again.");
+}
+
 // Resize and JPEG-compress an image file to keep the base64 payload manageable.
 // Max dimension 1800px is plenty for reading receipt text; quality 0.88 keeps it sharp.
 function compressImage(file, maxDim, quality) {
@@ -106,8 +131,7 @@ export default function ScanReceipt({ addItems, addToast, addUsageLog }) {
           selectedModel
         );
 
-        const cleaned = raw.replace(/```json\n?/g, "").replace(/```\n?/g, "").trim();
-        const parsed = JSON.parse(cleaned);
+        const parsed = extractJSONArray(raw);
 
         if (!Array.isArray(parsed) || parsed.length === 0) {
           addToast("No food items detected. Try a clearer image.", "warning");
