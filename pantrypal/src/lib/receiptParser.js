@@ -80,6 +80,7 @@ const UNIT_PATTERNS = [
   { re: /^(\d+)\s*x\s+/i,              unit: 'count' },
 ];
 
+// Walks CATEGORY_PRIORITY order so more specific categories (Seafood, Meat) win over generic ones (Pantry)
 function guessCategory(name) {
   const lower = name.toLowerCase();
   for (const cat of CATEGORY_PRIORITY) {
@@ -88,6 +89,7 @@ function guessCategory(name) {
   return 'Other';
 }
 
+// Scans the raw line for a quantity+unit pattern (e.g. "2 lbs", "12 oz"); defaults to 1 count
 function extractQuantityAndUnit(raw) {
   let quantity = 1;
   let unit = 'count';
@@ -104,6 +106,7 @@ function extractQuantityAndUnit(raw) {
   return { quantity, unit };
 }
 
+// Strips prices, SKU codes, and symbols from a receipt line, then title-cases the result
 function cleanName(line) {
   return line
     .replace(/\$[\d,.]+/g, '')          // strip prices like $4.99
@@ -117,12 +120,14 @@ function cleanName(line) {
     .replace(/\b\w/g, (c) => c.toUpperCase());
 }
 
+// Returns true for lines that are store metadata, payment info, separators, or too short to be food items
 function shouldSkip(line) {
   if (line.length < 3) return true;
   if (!/[a-zA-Z]{2,}/.test(line)) return true;   // needs at least 2 letters
   return SKIP_PATTERNS.some((re) => re.test(line));
 }
 
+// Splits pasted receipt text into lines and converts each food item line into an inventory-shaped object
 export function parseReceiptText(text) {
   const lines = text.split('\n').map((l) => l.trim()).filter(Boolean);
   const items = [];

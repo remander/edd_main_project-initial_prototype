@@ -14,6 +14,7 @@ export default function ItemEditModal({ isOpen, onClose, item, onSave }) {
   const [form, setForm] = useState(BLANK);
   const expiryManuallySet = useRef(false);
 
+  // Resets the form when the modal opens — populates with the existing item when editing, blank when adding
   useEffect(() => {
     if (item) {
       setForm({ ...item });
@@ -24,6 +25,7 @@ export default function ItemEditModal({ isOpen, onClose, item, onSave }) {
     }
   }, [item, isOpen]);
 
+  // Updates a single form field; auto-estimates expiry from the item name unless the user has set it manually
   const set = (field, value) => {
     setForm((prev) => ({ ...prev, [field]: value }));
     if (field === "expiration") expiryManuallySet.current = true;
@@ -33,6 +35,7 @@ export default function ItemEditModal({ isOpen, onClose, item, onSave }) {
     }
   };
 
+  // Validates the name is non-empty, calls onSave with the form data, and closes the modal
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!form.name.trim()) return;
@@ -130,6 +133,7 @@ export default function ItemEditModal({ isOpen, onClose, item, onSave }) {
   );
 }
 
+// Wraps a form input with a consistent label style
 function Field({ label, children }) {
   return (
     <div>

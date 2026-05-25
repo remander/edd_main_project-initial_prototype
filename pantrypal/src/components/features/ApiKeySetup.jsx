@@ -7,6 +7,7 @@ export default function ApiKeySetup({ userId, onKeySaved }) {
   const [saving, setSaving] = useState(false);
   const [error, setError]   = useState(null);
 
+  // Validates and saves the entered API key to Firestore, then notifies the parent component
   const handleSave = async () => {
     if (!key.trim()) return;
     setSaving(true);

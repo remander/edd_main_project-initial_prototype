@@ -19,23 +19,27 @@ export default function MealPlan({ user, inventory, mealPlans, setMealPlans, add
   const [activeTab, setActiveTab] = useState("generate");
   const [expandedSaved, setExpandedSaved] = useState(null);
 
+  // Adds or removes a meal type (Breakfast/Lunch/Dinner) from the selected set
   const toggleMeal = (meal) => {
     setSelectedMeals((prev) =>
       prev.includes(meal) ? prev.filter((m) => m !== meal) : [...prev, meal]
     );
   };
 
+  // Adds or removes a dietary restriction tag from the active filter list
   const toggleDietary = (d) => {
     setDietary((prev) =>
       prev.includes(d) ? prev.filter((x) => x !== d) : [...prev, d]
     );
   };
 
+  // Items expiring within 7 days — passed to Claude so it can prioritise them in the plan
   const expiring = inventory.filter((item) => {
     const d = daysUntilExpiry(item.expiration);
     return d >= 0 && d <= 7;
   });
 
+  // Builds the multi-day meal plan prompt, calls Claude, parses the JSON response, and logs usage
   const generate = async () => {
     if (selectedMeals.length === 0) {
       addToast("Select at least one meal type.", "warning");
@@ -98,6 +102,7 @@ Return format:
     }
   };
 
+  // Snapshots the current plan into the saved plans list (stored in localStorage via App.jsx)
   const savePlan = () => {
     if (!currentPlan) return;
     const saved = {
@@ -109,6 +114,7 @@ Return format:
     addToast("Meal plan saved!", "success");
   };
 
+  // Removes a saved plan by ID and collapses it if it was expanded
   const deleteSaved = (id) => {
     setMealPlans((prev) => prev.filter((p) => p.id !== id));
     if (expandedSaved === id) setExpandedSaved(null);
@@ -308,6 +314,7 @@ Return format:
   );
 }
 
+// Renders one day's meals with ingredient badges coloured green (in inventory) or red (need to buy)
 function DayCard({ dayData }) {
   return (
     <div className="glass p-4">

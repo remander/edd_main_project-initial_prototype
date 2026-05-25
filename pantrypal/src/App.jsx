@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { auth, onAuthStateChanged, firebaseSignOut, saveUsageLog, subscribeToUserUsageLogs, clearUserUsageLogs } from "./lib/firebase";
+import { auth, onAuthStateChanged, firebaseSignOut, saveUsageLog, subscribeToUserUsageLogs, clearUserUsageLogs, deleteUsageLog } from "./lib/firebase";
 import { useInventory } from "./hooks/useInventory";
 import { useToast } from "./hooks/useToast";
 import Header from "./components/layout/Header";
@@ -19,9 +19,11 @@ export default function App() {
   const { inventory, addItems, updateItem, deleteItem } = useInventory(user?.uid);
   const { toasts, addToast }  = useToast();
 
+  // Parse comma-separated admin emails from the env var; used to gate the admin tab
   const ADMIN_EMAILS = (import.meta.env.VITE_ADMIN_EMAILS ?? "")
     .split(",").map((e) => e.trim().toLowerCase()).filter(Boolean);
 
+  // Load any previously saved meal plans from localStorage on first render
   const [mealPlans, setMealPlans] = useState(() => {
     try {
       const saved = localStorage.getItem("pantrypal_mealplans");
@@ -31,6 +33,7 @@ export default function App() {
 
   const [usageLogs, setUsageLogs] = useState([]);
 
+  // Track Firebase auth state: undefined = still resolving, null = signed out, object = signed in
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
       setUser(firebaseUser ?? null);
@@ -38,6 +41,7 @@ export default function App() {
     return unsubscribe;
   }, []);
 
+  // Persist meal plans to localStorage whenever the list changes
   useEffect(() => {
     localStorage.setItem("pantrypal_mealplans", JSON.stringify(mealPlans));
   }, [mealPlans]);
@@ -49,6 +53,7 @@ export default function App() {
     return unsub;
   }, [user?.uid]);
 
+  // Appends an entry to local state and writes it to both user and global Firestore collections
   const addUsageLog = (entry) => {
     if (!user) return;
     const log = { ...entry, id: Date.now() + Math.random() };
@@ -56,14 +61,24 @@ export default function App() {
     saveUsageLog(user.uid, user.email ?? "", log).catch(console.error);
   };
 
+  // Clears usage logs from local state and deletes the user's Firestore subcollection
   const clearLogs = () => {
     if (!user) return;
     setUsageLogs([]);
     clearUserUsageLogs(user.uid).catch(console.error);
   };
 
+  // Removes a single log entry from local state and deletes it from both Firestore collections
+  const deleteLog = (logId) => {
+    if (!user) return;
+    setUsageLogs((prev) => prev.filter((l) => String(l.id) !== String(logId)));
+    deleteUsageLog(user.uid, logId).catch(console.error);
+  };
+
+  // True when the signed-in user's email is listed in VITE_ADMIN_EMAILS
   const isAdmin = ADMIN_EMAILS.includes((user?.email ?? "").toLowerCase());
 
+  // Still resolving Firebase auth — show a spinner to avoid a flash of the login page
   if (user === undefined) {
     return (
       <div className="min-h-screen flex items-center justify-center"
@@ -73,6 +88,7 @@ export default function App() {
     );
   }
 
+  // Not signed in — render the login/signup page
   if (!user) return <LoginPage />;
 
   const pageProps = { inventory, addItems, updateItem, deleteItem, addToast };
@@ -95,7 +111,7 @@ export default function App() {
           />
         )}
         {page === "info" && (
-          <InfoTab usageLogs={usageLogs} clearLogs={clearLogs} isAdmin={isAdmin} />
+          <InfoTab usageLogs={usageLogs} clearLogs={clearLogs} deleteLog={deleteLog} isAdmin={isAdmin} />
         )}
       </main>
       <Footer />

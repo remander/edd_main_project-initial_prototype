@@ -9,6 +9,7 @@ const CATEGORY_COLORS = {
 };
 
 export default function Dashboard({ inventory, setPage }) {
+  // Items expiring within 7 days, sorted soonest-first for the "Use These First" panel
   const expiringSoon = inventory
     .filter((item) => {
       const d = daysUntilExpiry(item.expiration);
@@ -16,14 +17,16 @@ export default function Dashboard({ inventory, setPage }) {
     })
     .sort((a, b) => daysUntilExpiry(a.expiration) - daysUntilExpiry(b.expiration));
 
+  // Items expiring within 3 days — drives the red "Critical" stat card
   const critical = inventory.filter((item) => {
     const d = daysUntilExpiry(item.expiration);
     return d >= 0 && d <= 3;
   });
 
+  // Items with more than 7 days left — drives the green "Fresh Items" stat card
   const fresh = inventory.filter((item) => daysUntilExpiry(item.expiration) > 7);
 
-  // Category breakdown
+  // Count of items per category — used for the bar chart breakdown
   const categories = inventory.reduce((acc, item) => {
     acc[item.category] = (acc[item.category] || 0) + 1;
     return acc;
@@ -102,6 +105,7 @@ export default function Dashboard({ inventory, setPage }) {
   );
 }
 
+// Displays a single summary number with a coloured background
 function StatCard({ label, value, color, bg }) {
   return (
     <div className={`glass p-4 ${bg}`}>
@@ -111,6 +115,7 @@ function StatCard({ label, value, color, bg }) {
   );
 }
 
+// Pill-shaped navigation shortcut button used in the Quick Actions row
 function ActionButton({ emoji, label, onClick }) {
   return (
     <button

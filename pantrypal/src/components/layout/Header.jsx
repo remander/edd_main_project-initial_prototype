@@ -2,6 +2,7 @@ import { Bell } from "lucide-react";
 import { daysUntilExpiry } from "../../lib/expiration";
 
 export default function Header({ inventory, user, onSignOut }) {
+  // Number of items expiring within 3 days — shown as a red badge on the bell icon
   const criticalCount = inventory.filter(
     (item) => daysUntilExpiry(item.expiration) <= 3
   ).length;

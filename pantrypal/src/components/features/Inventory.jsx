@@ -13,11 +13,13 @@ export default function Inventory({ inventory, addItems, updateItem, deleteItem,
   const [editingItem, setEditingItem] = useState(null);
   const [dismissedAlert, setDismissedAlert] = useState(false);
 
+  // Items expiring within 3 days — shown in the dismissible warning banner
   const critical = inventory.filter((item) => {
     const d = daysUntilExpiry(item.expiration);
     return d >= 0 && d <= 3;
   });
 
+  // Applies the active search/category/location filters and sort order to produce the displayed item list
   const filtered = inventory
     .filter((item) => {
       const matchSearch = item.name.toLowerCase().includes(search.toLowerCase());
@@ -33,16 +35,19 @@ export default function Inventory({ inventory, addItems, updateItem, deleteItem,
       return 0;
     });
 
+  // Opens the modal in "add new item" mode (no pre-filled item)
   const openAdd = () => {
     setEditingItem(null);
     setModalOpen(true);
   };
 
+  // Opens the modal pre-filled with the selected item's data for editing
   const openEdit = (item) => {
     setEditingItem(item);
     setModalOpen(true);
   };
 
+  // Dispatches either an update or an add depending on whether a pre-existing item is being edited
   const handleSave = (form) => {
     if (editingItem) {
       updateItem(editingItem.id, form);
@@ -53,6 +58,7 @@ export default function Inventory({ inventory, addItems, updateItem, deleteItem,
     }
   };
 
+  // Confirms with the user before deleting an item so accidental taps don't lose data
   const handleDelete = (id) => {
     const item = inventory.find((i) => i.id === id);
     if (!window.confirm(`Delete "${item?.name}"?`)) return;

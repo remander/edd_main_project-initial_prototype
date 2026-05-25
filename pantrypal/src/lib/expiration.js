@@ -24,6 +24,7 @@ export const SHELF_LIFE_DAYS = {
   "ice cream": 60, "frozen pizza": 180, "frozen vegetables": 365,
 };
 
+// Looks up an item name against SHELF_LIFE_DAYS and returns an ISO date string; defaults to 14 days if unknown
 export function estimateExpiration(itemName) {
   const lower = itemName.toLowerCase();
   for (const [keyword, days] of Object.entries(SHELF_LIFE_DAYS)) {
@@ -38,6 +39,7 @@ export function estimateExpiration(itemName) {
   return date.toISOString().split("T")[0];
 }
 
+// Returns the whole number of days between today (midnight) and the given date string; negative = already expired
 export function daysUntilExpiry(dateStr) {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
@@ -45,6 +47,7 @@ export function daysUntilExpiry(dateStr) {
   return Math.ceil((expiry - today) / (1000 * 60 * 60 * 24));
 }
 
+// Maps a day count to a status string used by ExpiryBadge for colour-coding
 export function expiryStatus(days) {
   if (days < 0) return "expired";
   if (days <= 3) return "critical";

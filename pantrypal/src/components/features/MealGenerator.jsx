@@ -18,12 +18,14 @@ export default function MealGenerator({ user, inventory, addUsageLog }) {
   const [error, setError]               = useState(null);
   const [savedConfirm, setSavedConfirm] = useState(false);
 
+  // Toggles a dietary restriction option on/off in the active filter list
   const toggleDietary = (option) => {
     setDietaryRestrictions((prev) =>
       prev.includes(option) ? prev.filter((d) => d !== option) : [...prev, option]
     );
   };
 
+  // Validates inventory is non-empty, calls Claude to generate a single recipe, and logs usage
   const handleGenerate = async () => {
     if (!inventory || inventory.length === 0) {
       setError("Your inventory is empty. Add some food items first!");

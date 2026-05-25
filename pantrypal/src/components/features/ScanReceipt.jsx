@@ -99,6 +99,7 @@ export default function ScanReceipt({ addItems, addToast, addUsageLog }) {
   const [pendingScan, setPendingScan] = useState(null);
   const fileRef = useRef();
 
+  // Stores the selected file and generates a local preview URL for display before upload
   const handleImageChange = (file) => {
     if (!file) return;
     setImageFile(file);
@@ -107,6 +108,7 @@ export default function ScanReceipt({ addItems, addToast, addUsageLog }) {
     reader.readAsDataURL(file);
   };
 
+  // Compresses the image (or parses pasted text), sends to Claude, and shows extracted items for review
   const scan = async () => {
     if (mode === "text" && !text.trim()) {
       addToast("Please paste receipt text first.", "warning");
@@ -156,6 +158,7 @@ export default function ScanReceipt({ addItems, addToast, addUsageLog }) {
           setPendingScan({
             usage,
             itemsExtracted: withExpiry.length,
+            extractedItems: withExpiry.map(i => ({ name: i.name, quantity: i.quantity, unit: i.unit })),
             model: MODELS.find(m => m.id === selectedModel)?.name ?? selectedModel,
             filename: imageFile.name || 'receipt image',
             clientDurationMs: Math.round(performance.now() - scanStart),
@@ -187,17 +190,20 @@ export default function ScanReceipt({ addItems, addToast, addUsageLog }) {
     }
   };
 
+  // Allows the user to inline-edit a single field on any scanned item before confirming
   const updateResult = (id, field, value) => {
     setResults((prev) =>
       prev.map((item) => (item.id === id ? { ...item, [field]: value } : item))
     );
   };
 
+  // Permanently removes an item from the results list and deselects it
   const removeResult = (id) => {
     setResults((prev) => prev.filter((item) => item.id !== id));
     setSelected((prev) => { const next = new Set(prev); next.delete(id); return next; });
   };
 
+  // Toggles one item's checkbox without affecting the rest of the selection
   const toggleSelect = (id) => {
     setSelected((prev) => {
       const next = new Set(prev);
@@ -206,11 +212,13 @@ export default function ScanReceipt({ addItems, addToast, addUsageLog }) {
     });
   };
 
+  // Selects all items if any are unselected; clears all if everything is already selected
   const toggleSelectAll = () => {
     if (!results) return;
     setSelected(selected.size === results.length ? new Set() : new Set(results.map((i) => i.id)));
   };
 
+  // Adds confirmed items to inventory, fires the deferred usage log with accuracy data, and resets the form
   const addSelected = () => {
     if (!results || selected.size === 0) {
       addToast("No items selected.", "warning");
@@ -219,13 +227,15 @@ export default function ScanReceipt({ addItems, addToast, addUsageLog }) {
     const toAdd = results.filter((item) => selected.has(item.id));
     addItems(toAdd);
     if (addUsageLog && pendingScan) {
-      const { usage, itemsExtracted, model, filename, clientDurationMs, timestamp } = pendingScan;
+      const { usage, itemsExtracted, extractedItems, model, filename, clientDurationMs, timestamp } = pendingScan;
       addUsageLog({
         task: 'receipt-scan',
         description: `${toAdd.length}/${itemsExtracted} items added · ${model} · ${filename}`,
         ...usage,
         itemsExtracted,
         itemsAdded: toAdd.length,
+        extractedItems,
+        addedItems: toAdd.map(i => ({ name: i.name, quantity: i.quantity, unit: i.unit })),
         clientDurationMs,
         timestamp,
       });

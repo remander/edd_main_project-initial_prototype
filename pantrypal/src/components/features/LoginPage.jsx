@@ -9,6 +9,7 @@ export default function LoginPage() {
   const [error, setError]       = useState("");
   const [loading, setLoading]   = useState(false);
 
+  // Maps Firebase auth error codes to readable messages instead of exposing raw SDK strings
   const friendlyError = (code) => {
     switch (code) {
       case "auth/user-not-found":
@@ -21,6 +22,7 @@ export default function LoginPage() {
     }
   };
 
+  // Handles both sign-in and sign-up; on success Firebase auth triggers onAuthStateChanged in App.jsx
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");

@@ -2,6 +2,7 @@
 // which uses the claude CLI and your subscription — no API key needed.
 // Image calls (receipt scanning) go direct and need VITE_ANTHROPIC_API_KEY.
 
+// Sends a text-only prompt to the Vite dev server proxy, which invokes the Claude CLI
 async function callClaudeProxy(prompt, system) {
   const response = await fetch('/api/claude', {
     method: 'POST',
@@ -18,7 +19,7 @@ async function callClaudeProxy(prompt, system) {
   return response.json();
 }
 
-// Returns { text, usage } — callers destructure as needed.
+// Unified Claude entry point — routes text calls through the proxy and image calls through the vision endpoint
 export async function callClaude(userPrompt, systemPrompt = 'You are a helpful kitchen assistant.', imageData = null, model = 'claude-haiku-4-5') {
   if (!imageData) {
     return callClaudeProxy(userPrompt, systemPrompt);
@@ -39,6 +40,7 @@ export async function callClaude(userPrompt, systemPrompt = 'You are a helpful k
   return response.json();
 }
 
+// Builds the structured prompt for single-recipe generation, prioritising items closest to expiry
 const buildMealPrompt = (inventory, preferences = {}) => {
   const {
     mealType            = 'any',
@@ -97,7 +99,7 @@ INSTRUCTIONS:
 }`;
 };
 
-// Returns { meal, usage }
+// Calls Claude with the meal prompt and parses the JSON recipe response; returns { meal, usage }
 export const generateMealWithClaude = async (inventory, preferences) => {
   const prompt = buildMealPrompt(inventory, preferences);
   const { text: rawText, usage } = await callClaudeProxy(

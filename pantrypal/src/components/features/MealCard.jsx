@@ -7,6 +7,7 @@ export default function MealCard({ meal, userId, onSaved }) {
   const [saved, setSaved]       = useState(false);
   const [error, setError]       = useState(null);
 
+  // Persists the generated recipe to Firestore, attaches a timestamp ID, and notifies the parent via onSaved
   const handleSave = async () => {
     setSaving(true);
     setError(null);

@@ -8,15 +8,20 @@ const TASK_META = {
   'receipt-scan':      { label: 'Receipt Scan',      color: 'violet',  emoji: '🧾' },
 };
 
+// Formats a USD dollar amount to 4 decimal places (e.g. "$0.0012")
 function fmt$( n) { return n == null ? '—' : `$${Number(n).toFixed(4)}`; }
+// Formats milliseconds as "Xms" below 1 s or "X.Xs" above
 function fmtMs(n) { return n == null ? '—' : n < 1000 ? `${n}ms` : `${(n / 1000).toFixed(1)}s`; }
+// Formats large token counts with a 'k' suffix for readability
 function fmtK( n) { return n >= 1000 ? `${(n / 1000).toFixed(1)}k` : String(n); }
+// Formats a Unix timestamp to "HH:MM · Mon D"
 function fmtTime(ts) {
   const d = new Date(ts);
   return d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) +
          ' · ' + d.toLocaleDateString([], { month: 'short', day: 'numeric' });
 }
 
+// Coloured summary tile used in the top stats row (Total Cost, Tokens, Avg Response, Cache)
 function StatCard({ label, value, sub, accent = 'emerald' }) {
   const colors = {
     emerald: 'from-emerald-50 to-emerald-100/60 border-emerald-200 text-emerald-700',
@@ -33,6 +38,7 @@ function StatCard({ label, value, sub, accent = 'emerald' }) {
   );
 }
 
+// Renders per-task aggregate stats (cost, tokens, avg duration) grouped by receipt-scan / meal-planning / recipe-generation
 function TaskBreakdown({ logs }) {
   return (
     <div className="grid sm:grid-cols-2 gap-4">
@@ -82,7 +88,9 @@ function TaskBreakdown({ logs }) {
   );
 }
 
-function LogEntry({ entry, showUser = false }) {
+// Single row in the activity log showing task type, description, timing, and cost
+function LogEntry({ entry, showUser = false, onDelete }) {
+  const [expanded, setExpanded] = useState(false);
   const meta = TASK_META[entry.task] ?? { emoji: '🤖', label: entry.task, color: 'violet' };
   const badgeBg = meta.color === 'emerald'
     ? 'bg-emerald-100 text-emerald-700'
@@ -90,40 +98,95 @@ function LogEntry({ entry, showUser = false }) {
     ? 'bg-cyan-100 text-cyan-700'
     : 'bg-violet-100 text-violet-700';
 
+  const hasItems = entry.task === 'receipt-scan' && entry.addedItems?.length > 0;
+  // Items Claude found but the user removed or deselected before confirming
+  const notAdded = hasItems
+    ? (entry.extractedItems ?? []).filter(ei => !(entry.addedItems ?? []).some(ai => ai.name === ei.name))
+    : [];
+
   return (
-    <div className="flex items-start gap-3 py-3 border-b border-gray-100 last:border-0">
-      <span className="text-lg shrink-0 mt-0.5">{meta.emoji}</span>
-      <div className="flex-1 min-w-0">
-        <div className="flex items-center gap-2 flex-wrap mb-0.5">
-          <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${badgeBg}`}>{meta.label}</span>
-          {(entry.cacheReadTokens ?? 0) > 0 && (
-            <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-amber-100 text-amber-700">⚡ cache hit</span>
+    <div className="py-3 border-b border-gray-100 last:border-0">
+      <div className="flex items-start gap-3">
+        <span className="text-lg shrink-0 mt-0.5">{meta.emoji}</span>
+        <div className="flex-1 min-w-0 overflow-hidden">
+          <div className="flex items-center gap-2 flex-wrap mb-0.5">
+            <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${badgeBg}`}>{meta.label}</span>
+            {(entry.cacheReadTokens ?? 0) > 0 && (
+              <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-amber-100 text-amber-700">⚡ cache hit</span>
+            )}
+            {showUser && entry.userEmail && (
+              <span className="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-500 font-medium truncate max-w-[160px]">
+                {entry.userEmail}
+              </span>
+            )}
+            <span className="text-xs text-gray-400">{fmtTime(entry.timestamp)}</span>
+          </div>
+          <p className="text-sm font-semibold text-gray-800 truncate">{entry.description}</p>
+          <div className="flex gap-3 mt-1 text-xs text-gray-500 flex-wrap">
+            <span>{fmtK(entry.inputTokens ?? 0)} in · {fmtK(entry.outputTokens ?? 0)} out</span>
+            {entry.cacheReadTokens > 0 && <span className="text-amber-600">{fmtK(entry.cacheReadTokens)} cached</span>}
+            {entry.clientDurationMs != null && (
+              <span title="Total wall-clock time from button click to results">⏱ {fmtMs(entry.clientDurationMs)} total</span>
+            )}
+            {entry.durationMs != null && (
+              <span className="text-gray-400" title="Time spent inside the AI model">({fmtMs(entry.durationMs)} API)</span>
+            )}
+            <span className="font-semibold text-gray-700">{fmt$(entry.costUSD)}</span>
+          </div>
+          {hasItems && (
+            <button
+              onClick={() => setExpanded(v => !v)}
+              className="mt-1.5 text-xs text-violet-600 hover:text-violet-800 font-semibold cursor-pointer"
+            >
+              {expanded
+                ? '▲ Hide items'
+                : `▼ View ${entry.addedItems.length} added item${entry.addedItems.length !== 1 ? 's' : ''}`}
+            </button>
           )}
-          {showUser && entry.userEmail && (
-            <span className="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-500 font-medium truncate max-w-[160px]">
-              {entry.userEmail}
-            </span>
-          )}
-          <span className="text-xs text-gray-400">{fmtTime(entry.timestamp)}</span>
         </div>
-        <p className="text-sm font-semibold text-gray-800 truncate">{entry.description}</p>
-        <div className="flex gap-3 mt-1 text-xs text-gray-500 flex-wrap">
-          <span>{fmtK(entry.inputTokens ?? 0)} in · {fmtK(entry.outputTokens ?? 0)} out</span>
-          {entry.cacheReadTokens > 0 && <span className="text-amber-600">{fmtK(entry.cacheReadTokens)} cached</span>}
-          {entry.clientDurationMs != null && (
-            <span title="Total wall-clock time from button click to results">⏱ {fmtMs(entry.clientDurationMs)} total</span>
-          )}
-          {entry.durationMs != null && (
-            <span className="text-gray-400" title="Time spent inside the AI model">({fmtMs(entry.durationMs)} API)</span>
-          )}
-          <span className="font-semibold text-gray-700">{fmt$(entry.costUSD)}</span>
-        </div>
+        {onDelete && (
+          <button
+            onClick={() => onDelete(entry.id)}
+            className="shrink-0 p-1.5 text-gray-300 hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors cursor-pointer"
+            title="Delete this entry"
+          >
+            <Trash2 className="w-3.5 h-3.5" />
+          </button>
+        )}
       </div>
+
+      {expanded && hasItems && (
+        <div className="mt-3 ml-8 space-y-3">
+          <div>
+            <p className="text-xs font-bold text-emerald-700 mb-1.5">✅ Added to inventory ({entry.addedItems.length})</p>
+            <div className="flex flex-wrap gap-1.5">
+              {entry.addedItems.map((item, i) => (
+                <span key={i} className="text-xs bg-emerald-50 border border-emerald-200 text-emerald-800 px-2 py-0.5 rounded-full font-medium">
+                  {item.name}{item.quantity && item.quantity !== 1 ? ` · ${item.quantity} ${item.unit ?? ''}`.trimEnd() : ''}
+                </span>
+              ))}
+            </div>
+          </div>
+          {notAdded.length > 0 && (
+            <div>
+              <p className="text-xs font-bold text-gray-400 mb-1.5">✕ Not added ({notAdded.length})</p>
+              <div className="flex flex-wrap gap-1.5">
+                {notAdded.map((item, i) => (
+                  <span key={i} className="text-xs bg-gray-50 border border-gray-200 text-gray-400 px-2 py-0.5 rounded-full font-medium line-through">
+                    {item.name}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 }
 
-function UsagePanel({ logs, onClear, showUser = false }) {
+// Full usage panel with summary stats, per-task breakdown, and scrollable activity log
+function UsagePanel({ logs, onClear, onDeleteEntry, showUser = false }) {
   if (logs.length === 0) {
     return (
       <div className="glass p-12 text-center text-gray-400">
@@ -179,7 +242,7 @@ function UsagePanel({ logs, onClear, showUser = false }) {
         </div>
         <p className="text-xs text-gray-400 mb-3">Most recent first</p>
         <div>
-          {sorted.map((entry) => <LogEntry key={entry.id} entry={entry} showUser={showUser} />)}
+          {sorted.map((entry) => <LogEntry key={entry.id} entry={entry} showUser={showUser} onDelete={onDeleteEntry} />)}
         </div>
       </div>
     </div>
@@ -243,7 +306,7 @@ function exportCSV(logs) {
   URL.revokeObjectURL(url);
 }
 
-export default function InfoTab({ usageLogs, clearLogs, isAdmin }) {
+export default function InfoTab({ usageLogs, clearLogs, deleteLog, isAdmin }) {
   const [activeTab, setActiveTab] = useState("mine");
   const [allLogs, setAllLogs]     = useState([]);
 
@@ -282,7 +345,7 @@ export default function InfoTab({ usageLogs, clearLogs, isAdmin }) {
       )}
 
       {activeTab === "mine" && (
-        <UsagePanel logs={usageLogs} onClear={clearLogs} showUser={false} />
+        <UsagePanel logs={usageLogs} onClear={clearLogs} onDeleteEntry={deleteLog} showUser={false} />
       )}
 
       {activeTab === "admin" && isAdmin && (
