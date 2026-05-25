@@ -186,6 +186,63 @@ function UsagePanel({ logs, onClear, showUser = false }) {
   );
 }
 
+function exportCSV(logs) {
+  const headers = [
+    'Timestamp', 'Date', 'Time', 'User Email', 'User ID', 'Task',
+    'API Time (ms)', 'Total Time (ms)', 'Cost (USD)',
+    'Input Tokens', 'Output Tokens', 'Cache Read Tokens', 'Cache Write Tokens',
+    'Items Extracted', 'Items Added', 'Accuracy (%)',
+    'Description',
+  ];
+
+  const rows = [...logs].sort((a, b) => a.timestamp - b.timestamp).map(l => {
+    const d = new Date(l.timestamp);
+    const date = d.toLocaleDateString();
+    const time = d.toLocaleTimeString();
+
+    let itemsExtracted = l.itemsExtracted ?? '';
+    let itemsAdded     = l.itemsAdded     ?? '';
+    let accuracy       = '';
+
+    if (l.task === 'receipt-scan' && itemsExtracted === '') {
+      const m = l.description?.match(/^(\d+) items extracted/);
+      if (m) itemsExtracted = parseInt(m[1], 10);
+    }
+    if (itemsExtracted !== '' && itemsAdded !== '') {
+      accuracy = itemsExtracted > 0 ? Math.round((itemsAdded / itemsExtracted) * 100) : 100;
+    }
+
+    return [
+      l.timestamp ?? '',
+      date,
+      time,
+      l.userEmail  ?? '',
+      l.userId     ?? '',
+      l.task       ?? '',
+      l.durationMs       ?? '',
+      l.clientDurationMs ?? '',
+      l.costUSD != null ? Number(l.costUSD).toFixed(6) : '',
+      l.inputTokens      ?? '',
+      l.outputTokens     ?? '',
+      l.cacheReadTokens  ?? '',
+      l.cacheWriteTokens ?? '',
+      itemsExtracted,
+      itemsAdded,
+      accuracy,
+      `"${(l.description ?? '').replace(/"/g, '""')}"`,
+    ].join(',');
+  });
+
+  const csv  = [headers.join(','), ...rows].join('\n');
+  const blob = new Blob([csv], { type: 'text/csv' });
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  a.href     = url;
+  a.download = `pantrypal-usage-${new Date().toISOString().slice(0, 10)}.csv`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
 export default function InfoTab({ usageLogs, clearLogs, isAdmin }) {
   const [activeTab, setActiveTab] = useState("mine");
   const [allLogs, setAllLogs]     = useState([]);
@@ -230,8 +287,17 @@ export default function InfoTab({ usageLogs, clearLogs, isAdmin }) {
 
       {activeTab === "admin" && isAdmin && (
         <div className="space-y-4">
-          <div className="bg-gray-50 border border-gray-200 rounded-2xl px-4 py-3 text-sm text-gray-600">
-            Showing usage across <strong>{new Set(allLogs.map(l => l.userId)).size} user{new Set(allLogs.map(l => l.userId)).size !== 1 ? 's' : ''}</strong> · {allLogs.length} total calls
+          <div className="flex items-center justify-between gap-3 flex-wrap">
+            <div className="bg-gray-50 border border-gray-200 rounded-2xl px-4 py-3 text-sm text-gray-600 flex-1">
+              Showing usage across <strong>{new Set(allLogs.map(l => l.userId)).size} user{new Set(allLogs.map(l => l.userId)).size !== 1 ? 's' : ''}</strong> · {allLogs.length} total calls
+            </div>
+            <button
+              onClick={() => exportCSV(allLogs)}
+              disabled={allLogs.length === 0}
+              className="cursor-pointer flex items-center gap-2 px-4 py-2.5 bg-emerald-500 hover:bg-emerald-600 disabled:opacity-40 disabled:cursor-not-allowed text-white text-sm font-semibold rounded-xl transition-colors whitespace-nowrap"
+            >
+              ⬇ Export CSV
+            </button>
           </div>
           <UsagePanel logs={allLogs} onClear={null} showUser={true} />
         </div>

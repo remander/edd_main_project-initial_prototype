@@ -96,6 +96,7 @@ export default function ScanReceipt({ addItems, addToast, addUsageLog }) {
   const [loading, setLoading] = useState(false);
   const [results, setResults] = useState(null);
   const [selected, setSelected] = useState(new Set());
+  const [pendingScan, setPendingScan] = useState(null);
   const fileRef = useRef();
 
   const handleImageChange = (file) => {
@@ -152,10 +153,11 @@ export default function ScanReceipt({ addItems, addToast, addUsageLog }) {
         setResults(withExpiry);
         setSelected(new Set(withExpiry.map((item) => item.id)));
         if (addUsageLog && usage) {
-          addUsageLog({
-            task: 'receipt-scan',
-            description: `${withExpiry.length} items extracted · ${MODELS.find(m => m.id === selectedModel)?.name ?? selectedModel} · ${imageFile.name || 'receipt image'}`,
-            ...usage,
+          setPendingScan({
+            usage,
+            itemsExtracted: withExpiry.length,
+            model: MODELS.find(m => m.id === selectedModel)?.name ?? selectedModel,
+            filename: imageFile.name || 'receipt image',
             clientDurationMs: Math.round(performance.now() - scanStart),
             timestamp: Date.now(),
           });
@@ -216,12 +218,25 @@ export default function ScanReceipt({ addItems, addToast, addUsageLog }) {
     }
     const toAdd = results.filter((item) => selected.has(item.id));
     addItems(toAdd);
+    if (addUsageLog && pendingScan) {
+      const { usage, itemsExtracted, model, filename, clientDurationMs, timestamp } = pendingScan;
+      addUsageLog({
+        task: 'receipt-scan',
+        description: `${toAdd.length}/${itemsExtracted} items added · ${model} · ${filename}`,
+        ...usage,
+        itemsExtracted,
+        itemsAdded: toAdd.length,
+        clientDurationMs,
+        timestamp,
+      });
+    }
     addToast(`Added ${toAdd.length} item${toAdd.length !== 1 ? "s" : ""} to inventory!`, "success");
     setResults(null);
     setSelected(new Set());
     setText("");
     setImageFile(null);
     setImagePreview(null);
+    setPendingScan(null);
   };
 
   return (
