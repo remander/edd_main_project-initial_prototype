@@ -291,6 +291,20 @@ export default function Instructions() {
           <ControlledStepCard key={step.number} step={step} forceOpen={allOpen} />
         ))}
       </div>
+
+      {/* Hazards note */}
+      <div className="bg-emerald-50 border border-emerald-200 rounded-2xl px-5 py-4 flex gap-4 items-start">
+        <span className="text-2xl shrink-0 mt-0.5">✅</span>
+        <div>
+          <p className="font-bold text-emerald-800 text-sm">Hazards &amp; Safety</p>
+          <p className="text-sm text-emerald-700 mt-1 leading-relaxed">
+            PantryPal presents <strong>minimal to negligible risk</strong> to users. The application operates
+            entirely within a web browser and performs only digital tracking — no hardware, physical components,
+            or sensitive operations are involved. Standard best practices apply: use a strong, unique password
+            for your account and sign out when using a shared device.
+          </p>
+        </div>
+      </div>
     </div>
   );
 }
