@@ -11,6 +11,7 @@ import ScanReceipt from "./components/features/ScanReceipt";
 import Inventory from "./components/features/Inventory";
 import MealPlan from "./components/features/MealPlan";
 import InfoTab from "./components/features/InfoTab";
+import Instructions from "./components/features/Instructions";
 import LoginPage from "./components/features/LoginPage";
 
 export default function App() {
@@ -113,6 +114,7 @@ export default function App() {
         {page === "info" && (
           <InfoTab usageLogs={usageLogs} clearLogs={clearLogs} deleteLog={deleteLog} isAdmin={isAdmin} />
         )}
+        {page === "instructions" && <Instructions />}
       </main>
       <Footer />
       <Toast toasts={toasts} />
